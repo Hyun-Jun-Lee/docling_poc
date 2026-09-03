@@ -1,0 +1,30 @@
+[project]
+name = "docling-poc"
+version = "0.1.0"
+description = "POC utilities for turning PDF, PowerPoint, and Word assets into Docling-based normalized document elements and chunks."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "docling>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.8.0",
+]
+
+[project.scripts]
+docling-poc = "docling_poc.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

@@ -3,7 +3,7 @@ name = "docling-poc"
 version = "0.1.0"
 description = "POC utilities for turning PDF, PowerPoint, and Word assets into Docling-based normalized document elements and chunks."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = [
   "docling>=2.0.0",
 ]

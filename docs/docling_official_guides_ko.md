@@ -35,7 +35,66 @@ PDF는 레이아웃, 읽기 순서, 표 구조, 수식, 코드, 그림을 이해
 
 서비스 관점에서는 JSON을 원본에 가까운 보관 형식으로 두고, Markdown이나 JSONL chunk를 검색 및 생성 모델의 입력 형식으로 두는 구성이 일반적이다.
 
-## 2. DoclingDocument: 통합 문서 모델
+## 2. DOCX와 PPTX: Office 문서 처리
+
+원문: <https://docling-project.github.io/docling/usage/supported_formats/>
+
+원문: <https://docling-project.github.io/docling/v2/>
+
+원문: <https://docling-project.github.io/docling/_generated/examples/run_with_formats/>
+
+DOCX와 PPTX는 Microsoft Office 2007 이후의 Office Open XML 형식이다. Docling은 PDF뿐 아니라 이 형식들을 같은 `DocumentConverter` 진입점으로 변환하고, 결과를 공통 `DoclingDocument`로 제공한다. 따라서 서비스의 후속 저장·검색·검수 계층은 입력 형식에 의존하지 않도록 설계할 수 있다.
+
+그러나 PDF와 Office 문서는 변환 출발점이 다르다. PDF는 페이지 시각 요소에서 텍스트와 구조를 재구성하는 경우가 많아 OCR, 레이아웃 분석, 표 구조 인식의 영향이 크다. DOCX와 PPTX는 파일 안에 문단, 표, 텍스트 상자, 이미지 같은 선언적 구조가 존재하므로 기본 Office 처리 경로는 그 구조를 활용하는 `SimplePipeline`을 사용한다. PDF의 `PdfPipelineOptions`에 있는 OCR, PDF backend, TableFormer 설정을 DOCX/PPTX의 품질 조절 수단으로 생각하면 안 된다.
+
+### DOCX 처리 특성
+
+Word 문서는 보통 제목, 문단, 목록, 표, 그림, 머리글·바닥글처럼 문서 중심의 구조를 갖는다. Docling은 이런 결과를 텍스트·표·그림 및 본문 계층으로 표현한다. 이 구조는 제목 기반 청킹, 표 단위 검색, 본문과 반복 영역의 분리에 특히 유리하다.
+
+서비스에서는 다음을 표본 문서로 확인해야 한다.
+
+- 제목 수준과 본문 계층이 검색용 제목 경로로 충분히 보존되는지
+- 중첩 목록, 번호 목록, 표 안의 줄바꿈과 병합 셀이 원하는 출력 형식에서 유지되는지
+- 인라인 그림과 캡션, 본문을 벗어난 부유 개체의 순서가 자연스러운지
+- 머리글·바닥글·각주 같은 반복 또는 보조 콘텐츠를 본문 검색 대상에 포함할지
+- 추적 변경, 주석, SmartArt, 매크로 등 Word 고유 기능을 서비스 요구사항으로 둘 필요가 있는지
+
+특히 표의 병합 구조가 중요한 경우 Markdown만 저장하면 안 된다. JSON 또는 HTML을 기준 결과로 함께 보관해야 한다는 원칙은 DOCX에도 동일하게 적용된다.
+
+### PPTX 처리 특성
+
+PowerPoint는 연속 문단 중심의 문서보다 슬라이드 단위의 시각 자료에 가깝다. 한 슬라이드 안에 제목, 여러 텍스트 상자, 표, 이미지, 도형, 차트가 자유롭게 배치될 수 있다. 따라서 변환 후에는 텍스트가 존재하는지뿐 아니라 슬라이드별 맥락과 읽기 순서가 업무상 자연스러운지를 확인해야 한다.
+
+서비스 검증 시에는 다음을 중점적으로 본다.
+
+- 슬라이드 제목이 이후 텍스트의 문맥을 제공하는지
+- 여러 텍스트 상자와 도형 안의 텍스트가 의도한 순서로 이어지는지
+- 표·차트·이미지와 인접 설명이 함께 보존되는지
+- 회사 공통 템플릿, 장식용 요소, 반복 로고·푸터가 검색 노이즈가 되지 않는지
+- 발표자 노트, 애니메이션, 전환 효과, 임베디드 미디어처럼 PPTX 고유 기능이 서비스 요구사항에 포함되는지
+
+마지막 항목들은 지원 여부를 전제로 설계하면 안 된다. 실제 서비스 범위에 필요하다면 해당 버전의 API reference와 대표 샘플로 먼저 변환 결과를 검증해야 한다.
+
+### 형식별 변환 정책
+
+| 구분 | PDF | DOCX | PPTX |
+| --- | --- | --- | --- |
+| 주된 구조 정보 | 페이지 시각 요소와 내장 텍스트 | 문서의 선언적 구조 | 슬라이드의 선언적 구조와 배치 |
+| 주요 설정 관심사 | OCR, 레이아웃, 표 구조, 렌더링 | 본문 계층, 표·그림 보존, 보조 콘텐츠 | 슬라이드 문맥, 텍스트 순서, 시각 요소 문맥 |
+| 대표 검수 단위 | 페이지·영역 | 섹션·문단·표 | 슬라이드·요소 묶음 |
+| 공통 보관 기준 | Docling JSON, provenance, 품질 상태 | Docling JSON, 계층·표·그림 | Docling JSON, 슬라이드 맥락·요소 순서 |
+
+`DocumentConverter`에서는 `allowed_formats`로 서비스가 받을 형식을 제한하고, 형식별 `format_options`로 별도 정책을 둘 수 있다. 혼합 배치에 PDF, DOCX, PPTX를 함께 넣어도 각 파일은 형식에 맞는 처리 경로로 변환되며, 결과는 공통 API로 다룬다.
+
+### 레거시 Office 형식
+
+DOC, PPT 같은 97-2004 바이너리 형식은 지원되지만 LibreOffice가 필요하다. DOCX/PPTX와 같은 품질·동작을 당연하게 가정하지 말고, 서비스 정책에서 다음 중 하나를 명확히 정해야 한다.
+
+- 업로드 단계에서 DOCX/PPTX로 변환하도록 안내한다.
+- LibreOffice 기반 변환을 별도 처리 경로로 운영하고 결과 품질을 분리 측정한다.
+- 레거시 형식을 지원 범위에서 제외한다.
+
+## 3. DoclingDocument: 통합 문서 모델
 
 원문: <https://docling-project.github.io/docling/concepts/docling_document/>
 
@@ -76,7 +135,7 @@ PDF는 레이아웃, 읽기 순서, 표 구조, 수식, 코드, 그림을 이해
 
 문서 변환 결과를 서비스의 자체 스키마로 정규화하더라도 `kind`, 텍스트, 페이지 번호, bbox, provenance, 부모 계층은 가능한 한 보존하는 것이 좋다.
 
-## 3. 모델 카탈로그: PDF 파이프라인을 이루는 모델들
+## 4. 모델 카탈로그: PDF 파이프라인을 이루는 모델들
 
 원문: <https://docling-project.github.io/docling/usage/model_catalog/>
 
@@ -107,7 +166,7 @@ OCR은 자동 선택, Tesseract, EasyOCR, RapidOCR, macOS Vision, SuryaOCR 등�
 - 표 구조 품질이 검색 결과에 미치는 영향
 - 모델 다운로드·배포·업데이트 방식
 
-## 4. OCR 엔진
+## 5. OCR 엔진
 
 원문: <https://docling-project.github.io/docling/concepts/OCR/>
 
@@ -125,7 +184,7 @@ OCR 엔진 선택은 “한국어를 지원하는가”만으로 결정하면 �
 
 OCR 결과는 텍스트만이 아니라 위치와 신뢰도까지 제공될 수 있다. 서비스에서는 이 정보를 원본 영역과 연결하고, 낮은 품질의 페이지는 재처리하거나 검수 대상으로 보내는 흐름을 설계할 수 있다.
 
-## 5. Confidence scores: 변환 품질 신호
+## 6. Confidence scores: 변환 품질 신호
 
 원문: <https://docling-project.github.io/docling/concepts/confidence_scores/>
 
@@ -154,7 +213,7 @@ Docling은 변환 결과의 신뢰도를 문서 전체와 페이지별로 제공
 
 이 기능은 결과의 사실성이나 업무 의미를 보장하는 점수가 아니다. 변환·인식 품질에 대한 기술적 신호로 취급해야 한다.
 
-## 6. 고급 옵션
+## 7. 고급 옵션
 
 원문: <https://docling-project.github.io/docling/usage/advanced_options/>
 
@@ -195,7 +254,7 @@ PDF 레이아웃 모델은 섹션 제목을 찾더라도 기본적으로 그 깊
 
 파일 업로드 서비스에서는 요청 시간 제한, 파일 크기 제한, 페이지 제한, 동시 변환 수, 큐잉 정책을 Docling 옵션과 별도로 함께 설계해야 한다.
 
-## 7. 플러그인
+## 8. 플러그인
 
 원문: <https://docling-project.github.io/docling/concepts/plugins/>
 
@@ -219,7 +278,7 @@ Docling은 플러그인을 통해 기본 제공 옵션 이외의 처리기를 �
 
 서드파티 플러그인은 명시적으로 허용해야 한다. Python API에서는 `allow_external_plugins=True`를 설정하고, CLI에서는 외부 플러그인 허용 옵션을 사용한다. 서비스에서는 허용할 플러그인을 패키지·버전 단위로 관리해야 하며, 임의의 외부 플러그인 자동 로딩은 피하는 편이 좋다.
 
-## 8. 청킹
+## 9. 청킹
 
 원문: <https://docling-project.github.io/docling/concepts/chunking/>
 
@@ -258,7 +317,7 @@ Docling은 플러그인을 통해 기본 제공 옵션 이외의 처리기를 �
 - 청크 전략을 고정하기 전에 실제 질의와 실제 문서로 검색 품질을 측정한다.
 - 문서 구조가 충분히 보존되는 경우에는 구조 기반 청킹을 우선 검토하고, 최종 길이 조절은 토큰 기반으로 수행한다.
 
-## 9. 아키텍처: 변환기, 백엔드, 파이프라인의 역할
+## 10. 아키텍처: 변환기, 백엔드, 파이프라인의 역할
 
 원문: <https://docling-project.github.io/docling/concepts/architecture/>
 
@@ -280,7 +339,7 @@ backend는 원본 형식에서 기초 정보를 읽는다. 예를 들어 PDF bac
 
 이 구분은 서비스 설계에서 중요하다. PDF 결과에 문제가 생겼을 때, 원본 텍스트를 읽지 못한 backend 문제인지, OCR 문제인지, 레이아웃·표 모델 문제인지 분리해서 진단할 수 있기 때문이다. `DocumentConverter`를 서비스의 도메인 모델로 직접 노출하기보다는, 변환 어댑터 내부에 두고 `ConversionResult`와 `DoclingDocument`를 정규화된 내부 모델로 변환하는 경계를 두는 편이 장기적으로 관리하기 쉽다.
 
-## 10. 직렬화: 같은 문서라도 출력 형식마다 보존되는 정보가 다르다
+## 11. 직렬화: 같은 문서라도 출력 형식마다 보존되는 정보가 다르다
 
 원문: <https://docling-project.github.io/docling/concepts/serialization/>
 
@@ -300,7 +359,7 @@ backend는 원본 형식에서 기초 정보를 읽는다. 예를 들어 PDF bac
 
 Docling은 문서 전체뿐 아니라 텍스트, 표, 그림, 목록 등 구성 요소별 serializer도 제공한다. 특정 도메인에 맞는 표 표현이나 그림 placeholder 정책이 필요하면 serializer 확장도 검토할 수 있다.
 
-## 11. 변환 실행과 대량 처리: 성공만 있는 작업이 아니다
+## 12. 변환 실행과 대량 처리: 성공만 있는 작업이 아니다
 
 원문: <https://docling-project.github.io/docling/_generated/examples/custom_convert/>
 
@@ -316,7 +375,7 @@ Docling은 문서 전체뿐 아니라 텍스트, 표, 그림, 목록 등 구성 
 
 공식 예제는 하나의 변환 결과에서 JSON, HTML, Markdown, 텍스트, DocTags, YAML을 각각 출력하는 방식도 보여 준다. 처음에는 여러 표현을 함께 저장해 비교하고, 서비스 정책이 안정되면 필요한 산출물만 유지하는 방식이 좋다.
 
-## 12. Enrichment와 VLM: 기본 변환 결과에 의미를 추가하는 단계
+## 13. Enrichment와 VLM: 기본 변환 결과에 의미를 추가하는 단계
 
 원문: <https://docling-project.github.io/docling/usage/enrichments/>
 
@@ -333,7 +392,7 @@ Docling은 문서 전체뿐 아니라 텍스트, 표, 그림, 목록 등 구성 
 
 `VlmPipeline`은 페이지 전체를 비전 언어 모델로 변환하는 별도 경로다. DocTags, Markdown, HTML 같은 결과를 만들 수 있으며, 일반적인 PDF 파이프라인과 품질·속도·비용·재현성의 특성이 다르다. 표준 PDF 파이프라인이 어려워하는 서식이나 복잡한 시각 문서를 대상으로 비교 후보가 될 수 있지만, 기본 경로를 대체하기 전에 문서군별 평가가 필요하다.
 
-## 13. API server: Docling을 공용 변환 서비스로 운영하는 방법
+## 14. API server: Docling을 공용 변환 서비스로 운영하는 방법
 
 원문: <https://docling-project.github.io/docling/usage/api_server/>
 
@@ -367,7 +426,7 @@ API server는 동기 또는 비동기 변환 요청을 제공한다. 비동기 �
 
 전체 서비스를 염두에 둔다면 다음 순서가 자연스럽다.
 
-1. 지원 형식, 아키텍처, `DoclingDocument` 구조를 이해한다.
+1. PDF, DOCX, PPTX의 형식별 처리 특성과 `DoclingDocument` 구조를 이해한다.
 2. 직렬화별 정보 손실 차이와 기준 보관 형식을 결정한다.
 3. PDF 파이프라인의 backend·레이아웃·OCR·표 구조 단계를 구분한다.
 4. 고급 옵션으로 문서 유형별 변환 정책을 설계한다.

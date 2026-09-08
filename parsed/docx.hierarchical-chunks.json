@@ -1,0 +1,2385 @@
+[
+  {
+    "text": "2021년도 경기도 (재)경기콘텐츠진흥원",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/0",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "판교경기문화창조허브 가상오피스지원 사업 안내",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "창업가 여러분의 행보에 찬사를 보냅니다. 경기도와 (재)경기콘텐츠진흥원에서는 문화콘텐츠산업 창업활성화를 목적으로 사무 공간 확보가 열악한 초기단계 창업(예비)자를 대상으로 창업 공간 및 우편함 지원 등 비상주 사업자등록 주소지 지원, 일명 가상오피스 지원을 시행합니다. 많은 참여바랍니다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/4",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**2021년 2월 3일**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/6",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**(재)경기콘텐츠진흥원장**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/7",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**1. 모집개요**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/9",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**가. 모집대상 :** 문화콘텐츠산업 창업(예비)자 중 개인사업자",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/11",
+          "parent": {
+            "cref": "#/groups/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/12",
+          "parent": {
+            "cref": "#/groups/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**나. 참여조건**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/13",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 경기도내 주소지 사업자등록(예정)자",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/14",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 문화콘텐츠산업 창업(예정)자 ※ 첨부파일 참조",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/15",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(3) 개인사업자등록(예정)자 (※법인사업자 제외)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/16",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/17",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(4) 창업 수행 사무공간으로 스마트오피스 이용이 절실히 필요한 자",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/18",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(5) 지원 대상자 통보 후 15일 이내 사업자 주소지 등록·이전 완료가 가능한 자",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/19",
+          "parent": {
+            "cref": "#/groups/2"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/20",
+          "parent": {
+            "cref": "#/groups/2"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(6) 모집 마감일 기준 창업 7년 이내인 기업",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/21",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(7) 접수일 현재 『경기도 성남시 분당구 대왕판교로 645번길 12, 9층(삼평동, 경기창조경제혁신센터)』에 사업장 소재지를 둔 경우 지원대상에서 제외",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/22",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/23",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**다. 제출서류**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/25",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 가상오피스 지원 신청서 [제1호 서식] (반드시 작성, 날인 후 스캔 본 제출)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/26",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 개인정보 제공 및 신용정보조회 동의서 [제2호 서식] (반드시 작성, 날인 후 스캔 본 제출)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/27",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(3) 건강보험 자격득실 확인서 ※ 공고일 이후 발급분에 한함 (발급 후 제출), 전체이력",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/28",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**라. 지원 대상 업종**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/30",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 문화체육관광부와 한국콘텐츠진흥원이 작성하는 정부승인통계인 ‘콘텐츠 산업통계'에 따라 총 12개 분야 및 ICT융복합 분야",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/31",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 신청서 작성 시 지원 대상 업종표의 중분류, 소분류, 분류체계의 정의를 참고하여 해당 대분류 선택. 해당사항이 없을 경우 유사 분야를 선택하시거나 혹은 기타분야로서 상세히 기재",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/32",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 아래 붙임 [참고]지원 대상 업종 분류 참조",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/33",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**2. 지원내용**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/35",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**가. 비상주 사업자등록 주소지 사용 허가**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/36",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 사업자등록 시 사업장 소재(주소지) 사용 ※ 주소지 : 판교 경기문화창조허브",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/37",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 사업자등록을 위한 스마트오피스 임대차 계약서 ※ 계약기간 : 계약일로부터 1년",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/38",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**나. 사용대차 내용**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/40",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 스마트오피스 개인 좌석(3.3㎡) **※ 공용좌석으로 지정석은 아님**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/41",
+          "parent": {
+            "cref": "#/groups/4"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/42",
+          "parent": {
+            "cref": "#/groups/4"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 가상오피스 우편함 **※ 지원 대상 선정 창업(예정)자에 한하여 우편함 지정 제공**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/43",
+          "parent": {
+            "cref": "#/groups/5"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/44",
+          "parent": {
+            "cref": "#/groups/5"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**다. 사용대차 비용** : 무상",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/46",
+          "parent": {
+            "cref": "#/groups/6"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/47",
+          "parent": {
+            "cref": "#/groups/6"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**3. 지원 조건**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/49",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "가. 가상오피스 지원에 따른 계약체결",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/50",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "나. 임대차 계약 체결 후, 담당자가 요청한 기간 내에 판교 경기 문화창조허브로 사업자 주소지 등록(변경) 후 사업자 등록증 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/51",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "다. 임대차 계약 기간 중 필요한 경우 대면상담 또는 서면을 통한 창업수행 현황 보고서 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/52",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(1) 창업기업 구성원(명)수",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/53",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(2) 당월 매출실적",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/54",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(3) 사업자등록현황",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/55",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "(4) 기타 창업 수행 관련 재단이 요구하는 자료",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/56",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 가상오피스 지원 신청자 중 이미 사업자등록(개인)을 소지한 창업자는 지원 계약 체결 후, 사업장 소재(주소지)를 반드시 판교 경기 문화창조허브로 변경해야 함",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/57",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "라. 사업 영위 변경사항 통보(폐업, 이전, 업체 명 변경, 법인 설립 등) 사업 영위 변경 시, 지체 없이 즉시 통보 하여야 함",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/58",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 미 통보 시 불이익 또는 제재",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/59",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**4. 선발 체계**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/61",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**가. 심사/발표 절차**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/62",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "모집공고\n\n및\n\n서류접수. ▶. 서류\n\n심사. ▶. 결과\n\n발표. ▶. 계약\n\n체결. ▶. 사업자\n\n주소지 등록/변경. ▶. 사업자\n\n등록증\n\n사본 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/tables/0",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [
+            {
+              "cref": "#/groups/7"
+            },
+            {
+              "cref": "#/groups/8"
+            },
+            {
+              "cref": "#/groups/9"
+            },
+            {
+              "cref": "#/groups/10"
+            },
+            {
+              "cref": "#/groups/11"
+            },
+            {
+              "cref": "#/groups/12"
+            }
+          ],
+          "content_layer": "body",
+          "meta": null,
+          "label": "table",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**나. 접수기간** : **2021년 2월 3일(수) 07:00시 ~ 2021년 2월 17일(수) 15:00시까지(15일간)**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/82",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/83",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/84",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**※ 제출 기간 내에 접수된 신청서만 유효함**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/85",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**다. 관련 서식 다운로드**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/86",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "① 경기콘텐츠진흥원 : [www.gcon.or.kr](http://www.gcon.or.kr/) 공지&뉴스 → 사업공고 메뉴에서 확인",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/87",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/88",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/89",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "② 경기문화창조허브 : www.gcon.or.kr/ghub 예약신청 → 프로그램 메뉴에서 확인",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/90",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**5. 신청 방법**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/93",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "가. 관련 서식 다운로드 후 서면 작성하여 홈페이지 내 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/94",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "① 지원 안내 숙지 후 관련 서식에 의거하여 신청서 작성 및 날인",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/95",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**※ 계약체결 시 사용될 동일한 도장 날인 필수, 서명 불가**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/96",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "② 재단이 요구하는 증빙자료 구비 **※ 공고일 이후 발급분에 한함**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/97",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/98",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "③ 작성/날인 문서 및 증빙서류를 각각의 PDF 파일로 변환 **※ 이미지 파일 불가**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/99",
+          "parent": {
+            "cref": "#/groups/16"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/100",
+          "parent": {
+            "cref": "#/groups/16"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "④ 경기문화창조허브 내 신청페이지(예약신청 > 프로그램)로 제출 **※ 제출 기한 엄수**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/101",
+          "parent": {
+            "cref": "#/groups/17"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/102",
+          "parent": {
+            "cref": "#/groups/17"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**6. 제출 방법**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/104",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "가. 제출 방법 : 경기문화창조허브 홈페이지 내 예약신청 > 프로그램 접수",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/105",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "나. 제출 제목 : [가상오피스지원] 성함(기업명)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/106",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "다. 제출 서류 : 여러 개의 PDF 파일을 하나의 압축 형식(ZIP)으로 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/107",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 유의사항",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/108",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ **계약체결 시 사용될 동일한 도장 날인 필수, 서명 불가**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/109",
+          "parent": {
+            "cref": "#/groups/18"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        },
+        {
+          "self_ref": "#/texts/110",
+          "parent": {
+            "cref": "#/groups/18"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ 제출하는 모든 날인 본 서식과 증빙자료는 지원 대상 선정 후 계약체결 시 원본 제출",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/111",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ 신청 시 안내문을 숙지하여 제출이 미비한 서류 및 내용이 없도록 유의",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/112",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ 가급적 컴퓨터로 서류 작성, 서류 미비에 대한 책임은 신청자에게 있음",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/113",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ 스캔 서류는 스캐너 또는 파일 변환해야 함. 이미지 파일 불가",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/114",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**7. 선정 및 발표**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/116",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "가. 결과 통보 : 2021년 2월 내 예정",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/117",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 유의사항",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/118",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "‧ 선정 대상자 개별통보, 모든 일정은 진흥원 사정에 따라 변경 될 수 있음",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/119",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "나. 관련 문의처 : 판교 클러스터센터 가상오피스 담당자",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/120",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "이 수 연 매니저 031)776-4612 / lee710@gcon.or.kr",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/121",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "**참고**. **지원 대상 업종 종류**",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/tables/1",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [
+            {
+              "cref": "#/groups/19"
+            },
+            {
+              "cref": "#/groups/20"
+            }
+          ],
+          "content_layer": "body",
+          "meta": null,
+          "label": "table",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "공연산업\n\n(음악공연제외), 중분류 = 공연업. 공연산업\n\n(음악공연제외), 소분류 = 공연기획 및 제작업. 공연산업\n\n(음악공연제외), 분류체계 정의 = 콘텐츠 저장과 검색 도구 등 디지털콘텐츠 검색, 디지털방송을 위해 사용되는 모든 솔루션 및 웹에이젼스 등 용역 및 서비스",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/tables/2",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [
+            {
+              "cref": "#/groups/21"
+            }
+          ],
+          "content_layer": "body",
+          "meta": null,
+          "label": "table",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※「콘텐츠 산업통계」기분 업종 분류표 외 분야",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/130",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "디자인산업, 중분류 = 디자인업. 디자인산업, 소분류 = 전문디자인업. 디자인산업, 분류체계 정의 = 인테리어, 제품, 시각 디자인 및 기타 전문 디자인업 등. 사진, 중분류 = 촬영 및 처리업. 사진, 소분류 = 사진촬영 및 처리업. 사진, 분류체계 정의 = 인물사진 및 행사용 촬영 업 등. 소프트웨어\n\n(S/W), 중분류 = 소프트웨어업. 소프트웨어\n\n(S/W), 소분류 = 소프트웨어 개발 및 공급. 소프트웨어\n\n(S/W), 분류체계 정의 = 시스템 소프트웨어, 응용 소스트웨어 개발 및 공급업 등. ICT융합, 중분류 = ICT융합. ICT융합, 소분류 = ICT융합. ICT융합, 분류체계 정의 = IT기술과 문화‧예술‧콘텐츠산업 융합관련 업. 미디어아트, 관광, 한류콘텐츠, 스토리텔링 등 융합분야",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/tables/3",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [
+            {
+              "cref": "#/groups/22"
+            }
+          ],
+          "content_layer": "body",
+          "meta": null,
+          "label": "table",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "※ 갑은 평가위원회를 통하여 본 계약의 목적에 부합하지 않는 지원제외 업종을 정하여 평가할 수 있음.  \n - 지원제외 업종의 예 : 불건전 영상‧게임 관련, 도박‧주류‧담배 관련, 공공행정, 국방‧사회보장 행정, 국제 및 외국기관 등",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/135",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": []
+        }
+      ],
+      "headings": null,
+      "captions": null,
+      "origin": {
+        "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "binary_hash": 15407906522739536744,
+        "filename": "2021 가상오피스 1차 모집 공고.docx",
+        "uri": null
+      }
+    }
+  }
+]

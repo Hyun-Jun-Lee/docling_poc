@@ -32,10 +32,11 @@ def convert_document(
 
 
 def build_docling_converter() -> Any:
-    """Create Docling's default converter with an explicit input-format allowlist."""
+    """Create a converter with Korean RapidOCR for PDF inputs."""
     try:
         from docling.datamodel.base_models import InputFormat
-        from docling.document_converter import DocumentConverter
+        from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
+        from docling.document_converter import DocumentConverter, PdfFormatOption
     except ImportError as exc:
         raise RuntimeError(
             "docling is required for conversion. Install the project dependencies first."
@@ -46,7 +47,20 @@ def build_docling_converter() -> Any:
         for name in ("PDF", "DOCX", "DOC", "PPTX", "PPT")
         if (input_format := getattr(InputFormat, name, None)) is not None
     ]
-    return DocumentConverter(allowed_formats=allowed_formats)
+
+    pdf_options = PdfPipelineOptions(
+        do_ocr=True,
+        ocr_options=RapidOcrOptions(
+            lang=["korean"],
+            backend="onnxruntime",
+        ),
+    )
+    return DocumentConverter(
+        allowed_formats=allowed_formats,
+        format_options={
+            InputFormat.PDF: PdfFormatOption(pipeline_options=pdf_options),
+        },
+    )
 
 
 def export_document(document: Any, *, output_format: RawOutputFormat) -> dict[str, Any] | str:

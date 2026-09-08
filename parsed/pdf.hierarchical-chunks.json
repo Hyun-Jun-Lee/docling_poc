@@ -1,0 +1,3958 @@
+[
+  {
+    "text": "코드잇 스프린트",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/5",
+          "parent": {
+            "cref": "#/pictures/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "caption",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 136.16560622643283,
+                "t": 265.2027310423862,
+                "r": 308.16476608180085,
+                "b": 242.61748937818788,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                8
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow를 활용한 데이터 파이프라인 자동화"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "데이터 분석가 과정 대표 강사",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/6",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 67.73982782750706,
+                "t": 215.7027331048862,
+                "r": 376.59232903065237,
+                "b": 193.1174914406879,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                16
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow를 활용한 데이터 파이프라인 자동화"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "Name         이현수",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/8",
+          "parent": {
+            "cref": "#/groups/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 643.2657583472593,
+                "r": 677.1214810366038,
+                "b": 625.2002765999877,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                16
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 프로필"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "E-mail        hyunsoo.it@gmail.com",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/9",
+          "parent": {
+            "cref": "#/groups/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 607.2657598472592,
+                "r": 851.6506191645558,
+                "b": 589.2002780999877,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                34
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 프로필"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "전공             연세대학교 기계공학",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/10",
+          "parent": {
+            "cref": "#/groups/0"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 571.2657613472593,
+                "r": 793.7190799533703,
+                "b": 553.2002795999878,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                25
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 프로필"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터 분석/엔지니어링 전문 강사\n- 코드잇 콘텐츠 파트너 (데이터 엔지니어링 오버뷰)\n- AWS 클라우드 기초 시험 자격증 강의 제작 (메타코드)\n- (전) 천재교육 데이터 엔지니어\n- (전) KDT 빅데이터 과정 강사 (데이터 분석, 데이터 엔지니어링, 클라우드)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/12",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 470.515788745175,
+                "r": 820.2986923708864,
+                "b": 452.4503069979034,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                20
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/13",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 434.51579024517497,
+                "r": 950.2269834072073,
+                "b": 416.4503084979034,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/14",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 398.51579174517497,
+                "r": 992.0893779629411,
+                "b": 380.4503099979034,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                33
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/15",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 362.51579324517496,
+                "r": 788.7911171837021,
+                "b": 344.4503114979034,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                19
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/16",
+          "parent": {
+            "cref": "#/groups/1"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 326.51579474517496,
+                "r": 1152.889937737917,
+                "b": 308.45031299790344,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                46
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 경력"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "정보처리기사",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/18",
+          "parent": {
+            "cref": "#/groups/2"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 225.76583414309016,
+                "r": 630.3735929844324,
+                "b": 207.70035239581853,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                6
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 자격증"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "빅데이터분석기사",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/19",
+          "parent": {
+            "cref": "#/groups/2"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 189.7658356430901,
+                "r": 668.2786439050553,
+                "b": 171.70035389581858,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                8
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 자격증"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "Apache Spark Associate Developer AWS Data Analytics - Specialty AWS Solutions Architect - Associate AWS Developer - Associate",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/20",
+          "parent": {
+            "cref": "#/groups/2"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 516.6557064726779,
+                "t": 153.76583714309015,
+                "r": 876.6549274477097,
+                "b": 135.70035539581863,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                32
+              ]
+            },
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 916.35212181866,
+                "t": 225.76583414309016,
+                "r": 1235.0681275388258,
+                "b": 207.70035239581853,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                33,
+                63
+              ]
+            },
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 916.35212181866,
+                "t": 189.7658356430901,
+                "r": 1292.2657182805929,
+                "b": 171.70035389581858,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                64,
+                99
+              ]
+            },
+            {
+              "page_no": 2,
+              "bbox": {
+                "l": 916.35212181866,
+                "t": 153.76583714309015,
+                "r": 1199.1624046348977,
+                "b": 135.70035539581863,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                100,
+                125
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 자격증"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 01      데이터 엔지니어링 개요\n- 02      Apache Airflow 소개\n- 03      Airflow 관련 용어 정리\n- 04      Airflow 아키텍처 및 구성 요소\n- 05      Airflow DAG 스크립트 구조\n- 06      데이터 파이프라인 자동화 사례",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/27",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 670.548242152989,
+                "r": 709.6213107544442,
+                "b": 634.4105010534784,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                20
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/28",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 570.7982463092391,
+                "r": 713.9433313743598,
+                "b": 534.6605052097283,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                25
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/29",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 471.0482504654891,
+                "r": 722.1870617058711,
+                "b": 434.9105093659783,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                24
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/30",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 371.2982546217391,
+                "r": 846.7329255414598,
+                "b": 335.1605135222283,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                28
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/31",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 271.5482587779891,
+                "r": 812.8886266766391,
+                "b": 235.4105176784783,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                27
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/32",
+          "parent": {
+            "cref": "#/groups/3"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 3,
+              "bbox": {
+                "l": 205.8554650226886,
+                "t": 171.798262934239,
+                "r": 842.4054551217712,
+                "b": 135.66052183472834,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                24
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "| 개인 사이트"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 공업 분야의 응용과학 기술을 연구하는 학문 또는 과학적, 경제학적, 사회적 원리와 실용적 지식을 활용하여 새로운 제품, 도구, 건축물 · 조형물, 시설 등을 만드는 것에 관한 학문.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/39",
+          "parent": {
+            "cref": "#/groups/4"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 5,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 599.3802655758215,
+                "r": 1342.318914095043,
+                "b": 512.2752692051964,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                101
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "엔지니어링의 정의"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터 엔지니어링은 데이터를 수집하고 활용할 수 있도록 시스템을 구축하는 것\n- 대규모 데이터를 효율적으로 수집, 저장, 처리 및 전송하기 위한 기술과 인프라를 개발하는 작업",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/59",
+          "parent": {
+            "cref": "#/groups/5"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 6,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 599.3802655758215,
+                "r": 1136.1290726862867,
+                "b": 572.2752667051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                42
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/60",
+          "parent": {
+            "cref": "#/groups/5"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 6,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 539.3802680758215,
+                "r": 1313.8788824300443,
+                "b": 512.2752692051964,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어링의 정의"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터의 원천부터 시작하여 필요한 데이터를 추출하고, 그 데이터를 정제, 변환, 분석, 저장, 전달하는 일련의 과정\n- 데이터를 시작점(A)에서 목적지(B)로 안전하고 신뢰성 있게 이동·전달하는 과정",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/156",
+          "parent": {
+            "cref": "#/groups/6"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 8,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1303.3568822154596,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                64
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/157",
+          "parent": {
+            "cref": "#/groups/6"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 8,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 959.3113317006922,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                44
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Data Pipeline"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터의 원천부터 시작하여 필요한 데이터를 추출하고, 그 데이터를 정제, 변환, 분석, 저장, 전달하는 일련의 과정\n- 데이터를 시작점(A)에서 목적지(B)로 안전하고 신뢰성 있게 이동·전달하는 과정",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/162",
+          "parent": {
+            "cref": "#/groups/7"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 9,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1303.3568822154596,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                64
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/163",
+          "parent": {
+            "cref": "#/groups/7"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 9,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 959.3113317006922,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                44
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Data Pipeline"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터의 원천부터 시작하여 필요한 데이터를 추출하고, 그 데이터를 정제, 변환, 분석, 저장, 전달하는 일련의 과정\n- 데이터를 시작점(A)에서 목적지(B)로 안전하고 신뢰성 있게 이동·전달하는 과정",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/171",
+          "parent": {
+            "cref": "#/groups/8"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 10,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1303.3568822154596,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                64
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/172",
+          "parent": {
+            "cref": "#/groups/8"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 10,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 959.3113317006922,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                44
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Data Pipeline"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 다양한 원천에서 데이터를 추출(Extract)하여 원하는 형태로 변환(Transform)한 후 목적지에 적재(Load)하는 과정",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/185",
+          "parent": {
+            "cref": "#/groups/9"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 11,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6536066652657,
+                "r": 1355.3985667470565,
+                "b": 578.0683650010674,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                71
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "ETL (Extract, Transform, Load)"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터를 수집(E)한 후 변환 작업(T)을 먼저 수행한 다음 저장(L)하는 데이터 처리 과정\n- 변환 과정을 통해 고품질의 데이터를 저장하여 바로 분석 가능.\n- 데이터 변환 과정에서 시간이 오래 걸릴 수 있으며 변환을 위한 인프라와 리소스가 많이 필요함.\n- 데이터 마트 구축, 일일 보고서 생성, 웹 로그 데이터 분석 등에 유용.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/202",
+          "parent": {
+            "cref": "#/groups/10"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 543.4034858506874,
+                "r": 1072.8490976199519,
+                "b": 520.8182441864892,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                51
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/203",
+          "parent": {
+            "cref": "#/groups/10"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 493.9034879131874,
+                "r": 812.9190636088708,
+                "b": 471.3182462489892,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                34
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/204",
+          "parent": {
+            "cref": "#/groups/10"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 444.4034899756874,
+                "r": 1151.3405304079754,
+                "b": 421.8182483114892,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/205",
+          "parent": {
+            "cref": "#/groups/10"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 394.90349203818744,
+                "r": 866.2356686623453,
+                "b": 372.3182503739892,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                40
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "ETL ·"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터를 수집(E)한 후 변환 없이 먼저 저장소에 저장(L)한 후 변환 작업(T)을 수행하는 데이터 처리 과정\n- 데이터를 저장한 후 다양한 변환 작업을 적용할 수 있어 유연함.\n- 초기 데이터 적재 속도가 매우 빠르지만 적재된 데이터 품질이 낮고 활용성이 떨어질 수 있음.\n- 저장소 리소스 낭비와 비용 증가의 가능성 있음.\n- 빅 데이터 분석, 실시간 데이터 스트리밍 처리, 클라우드 데이터 레이크 관리, IoT 데이터 처리에 적합.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/207",
+          "parent": {
+            "cref": "#/groups/11"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 266.6534973819374,
+                "r": 1256.9454829992687,
+                "b": 244.06825571773925,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                61
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/208",
+          "parent": {
+            "cref": "#/groups/11"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 217.15349944443733,
+                "r": 818.9931295307847,
+                "b": 194.56825778023926,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                35
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/209",
+          "parent": {
+            "cref": "#/groups/11"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 167.65350150693735,
+                "r": 1127.644303220318,
+                "b": 145.06825984273928,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                51
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/210",
+          "parent": {
+            "cref": "#/groups/11"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 118.15350356943736,
+                "r": 658.5934768391041,
+                "b": 95.56826190523918,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                26
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/211",
+          "parent": {
+            "cref": "#/groups/11"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 12,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 68.65350563193738,
+                "r": 1213.7806855063016,
+                "b": 46.0682639677392,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                59
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "ELT ·"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- Batch : 많은 양의 데이터를 정해진 시간(매시, 매일, 매월, 매년 등)에 일괄적으로 처리하는 것\n- Streaming : 실시간으로 들어오는 데이터를 그때그때 즉각적으로 처리하는 것 (초 단위)",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/216",
+          "parent": {
+            "cref": "#/groups/12"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 13,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1103.6898046349224,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                57
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/217",
+          "parent": {
+            "cref": "#/groups/12"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 13,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 1054.3745444937254,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Batch & Streaming"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터 엔지니어 : 대규모 데이터를 처리할 수 있는 데이터 인프라와 파이프라인 설계, 구축, 유지 및 관리 역할\n- 데이터 분석가 : 데이터를 분석하여 유의미한 인사이트를 도출하고, 이를 바탕으로 비즈니스 의사결정을 지원하는 역할\n- 데이터 과학자 : 데이터를 분석하고 예측 모델을 개발하여 복잡한 비즈니스 문제를 해결",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/229",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 14,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1258.5911659306987,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                62
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/230",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 14,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 1353.152137440658,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                63
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/231",
+          "parent": {
+            "cref": "#/groups/13"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 14,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 501.6535963902663,
+                "r": 1027.2537103697603,
+                "b": 479.06835472606804,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                47
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어, 데이터 분석가, 데이터 과학자"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "데이터 처리 인프라 및 파이프라인 설계, 구축, 유지, 데이터 엔지니어 = 데이터를 분석하여 인사이트 도출 및 비즈니스 의사결정 지원. 데이터 처리 인프라 및 파이프라인 설계, 구축, 유지, 📊 데이터 분석가 = 데이터 기반 문제 해결 및 예측 모델 개발. 데이터 처리 인프라 및 파이프라인 설계, 구축, 유지, 🔬 데이터 과학자 = 핵심 역할. - ETL/ELT 파이프라인 개발 - 데이터 웨어하우스 설계 및 관리 - 데이터 정합성 및 품질 관리, 데이터 엔지니어 = - 리포트 작성 및 시각화 대시보드 제작 - 탐색적 데이터 & 비즈니스 성과 분석 - 데이터 파이프라인 개발. - ETL/ELT 파이프라인 개발 - 데이터 웨어하우스 설계 및 관리 - 데이터 정합성 및 품질 관리, 📊 데이터 분석가 = - 데이터 기반 통계적 분석 - 머신러닝/딥러닝 모델링 - 모델 성능 평가 및 배포. - ETL/ELT 파이프라인 개발 - 데이터 웨어하우스 설계 및 관리 - 데이터 정합성 및 품질 관리, 🔬 데이터 과학자 = 주요 업무. SQL, Python, Airflow, Spark, Kafka, Cloud, Kubernetes 등, 데이터 엔지니어 = SQL, Python, Cloud, Excel, Tableau, Power BI, Looker, Docker 등. SQL, Python, Airflow, Spark, Kafka, Cloud, Kubernetes 등, 📊 데이터 분석가 = - Python, SQL, Cloud, TensorFlow, PyTorch, ML/DL 관리 도구 등. SQL, Python, Airflow, Spark, Kafka, Cloud, Kubernetes 등, 🔬 데이터 과학자 = 주요 도구. 원천 데이터, 로그, API 등 데이터 형태가 다양, 데이터 엔지니어 = 정제된 정형 데이터 (테이블). 원천 데이터, 로그, API 등 데이터 형태가 다양, 📊 데이터 분석가 = 정제된 정형 데이터 (테이블), 자연어 등 비정형 데이터. 원천 데이터, 로그, API 등 데이터 형태가 다양, 🔬 데이터 과학자 = 데이터의 형태. 데이터 레이크/웨어하우스, 파이프라인, API, 자동화 시스템, 데이터 엔지니어 = 리포트, 대시보드, 지표 정의 문서, 인사이트 약. 데이터 레이크/웨어하우스, 파이프라인, API, 자동화 시스템, 📊 데이터 분석가 = 요 모델, 알고리즘, 예측 결과, 실험 리포트. 데이터 레이크/웨어하우스, 파이프라인, API, 자동화 시스템, 🔬 데이터 과학자 = 산출물. 데이터 분석가, 데이터 과학자, 개발자, 데이터 엔지니어 = 기획자, 마케팅팀, PM, 데이터 엔지니어. 데이터 분석가, 데이터 과학자, 개발자, 📊 데이터 분석가 = 데이터 엔지니어, 분석가, 제품/AI 팀. 데이터 분석가, 데이터 과학자, 개발자, 🔬 데이터 과학자 = 협업 대상",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/tables/0",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "table",
+          "prov": [
+            {
+              "page_no": 15,
+              "bbox": {
+                "l": 72.47620391845703,
+                "t": 612.7904762485157,
+                "r": 1330.0452880859375,
+                "b": 37.692991898322475,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어, 데이터 분석가, 데이터 과학자"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터가 효율적으로 흘러가고 처리될 수 있는 인프라 설계, 구축, 운영 및 유지보수\n- End User(최종 사용자)가 원하는 데이터 제공을 위한 데이터 파이프라인 작업 개발\n- 유입 or 유입된 데이터에 대한 관리 및 모니터링\n- 여러가지 기술들 중 가장 적합한 Tool을 선택하여 파이프라인 아키텍처 구성",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/271",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 16,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 599.2697235229275,
+                "r": 983.6824853602278,
+                "b": 576.6844818587292,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                46
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/272",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 16,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 549.7697255854274,
+                "r": 997.7052509759457,
+                "b": 527.1844839212292,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                48
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/273",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 16,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 500.2697276479275,
+                "r": 618.4902701515708,
+                "b": 477.68448598372925,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                27
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/274",
+          "parent": {
+            "cref": "#/groups/14"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 16,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 450.76972971042744,
+                "r": 920.5674979150191,
+                "b": 428.18448804622926,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                42
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어의 주요 업무"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "👉 부정확한 입력 데이터가 주어지면 결과 또한 부정확하거나 쓸모없는 데이터가 나온다. 즉, 쓸모없는 데이터로는 의미있는 인사이트를 이끌어 낼 수 없다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/282",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 16,
+              "bbox": {
+                "l": 660.5370924776199,
+                "t": 285.36060319708395,
+                "r": 1403.3459018492513,
+                "b": 161.52168475717974,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                84
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Garbage In Garbage Out"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 데이터가 효율적으로 흘러가고 처리될 수 있도록 관련 인프라와 데이터 파이프라인 설계, 구축, 운영 및 유지보수\n- Endpoint 유저가 원하는 데이터 제공을 위한 ETL 작업 개발\n- 유입 or 유입된 데이터에 대한 관리 및 모니터링\n- 여러가지 기술들 중 가장 적합한 Tool을 선택하여 파이프라인 아키텍처 구성",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/287",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 599.2697235229275,
+                "r": 1286.2595933528469,
+                "b": 576.6844818587292,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                61
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/288",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 549.7697255854274,
+                "r": 758.64308163687,
+                "b": 527.1844839212292,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                37
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/289",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 500.2697276479275,
+                "r": 618.4902701515708,
+                "b": 477.68448598372925,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                27
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/290",
+          "parent": {
+            "cref": "#/groups/15"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 450.76972971042744,
+                "r": 920.5674979150191,
+                "b": 428.18448804622926,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                42
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어의 주요 업무"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "Garbage In Garbage Out Data Out",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/299",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 660.5370924776199,
+                "t": 342.79930880919517,
+                "r": 1170.0530202322886,
+                "b": 315.7010848330379,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                31
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어의 주요 업무"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "👉 아무리 다루기 어려운(더러운) 형상의 데이터가 들어오더라도 이후 사용자가 가치 있게 활용할 수 있도록 데이터를 가공·정제한다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/300",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 17,
+              "bbox": {
+                "l": 660.5370924776199,
+                "t": 285.36060319708395,
+                "r": 1388.0983878595644,
+                "b": 211.02168269467973,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                72
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어의 주요 업무"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- https://whimsical.com/de-skills-CYXEYCaa3U4zNL5JTYKv59",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/695",
+          "parent": {
+            "cref": "#/groups/16"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 19,
+              "bbox": {
+                "l": 131.98827575048827,
+                "t": 598.7411853449498,
+                "r": 1082.5018423972547,
+                "b": 571.6429613687925,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                54
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 엔지니어링 도구"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1128",
+          "parent": {
+            "cref": "#/groups/17"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 26,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535178652694,
+                "r": 612.1902506725717,
+                "b": 578.0682762010711,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1136",
+          "parent": {
+            "cref": "#/groups/18"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 27,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535178652694,
+                "r": 612.1902506725717,
+                "b": 578.0682762010711,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1137",
+          "parent": {
+            "cref": "#/groups/18"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 27,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535199277693,
+                "r": 903.2191727963657,
+                "b": 528.5682782635711,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1145",
+          "parent": {
+            "cref": "#/groups/19"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 28,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535178652694,
+                "r": 612.1902506725717,
+                "b": 578.0682762010711,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1146",
+          "parent": {
+            "cref": "#/groups/19"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 28,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535199277693,
+                "r": 903.2191727963657,
+                "b": 528.5682782635711,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.\n- 이러한 작업이 연속적으로 일어나게 되면 하나의 작업 파이프라인을 형성한다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1176",
+          "parent": {
+            "cref": "#/groups/20"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 29,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535466652682,
+                "r": 612.1902506725717,
+                "b": 578.0683050010699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1177",
+          "parent": {
+            "cref": "#/groups/20"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 29,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535487277682,
+                "r": 903.2191727963657,
+                "b": 528.5683070635699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1178",
+          "parent": {
+            "cref": "#/groups/20"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 29,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 501.6535507902682,
+                "r": 936.2889326684594,
+                "b": 479.06830912606995,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                41
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.\n- 이러한 작업이 연속적으로 일어나게 되면 하나의 작업 파이프라인을 형성한다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1195",
+          "parent": {
+            "cref": "#/groups/21"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 30,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535466652682,
+                "r": 612.1902506725717,
+                "b": 578.0683050010699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1196",
+          "parent": {
+            "cref": "#/groups/21"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 30,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535487277682,
+                "r": 903.2191727963657,
+                "b": 528.5683070635699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1197",
+          "parent": {
+            "cref": "#/groups/21"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 30,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 501.6535507902682,
+                "r": 936.2889326684594,
+                "b": 479.06830912606995,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                41
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "INPUT",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1198",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 30,
+              "bbox": {
+                "l": 176.25359617209986,
+                "t": 120.17286616916601,
+                "r": 211.5414394194684,
+                "b": 110.09892770407419,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                5
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.\n- 이러한 작업이 연속적으로 일어나게 되면 하나의 작업 파이프라인을 형성한다.\n- 파이프라인 작업이 특정 주기로 실행되면(배치 작업)  작업에 대한 지속적인 결과물을 얻을 수 있다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1245",
+          "parent": {
+            "cref": "#/groups/22"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 31,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535466652682,
+                "r": 612.1902506725717,
+                "b": 578.0683050010699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1246",
+          "parent": {
+            "cref": "#/groups/22"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 31,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535487277682,
+                "r": 903.2191727963657,
+                "b": 528.5683070635699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1247",
+          "parent": {
+            "cref": "#/groups/22"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 31,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 501.6535507902682,
+                "r": 936.2889326684594,
+                "b": 479.06830912606995,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                41
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1248",
+          "parent": {
+            "cref": "#/groups/22"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 31,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 452.15355285276814,
+                "r": 1151.7409817162902,
+                "b": 429.56831118856996,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                55
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.\n- 이러한 작업이 연속적으로 일어나게 되면 하나의 작업 파이프라인을 형성한다.\n- 파이프라인 작업이 특정 주기로 실행되면(배치 작업)  작업에 대한 지속적인 결과물을 얻을 수 있다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1262",
+          "parent": {
+            "cref": "#/groups/23"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 32,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 600.6535478652681,
+                "r": 612.1902506725717,
+                "b": 578.0683062010698,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1263",
+          "parent": {
+            "cref": "#/groups/23"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 32,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 551.153549927768,
+                "r": 903.2191727963657,
+                "b": 528.5683082635699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1264",
+          "parent": {
+            "cref": "#/groups/23"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 32,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 501.6535519902681,
+                "r": 936.2889326684594,
+                "b": 479.0683103260699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                41
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1265",
+          "parent": {
+            "cref": "#/groups/23"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 32,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 452.1535540527681,
+                "r": 1151.7409817162902,
+                "b": 429.5683123885699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                55
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 하나의 작업은 Input과 Output을 발생시킨다.\n- Output을 Input으로 활용하여 또 다른 작업을 연속적으로 실행할 수 있다.\n- 이러한 작업이 연속적으로 일어나게 되면 하나의 작업 파이프라인을 형성한다.\n- 파이프라인 작업이 특정 주기로 실행되면(배치 작업)  작업에 대한 지속적인 결과물을 얻을 수 있다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1284",
+          "parent": {
+            "cref": "#/groups/24"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 33,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 600.6535478652681,
+                "r": 612.1902506725717,
+                "b": 578.0683062010698,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1285",
+          "parent": {
+            "cref": "#/groups/24"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 33,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 551.153549927768,
+                "r": 903.2191727963657,
+                "b": 528.5683082635699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                45
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1286",
+          "parent": {
+            "cref": "#/groups/24"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 33,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 501.6535519902681,
+                "r": 936.2889326684594,
+                "b": 479.0683103260699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                41
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1287",
+          "parent": {
+            "cref": "#/groups/24"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 33,
+              "bbox": {
+                "l": 123.4921823544922,
+                "t": 452.1535540527681,
+                "r": 1151.7409817162902,
+                "b": 429.5683123885699,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                55
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "👉",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1306",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 34,
+              "bbox": {
+                "l": 11.934781902717399,
+                "t": 32.21830842632073,
+                "r": 31.9297810695924,
+                "b": 26.28229304865465,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "데이터 처리 작업"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 오케스트레이션 도구 → 여러 작업의 실행 순서, 의존 관계, 스케줄을 정의하고 자동으로 실행·관리해 주는 도구",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1308",
+          "parent": {
+            "cref": "#/groups/25"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 34,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 1270.4702259107378,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                61
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Orchestration 도구들의 등장"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 빅데이터 시대의 도래로 정형, 비정형 데이터들의 복잡성 및 볼륨 증가",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1357",
+          "parent": {
+            "cref": "#/groups/26"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 35,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 542.6535314819355,
+                "r": 895.939996516165,
+                "b": 520.0682898177373,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                38
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "1. 데이터 복잡성과 볼륨 증가"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 분산 처리 도구, 클라우드 등 다양한 IT 기술 등장으로 데이터 관리 파이프라인이 복잡·다양화",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1359",
+          "parent": {
+            "cref": "#/groups/27"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 35,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 433.15353604443555,
+                "r": 1133.727343133358,
+                "b": 410.56829438023726,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "2. 다양한 파이프라인 환경 관리"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 여러개의 작업이 연결되고, 동시에 수행되는 복잡한 파이프라인 작업에 대한 효율적인 관리 필요",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1361",
+          "parent": {
+            "cref": "#/groups/28"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 35,
+              "bbox": {
+                "l": 172.124992828125,
+                "t": 323.6535406069355,
+                "r": 1168.80257134689,
+                "b": 301.0682989427373,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                51
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "3. 복잡한 워크플로우 효율적 제어"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 다수의 작업을 각기 다른 배치 간격으로 스케줄링하고 이를 통합적으로 모니터링 할 수 있도록 함",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1363",
+          "parent": {
+            "cref": "#/groups/29"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 35,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 214.15354516943557,
+                "r": 1175.1957845305062,
+                "b": 191.56830350523728,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "4. 자동화·스케줄링·모니터링 통합"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 작업 간에 에러 발생시, 에러 추적과 재수행을 용이하게 할 수 있도록 함",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1365",
+          "parent": {
+            "cref": "#/groups/30"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 35,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 104.65354973193553,
+                "r": 902.0060526634124,
+                "b": 82.06830806773735,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                40
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "5. 안정적인 에러 처리와 재실행"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- 2014년 10월, Airbnb에서 사내 워크플로우에 대한 원활한 관리를 위해 개발 ·\n- 2015년 6월, Github에 오픈소스로 공개\n- 2016년 3월, 아파치 재단 프로젝트로 편입 ·\n- 2016년 5월, Airflow 1.7.1 버전 릴리즈\n- 2019년 1월, 아파치 재단 최상위 프로젝트로 승격\n- 2020년 12월, Airflow 2.0.0 버전 릴리즈\n- 2025년 2월, Airflow 2.10.5 버전 릴리즈\n- 2025년 4월, Airflow 3.0.0 버전 릴리즈 ( 👉 Airflow Release Notes)\n- 2025년 8월, Airflow 3.0.5 버전 릴리즈",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1370",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 110.61391194661458,
+                "t": 599.3802655758215,
+                "r": 1099.859085072536,
+                "b": 572.2752667051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                48
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1371",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 539.3802680758215,
+                "r": 649.2595236975185,
+                "b": 512.2752692051964,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                26
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1372",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 110.33333333333333,
+                "t": 479.3802705758215,
+                "r": 670.1694802262705,
+                "b": 452.2752717051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                27
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1373",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 419.3802730758215,
+                "r": 640.2294942987701,
+                "b": 392.2752742051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                30
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1374",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 359.3802755758215,
+                "r": 755.8494239312727,
+                "b": 332.2752767051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                29
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1375",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 299.3802780758215,
+                "r": 677.6094216412729,
+                "b": 272.2752792051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                31
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1376",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 239.38028057582153,
+                "r": 675.2694714637711,
+                "b": 212.27528170519645,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                31
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1377",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 182.08497046312618,
+                "r": 1066.0433930815234,
+                "b": 152.2752842051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                57
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1378",
+          "parent": {
+            "cref": "#/groups/31"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 36,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 119.3802855758214,
+                "r": 663.2995012125195,
+                "b": 92.27528670519644,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                30
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow의 등장"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- Python 기반 작업\n- Python으로 모든 작업 코드를 작성할 수 있어 데이터 관련 작업시 통합이 원활.\n- 웹 기반 UI 제공\n- Airflow UI를 통해 실행 현황 및 작업 상태에 대한 실시간 정보를 직관적으로 파악 가능\n- 다양한 실행 환경\n- Local, Sequential , Kubernetes, Celery 등 인프라 상황에 맞게 다양한 실행 환경에서 구동 가능\n- 데이터 소스 및 서비스들과의 통합 ( 👉 providers list )\n- 80개 이상의 연결 가능한 서비스와 1000개 이상의 오퍼레이터를 제공하여 거의 모든 데이터 관련 작업이 가능\n- 강력한 스케줄링 기능\n- Cron 표현식, 백필(Backfill), 캐치업(Catchup) 등 다양한 스케줄링 옵션을 제공하여 유연한 작업 실행을 지원",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1383",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 599.3802655758215,
+                "r": 370.079816280007,
+                "b": 572.2752667051965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                12
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1384",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 542.6535314819355,
+                "r": 991.8208846296278,
+                "b": 520.0682898177373,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                46
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1385",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 489.8802701383215,
+                "r": 327.35983681000624,
+                "b": 462.7752712676965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                10
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1386",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 433.15353604443555,
+                "r": 1071.704213592655,
+                "b": 410.56829438023726,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                52
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1387",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 380.3802747008215,
+                "r": 345.7798232925067,
+                "b": 353.2752758301965,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                9
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1388",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 323.6535406069355,
+                "r": 1210.7321618498238,
+                "b": 301.0682989427373,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                69
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1389",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 273.58496665062626,
+                "r": 822.8071532163672,
+                "b": 243.77528039269646,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                39
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1390",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 214.15354516943557,
+                "r": 1323.2143945380635,
+                "b": 191.56830350523728,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                61
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1391",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 131.99999449999999,
+                "t": 161.3802838258215,
+                "r": 402.6597721725088,
+                "b": 134.2752849551964,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                11
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1392",
+          "parent": {
+            "cref": "#/groups/32"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 37,
+              "bbox": {
+                "l": 165.99608683349607,
+                "t": 104.65354973193553,
+                "r": 1328.7884928558094,
+                "b": 82.06830806773735,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                70
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow의 특징"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "👉",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1396",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 38,
+              "bbox": {
+                "l": 11.934781902717399,
+                "t": 32.21830842632073,
+                "r": 31.9297810695924,
+                "b": 26.28229304865465,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow의 특징"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "Workflows",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1422",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "text",
+          "prov": [
+            {
+              "page_no": 38,
+              "bbox": {
+                "l": 713.3125,
+                "t": 73.11109747447915,
+                "r": 790.375,
+                "b": 53.11109747447915,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                9
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "Apache Airflow의 점유율"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "- '유향 비순환 그래프' 라는 뜻으로, 자신으로 되돌아오는 경로가 없는 그래프.\n- 파이프라인 작업은 하나의 작업이 다른 작업에 의존하거나 특정 순서로 실행되어야 하기 때문에 방향성을 가진다.\n- 작업의 실행 순서 보장과 무한 루프 방지 등을 위해 완료된 작업을 다시 호출할 수 없도록 강제한다.\n- Airflow에서 하나의 온전한 파이프라인 작업 스크립트를 Dag라고 칭한다.",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1429",
+          "parent": {
+            "cref": "#/groups/33"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 600.6535922652663,
+                "r": 911.0678953943358,
+                "b": 578.068350601068,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                43
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1430",
+          "parent": {
+            "cref": "#/groups/33"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 551.1535943277662,
+                "r": 1298.4066267302208,
+                "b": 528.568352663568,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                60
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1431",
+          "parent": {
+            "cref": "#/groups/33"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 501.6535963902663,
+                "r": 1144.6809854854562,
+                "b": 479.06835472606804,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                55
+              ]
+            }
+          ]
+        },
+        {
+          "self_ref": "#/texts/1432",
+          "parent": {
+            "cref": "#/groups/33"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "list_item",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 123.49218235449217,
+                "t": 452.15359845276623,
+                "r": 905.3688318567968,
+                "b": 429.56835678856805,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                43
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "DAG (Directed Acyclic Graph)"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "DAG → O",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1433",
+          "parent": {
+            "cref": "#/body"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "caption",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 311.33729182761226,
+                "t": 370.4036066590161,
+                "r": 425.85328448961235,
+                "b": 347.81836499481784,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                7
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "DAG (Directed Acyclic Graph)"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  },
+  {
+    "text": "DAG → X",
+    "meta": {
+      "schema_name": "docling_core.transforms.chunker.DocMeta",
+      "version": "1.0.0",
+      "doc_items": [
+        {
+          "self_ref": "#/texts/1442",
+          "parent": {
+            "cref": "#/pictures/34"
+          },
+          "children": [],
+          "content_layer": "body",
+          "meta": null,
+          "label": "caption",
+          "prov": [
+            {
+              "page_no": 40,
+              "bbox": {
+                "l": 1014.1521897436569,
+                "t": 370.4036066590161,
+                "r": 1126.9683523744832,
+                "b": 347.81836499481784,
+                "coord_origin": "BOTTOMLEFT"
+              },
+              "charspan": [
+                0,
+                7
+              ]
+            }
+          ]
+        }
+      ],
+      "headings": [
+        "DAG (Directed Acyclic Graph)"
+      ],
+      "captions": null,
+      "origin": {
+        "mimetype": "application/pdf",
+        "binary_hash": 8809610733920430560,
+        "filename": "pdf_test_sample.pdf",
+        "uri": null
+      }
+    }
+  }
+]

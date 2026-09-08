@@ -130,6 +130,28 @@ DOC, PPT 같은 97-2004 바이너리 형식은 지원되지만 LibreOffice가 �
 
 따라서 저장 스키마는 공통 모델의 모든 컬렉션을 수용하되, 애플리케이션의 필수 필드는 `texts`나 `tables`의 존재가 아니라 변환 상태와 실제 결과 수를 기준으로 판정하는 편이 안전하다. `ConversionResult.confidence`는 `DoclingDocument`의 콘텐츠 필드가 아니라 별도의 변환 품질 신호이므로 함께 보관할 수 있다.
 
+### 레이블별 판단 근거와 한계
+
+`title`, `section_header`, `list_item` 같은 레이블은 공통 `DocItemLabel` 값이다. 따라서 아래 내용은 **해당 레이블을 만들 때 주로 사용하는 근거**이며, 모든 문서에서 같은 레이블이 반드시 만들어진다는 계약은 아니다. 특히 PDF의 기본 레이블은 레이아웃 모델의 분류 결과이므로, 공개 문서만으로는 "이 글꼴이면 title"처럼 완전한 결정 규칙을 만들 수 없다.
+
+| 레이블 또는 항목 | PDF | DOCX | PPTX |
+| --- | --- | --- | --- |
+| `title` | 레이아웃 모델이 분류한다. 공개된 단순 서식 규칙은 없다. | 문단의 OOXML 스타일 ID가 `Title`일 때 `title`로 처리한다. **굵게·기울임·글자 크기만으로 제목을 판정하지 않는다.** | 텍스트 도형이 `TITLE` 또는 `CENTER_TITLE` 자리표시자일 때 `title`로 처리한다. |
+| `section_header`와 제목 수준 | 기본 레이블은 레이아웃 모델이 정한다. 선택 사항인 제목 계층 복원은 북마크/목차 → 번호 체계 → 글꼴 크기(필요 시 굵기·기울임·대문자) 순으로 `section_header`의 **level**을 추론한다. 이 기능은 기본적으로 켜져 있지 않으며, 일반 텍스트를 `title`로 바꾸는 규칙은 아니다. | `w:outlineLvl`이 있으면 이를 우선 사용하고, 없으면 `Heading` 계열 문단 스타일에서 수준을 읽는다. | `SUBTITLE` 자리표시자는 대표적으로 `section_header`가 된다. 일반 텍스트 도형은 보통 문단으로 처리된다. |
+| `list_item` | 레이아웃 모델이 분류한다. | OOXML 번호 매기기 정보(`numId`, `ilvl`)를 이용한다. | 도형 자체, 슬라이드 레이아웃, 슬라이드 마스터의 글머리표·번호 매기기 정보를 차례로 확인한다. |
+| `table`, `picture` | 레이아웃 모델과 PDF 처리 파이프라인이 표·그림 영역을 검출한다. | OOXML 표와 그림 객체를 구조적으로 읽는다. | 표 도형과 그림 도형을 구조적으로 읽는다. |
+
+DOCX에서 굵게·기울임·글자 크기 같은 값은 `formatting`으로 보존될 수 있지만, 이를 애플리케이션에서 제목 판정의 주 규칙으로 재사용하면 문서 작성자의 임의 서식 때문에 오분류하기 쉽다. 제목 판단이 중요하면 Word의 `Title`/`Heading` 스타일과 개요 수준을 일관되게 적용하는 편이 안전하다. PPTX도 시각적으로 큰 글자보다 제목·부제목 자리표시자를 사용해야 안정적이다.
+
+PDF의 제목 계층 복원은 서식이 있는 디지털 PDF에서 특히 유용하지만, 스캔 OCR 페이지에는 글꼴 메타데이터가 없을 수 있다. 이 경우 북마크·번호 체계가 없으면 시각적 서식 기반 추론의 신뢰도가 낮아질 수 있으므로, 대표 문서로 결과를 검수해야 한다.
+
+원문 및 공식 구현 참고:
+
+- <https://docling-project.github.io/docling/usage/heading_levels/>
+- <https://github.com/docling-project/docling/blob/main/docling/backend/msword_backend.py>
+- <https://github.com/docling-project/docling/blob/main/docling/backend/mspowerpoint_backend.py>
+- <https://github.com/docling-project/docling-core/blob/main/docling_core/types/doc/labels.py>
+
 ### 문서 구조
 
 - `body`: 본문을 이루는 트리의 루트다. 일반적인 읽기 순서와 섹션 계층은 이 트리에서 확인한다.

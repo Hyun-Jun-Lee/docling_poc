@@ -1,25 +1,19 @@
-"""Docling-based document processing helpers for the AI-ready data POC."""
+"""Helpers for inspecting Docling's native conversion output."""
 
-from docling_poc.models import (
-    BBox,
-    DocumentChunk,
-    DocumentProfile,
-    ElementProvenance,
-    NormalizedElement,
-    OcrQualitySignals,
-    ProcessedDocument,
+from docling_poc.docling_raw import (
+    build_docling_converter,
+    build_hierarchical_chunker,
+    convert_document,
+    create_hierarchical_chunks,
+    export_document,
+    export_hierarchical_chunks,
 )
-from docling_poc.processor import DoclingProcessConfig, normalize_docling_document, process_document
 
 __all__ = [
-    "BBox",
-    "DoclingProcessConfig",
-    "DocumentChunk",
-    "DocumentProfile",
-    "ElementProvenance",
-    "NormalizedElement",
-    "OcrQualitySignals",
-    "ProcessedDocument",
-    "normalize_docling_document",
-    "process_document",
+    "build_docling_converter",
+    "build_hierarchical_chunker",
+    "convert_document",
+    "create_hierarchical_chunks",
+    "export_document",
+    "export_hierarchical_chunks",
 ]

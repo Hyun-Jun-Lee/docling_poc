@@ -6,29 +6,44 @@ import os
 import tempfile
 from pathlib import Path
 
-from docling_poc.processor import DoclingProcessConfig, process_document
+from docling_poc.docling_raw import (
+    convert_document,
+    create_hierarchical_chunks,
+    export_document,
+    export_hierarchical_chunks,
+)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Parse a document with Docling into AI-ready JSON.")
-    parser.add_argument("source", type=Path, help="PDF, PPT/PPTX, DOC/DOCX file to parse.")
-    parser.add_argument("--out", type=Path, help="Output JSON path. Defaults to stdout.")
-    parser.add_argument("--max-chunk-chars", type=int, default=DoclingProcessConfig.max_chunk_chars)
-    parser.add_argument("--min-chunk-chars", type=int, default=DoclingProcessConfig.min_chunk_chars)
-    parser.add_argument("--ocr-lang", action="append", dest="ocr_languages", default=[])
-    parser.add_argument("--disable-ocr", action="store_true")
+    parser = argparse.ArgumentParser(description="Export Docling's native document representation.")
+    parser.add_argument("source", type=Path, help="PDF, PPT/PPTX, DOC/DOCX file to convert.")
+    parser.add_argument("--out", type=Path, help="Output path. Defaults to stdout.")
+    parser.add_argument(
+        "--to",
+        choices=("json", "markdown", "hierarchical-chunks"),
+        default="json",
+        help="Output format.",
+    )
+    parser.add_argument("--max-num-pages", type=int, help="Maximum pages or slides to process.")
+    parser.add_argument("--max-file-size", type=int, help="Maximum input size in bytes.")
     args = parser.parse_args()
     if args.out and args.out.resolve() == args.source.resolve():
         parser.error("--out must be different from the source document path.")
 
-    config = DoclingProcessConfig(
-        max_chunk_chars=args.max_chunk_chars,
-        min_chunk_chars=args.min_chunk_chars,
-        enable_ocr=not args.disable_ocr,
-        ocr_languages=tuple(args.ocr_languages) or DoclingProcessConfig.ocr_languages,
+    result = convert_document(
+        args.source,
+        max_num_pages=args.max_num_pages,
+        max_file_size=args.max_file_size,
     )
-    processed = process_document(args.source, config=config)
-    payload = json.dumps(processed.to_dict(), ensure_ascii=False, indent=2)
+    if _conversion_status(result) not in {"success", "partial_success"}:
+        parser.error(_conversion_failure_message(result))
+
+    if args.to == "hierarchical-chunks":
+        exported = export_hierarchical_chunks(create_hierarchical_chunks(result.document))
+    else:
+        exported = export_document(result.document, output_format=args.to)
+
+    payload = json.dumps(exported, ensure_ascii=False, indent=2) if args.to != "markdown" else exported
 
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -43,6 +58,21 @@ def main() -> None:
         os.replace(temp_path, args.out)
     else:
         print(payload)
+
+
+def _conversion_status(result: object) -> str:
+    status = getattr(result, "status", "unknown")
+    return str(getattr(status, "value", status)).lower()
+
+
+def _conversion_failure_message(result: object) -> str:
+    errors = getattr(result, "errors", None) or []
+    messages = [
+        str(getattr(error, "error_message", getattr(error, "message", error)))
+        for error in errors
+    ]
+    details = "; ".join(message for message in messages if message)
+    return f"Docling conversion failed ({_conversion_status(result)}): {details or 'no error details'}"
 
 
 if __name__ == "__main__":

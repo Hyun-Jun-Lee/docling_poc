@@ -1,8 +1,8 @@
 # Docling POC
 
-이 프로젝트는 PDF, PowerPoint, Word 같은 비정형 문서를 Docling으로 분석한 뒤 downstream Domain/Unit 파이프라인이 사용할 수 있는 안정적인 중간 표현을 만드는 POC입니다.
+이 프로젝트는 PDF, PowerPoint, Word 문서를 Docling으로 변환하고, Docling이 제공하는 원본 `DoclingDocument` 구조를 직접 살펴보기 위한 최소 POC입니다.
 
-첨부된 프로젝트 컨텍스트 기준 핵심 목표는 원문을 바로 RAG chunk로 쓰는 것이 아니라, Docling의 구조 추출 결과를 `NormalizedElement`와 `DocumentChunk` sequence로 변환하고 page/slide provenance, table, picture placeholder, OCR 품질 신호를 보존하는 것입니다.
+서비스 전용 `elements`, `chunks`, `profile` 같은 파생 구조는 만들지 않습니다. 이 프로젝트의 JSON 출력은 `DoclingDocument.export_to_dict()` 결과이며, Markdown 출력은 `DoclingDocument.export_to_markdown()` 결과입니다. 다만 `hierarchical-chunks` 출력은 Docling이 제공하는 `HierarchicalChunker`의 원본 `DocChunk` 결과입니다.
 
 ## 설치
 
@@ -16,30 +16,36 @@ pip install -e ".[dev]"
 
 ```bash
 docling-poc samples/report.pdf --out parsed/report.json
-docling-poc samples/deck.pptx --max-chunk-chars 1800
-docling-poc samples/spec.docx --ocr-lang ko --ocr-lang en
+docling-poc samples/deck.pptx --to markdown --out parsed/deck.md
+docling-poc samples/spec.docx --max-num-pages 10
+docling-poc samples/report.pdf --to hierarchical-chunks --out parsed/report.chunks.json
 ```
 
 Python에서 직접 사용할 수도 있습니다.
 
 ```python
-from docling_poc import DoclingProcessConfig, process_document
-
-processed = process_document(
-    "samples/report.pdf",
-    config=DoclingProcessConfig(ocr_languages=("ko", "en")),
+from docling_poc import (
+    convert_document,
+    create_hierarchical_chunks,
+    export_document,
+    export_hierarchical_chunks,
 )
 
-for chunk in processed.chunks:
-    print(chunk.chunk_id, chunk.page_numbers, chunk.text[:200])
+result = convert_document("samples/report.pdf")
+document_json = export_document(result.document, output_format="json")
+document_markdown = export_document(result.document, output_format="markdown")
+chunks = create_hierarchical_chunks(result.document)
+chunk_json = export_hierarchical_chunks(chunks)
+
+print(document_json["texts"])
+print(document_markdown)
+print(chunk_json[0]["text"])
 ```
 
 ## 산출물
 
-- `asset_id`: 원본 파일 content hash 기반 deterministic id
-- `elements`: Docling reading order를 따른 Heading, Paragraph, Table, Picture 등 정규화 요소
-- `chunks`: Domain mapping 후보로 쓸 연속 처리 단위
-- `profile`: table/image/page 수, 텍스트 커버리지, 한국어/비정상 문자 비율, OCR fallback 필요 여부
-- `markdown`: Docling이 내보낸 전체 markdown preview
+- JSON: DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조
+- Markdown: DoclingDocument가 내보내는 문서 표현
+- Hierarchical chunks: Docling `HierarchicalChunker`가 생성한 `DocChunk` 배열. 각 청크는 `text`, 제목 문맥, 원본 문서 항목과 provenance metadata를 포함
 
-이 POC의 chunk는 최종 검색 단위가 아니라 Domain 판정용 입력입니다. 최종 Vector Search Point는 이후 동일 Domain chunk를 경계 보정해 결합한 Unit이 됩니다.
+`ConversionResult`에는 변환 상태와 오류 정보도 포함됩니다. JSON/Markdown을 확인한 뒤 서비스 요구사항에 맞춰 구조 기반 청킹, 품질 관리, 임베딩 단계를 별도 모듈로 설계합니다.

@@ -72,6 +72,22 @@ def export_document(document: Any, *, output_format: RawOutputFormat) -> dict[st
     raise ValueError(f"Unsupported output format: {output_format}")
 
 
+def conversion_status(result: object) -> str:
+    """Return Docling's conversion status as a stable lower-case string."""
+    status = getattr(result, "status", "unknown")
+    return str(getattr(status, "value", status)).lower()
+
+
+def conversion_error_details(result: object) -> str:
+    """Return the available Docling conversion errors as one message."""
+    errors = getattr(result, "errors", None) or []
+    messages = [
+        str(getattr(error, "error_message", getattr(error, "message", error)))
+        for error in errors
+    ]
+    return "; ".join(message for message in messages if message)
+
+
 def create_hierarchical_chunks(document: Any, *, chunker: Any | None = None) -> list[Any]:
     """Create Docling-native hierarchy-aware chunks from a DoclingDocument."""
     chunker = chunker or build_hierarchical_chunker()

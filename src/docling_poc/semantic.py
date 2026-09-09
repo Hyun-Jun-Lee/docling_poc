@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import base64
+import mimetypes
 import re
-from collections.abc import Mapping, Sequence
+import tempfile
+from collections.abc import Callable, Mapping, Sequence
+from pathlib import Path
 from typing import Any
+
+from docling_poc.docling_raw import conversion_error_details, conversion_status
 
 TOP_LEVEL_HEADING = re.compile(r"^(?P<marker>\d+)\.\s+(?P<title>.+)$")
 SUB_LEVEL_HEADING = re.compile(
@@ -14,14 +20,25 @@ SUB_LEVEL_HEADING = re.compile(
 LIST_ITEM = re.compile(r"^\((?P<marker>\d+)\)\s*(?P<text>.+)$")
 CIRCLED_LIST_ITEM = re.compile(r"^(?P<marker>[①-⑳])\s*(?P<text>.+)$")
 BULLET_LIST_ITEM = re.compile(r"^(?P<marker>[‧•])\s*(?P<text>.+)$")
+PictureOcr = Callable[[Mapping[str, Any]], Mapping[str, Any]]
 
 
-def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
+def build_semantic_document(
+    document: Mapping[str, Any],
+    *,
+    ocr_pictures: bool = False,
+    picture_ocr: PictureOcr | None = None,
+) -> dict[str, Any]:
     """Convert a DoclingDocument JSON export into an ordered semantic tree.
 
     The input's ``body.children`` remains the authoritative reading order.  The
     output keeps source references so a semantic block can always be traced
-    back to its original Docling item.
+    back to its original Docling item. When ``ocr_pictures`` is true, embedded
+    ``pictures[n].image.uri`` data URIs are passed through Docling's image
+    pipeline with RapidOCR and the result is attached to each picture block.
+
+    ``picture_ocr`` is an injectable OCR function for callers that need a
+    different engine or want to test the structure without loading OCR models.
     """
     body = _require_mapping(document, "body")
     children = body.get("children")
@@ -37,12 +54,18 @@ def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
         "children": [],
     }
     stack: list[dict[str, Any]] = [root]
+    active_picture_ocr = picture_ocr if ocr_pictures else None
+    if ocr_pictures and active_picture_ocr is None:
+        # The current Docling image pipeline does not expose a public shutdown
+        # method. Reusing one converter for several images can abort during its
+        # native teardown, so each picture deliberately gets a fresh converter.
+        active_picture_ocr = ocr_picture
 
     for child in children:
         if not isinstance(child, Mapping) or not isinstance(child.get("$ref"), str):
             raise TypeError("Each Docling body child must contain a string $ref.")
 
-        block = _flatten_body_item(document, child["$ref"])
+        block = _flatten_body_item(document, child["$ref"], picture_ocr=active_picture_ocr)
         if block is None:
             continue
 
@@ -133,7 +156,99 @@ def matches_semantic_rules(document: Mapping[str, Any]) -> bool:
     return False
 
 
-def _flatten_body_item(document: Mapping[str, Any], ref: str) -> dict[str, Any] | None:
+def ocr_picture(picture: Mapping[str, Any], *, converter: Any | None = None) -> dict[str, str]:
+    """OCR a Docling picture that stores its image as a base64 data URI.
+
+    The decoded image is temporary: the semantic result retains only the OCR
+    text and the original ``source_refs``, avoiding a duplicate base64 payload.
+    """
+    image = _require_mapping(picture, "image")
+    mimetype = image.get("mimetype")
+    uri = image.get("uri")
+    if not isinstance(mimetype, str) or not mimetype.startswith("image/"):
+        raise TypeError("Docling picture image.mimetype must be an image MIME type.")
+    if not isinstance(uri, str):
+        raise TypeError("Docling picture image.uri must be a base64 data URI.")
+
+    payload = _decode_image_data_uri(uri, mimetype)
+    extension = mimetypes.guess_extension(mimetype) or ".img"
+    converter = converter or _build_image_ocr_converter()
+
+    with tempfile.TemporaryDirectory(prefix="docling-poc-picture-ocr-") as temp_dir:
+        image_path = Path(temp_dir) / f"picture{extension}"
+        image_path.write_bytes(payload)
+        result = converter.convert(image_path, raises_on_error=False)
+
+    if conversion_status(result) not in {"success", "partial_success"}:
+        raise RuntimeError(f"Picture OCR failed: {_conversion_failure_message(result)}")
+
+    converted_document = getattr(result, "document", None)
+    if converted_document is None:
+        raise RuntimeError("Picture OCR failed: Docling returned no document.")
+    export_to_markdown = getattr(converted_document, "export_to_markdown", None)
+    if not callable(export_to_markdown):
+        raise TypeError("Picture OCR result cannot be exported to Markdown.")
+
+    text = str(export_to_markdown()).strip()
+    if text.startswith("<!-- image -->"):
+        text = text.removeprefix("<!-- image -->").strip()
+
+    return {
+        "status": "completed",
+        "engine": "rapidocr",
+        "text": text,
+    }
+
+
+def _build_image_ocr_converter() -> Any:
+    try:
+        from docling.datamodel.base_models import InputFormat
+        from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
+        from docling.document_converter import DocumentConverter, ImageFormatOption
+    except ImportError as exc:
+        raise RuntimeError(
+            "docling is required for picture OCR. Install the project dependencies first."
+        ) from exc
+
+    pipeline_options = PdfPipelineOptions(
+        do_ocr=True,
+        ocr_options=RapidOcrOptions(lang=["korean"], backend="onnxruntime"),
+    )
+    return DocumentConverter(
+        allowed_formats=[InputFormat.IMAGE],
+        format_options={
+            InputFormat.IMAGE: ImageFormatOption(pipeline_options=pipeline_options),
+        },
+    )
+
+
+def _decode_image_data_uri(uri: str, mimetype: str) -> bytes:
+    header, separator, encoded = uri.partition(",")
+    if not separator:
+        raise ValueError("Docling picture image.uri is not a valid data URI.")
+
+    match = re.fullmatch(r"data:(image/[A-Za-z0-9.+-]+);base64", header)
+    if match is None:
+        raise ValueError("Docling picture image.uri must be a base64 image data URI.")
+    if match[1].lower() != mimetype.lower():
+        raise ValueError("Docling picture image.uri MIME type does not match image.mimetype.")
+
+    try:
+        return base64.b64decode(encoded, validate=True)
+    except ValueError as exc:
+        raise ValueError("Docling picture image.uri contains invalid base64 data.") from exc
+
+
+def _conversion_failure_message(result: object) -> str:
+    return conversion_error_details(result) or "no error details"
+
+
+def _flatten_body_item(
+    document: Mapping[str, Any],
+    ref: str,
+    *,
+    picture_ocr: PictureOcr | None = None,
+) -> dict[str, Any] | None:
     kind, item = _dereference(document, ref)
 
     if kind == "texts":
@@ -159,12 +274,22 @@ def _flatten_body_item(document: Mapping[str, Any], ref: str) -> dict[str, Any] 
         return {"type": "table", "source_refs": [ref], "data": dict(data)}
 
     if kind == "pictures":
-        return {
+        block: dict[str, Any] = {
             "type": "picture",
             "source_refs": [ref],
             "captions": item.get("captions", []),
             "references": item.get("references", []),
         }
+        if picture_ocr is not None:
+            try:
+                ocr = picture_ocr(item)
+                if not isinstance(ocr, Mapping):
+                    raise TypeError("Picture OCR must return an object.")
+            except (OSError, RuntimeError, TypeError, ValueError) as exc:
+                block["ocr"] = {"status": "failed", "error": str(exc)}
+            else:
+                block["ocr"] = dict(ocr)
+        return block
 
     if kind in {"form_items", "key_value_items"}:
         return {

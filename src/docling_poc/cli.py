@@ -7,6 +7,8 @@ import tempfile
 from pathlib import Path
 
 from docling_poc.docling_raw import (
+    conversion_error_details,
+    conversion_status,
     convert_document,
     create_hierarchical_chunks,
     export_document,
@@ -29,24 +31,33 @@ def main() -> None:
         default="json",
         help="Output format.",
     )
+    parser.add_argument(
+        "--ocr-pictures",
+        action="store_true",
+        help="OCR embedded picture data URIs with RapidOCR (semantic-json only).",
+    )
     parser.add_argument("--max-num-pages", type=int, help="Maximum pages or slides to process.")
     parser.add_argument("--max-file-size", type=int, help="Maximum input size in bytes.")
     args = parser.parse_args()
     if args.out and args.out.resolve() == args.source.resolve():
         parser.error("--out must be different from the source document path.")
+    if args.ocr_pictures and args.to != "semantic-json":
+        parser.error("--ocr-pictures can only be used with --to semantic-json.")
 
     if args.to in {"semantic-json", "semantic-rules"}:
         try:
+            if args.max_file_size is not None and args.source.stat().st_size > args.max_file_size:
+                raise ValueError(f"Input file exceeds --max-file-size ({args.max_file_size} bytes).")
             with args.source.open(encoding="utf-8") as source_file:
                 document_json = json.load(source_file)
             if not isinstance(document_json, dict):
                 raise TypeError("Docling JSON root must be an object.")
             exported = (
-                build_semantic_document(document_json)
+                build_semantic_document(document_json, ocr_pictures=args.ocr_pictures)
                 if args.to == "semantic-json"
                 else matches_semantic_rules(document_json)
             )
-        except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        except (OSError, RuntimeError, TypeError, ValueError, json.JSONDecodeError) as exc:
             action = "build semantic JSON" if args.to == "semantic-json" else "evaluate semantic rules"
             parser.error(f"Could not {action}: {exc}")
     else:
@@ -55,7 +66,7 @@ def main() -> None:
             max_num_pages=args.max_num_pages,
             max_file_size=args.max_file_size,
         )
-        if _conversion_status(result) not in {"success", "partial_success"}:
+        if conversion_status(result) not in {"success", "partial_success"}:
             parser.error(_conversion_failure_message(result))
 
         if args.to == "hierarchical-chunks":
@@ -80,19 +91,9 @@ def main() -> None:
         print(payload)
 
 
-def _conversion_status(result: object) -> str:
-    status = getattr(result, "status", "unknown")
-    return str(getattr(status, "value", status)).lower()
-
-
 def _conversion_failure_message(result: object) -> str:
-    errors = getattr(result, "errors", None) or []
-    messages = [
-        str(getattr(error, "error_message", getattr(error, "message", error)))
-        for error in errors
-    ]
-    details = "; ".join(message for message in messages if message)
-    return f"Docling conversion failed ({_conversion_status(result)}): {details or 'no error details'}"
+    details = conversion_error_details(result)
+    return f"Docling conversion failed ({conversion_status(result)}): {details or 'no error details'}"
 
 
 if __name__ == "__main__":

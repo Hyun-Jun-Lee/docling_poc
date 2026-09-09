@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import base64
 import json
 import sys
+from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from docling_poc.cli import main
-from docling_poc.semantic import build_semantic_document, matches_semantic_rules
+from docling_poc.semantic import build_semantic_document, matches_semantic_rules, ocr_picture
 
 
 def test_build_semantic_document_groups_sections_lists_and_tables() -> None:
@@ -130,6 +133,282 @@ def test_semantic_rules_cli_outputs_a_boolean(tmp_path, monkeypatch) -> None:
     main()
 
     assert json.loads(output.read_text(encoding="utf-8")) is True
+
+
+def test_semantic_json_cli_can_enable_picture_ocr(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "input.docling.json"
+    output = tmp_path / "output.semantic.json"
+    source.write_text(
+        json.dumps(
+            {
+                "body": {"children": []},
+                "texts": [],
+                "groups": [],
+                "tables": [],
+                "pictures": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    observed: dict[str, object] = {}
+
+    def fake_build(document: dict[str, object], *, ocr_pictures: bool = False) -> dict[str, bool]:
+        observed["document"] = document
+        observed["ocr_pictures"] = ocr_pictures
+        return {"ocr_pictures": ocr_pictures}
+
+    monkeypatch.setattr("docling_poc.cli.build_semantic_document", fake_build)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "docling-poc",
+            str(source),
+            "--to",
+            "semantic-json",
+            "--ocr-pictures",
+            "--out",
+            str(output),
+        ],
+    )
+
+    main()
+
+    assert observed["ocr_pictures"] is True
+    assert json.loads(output.read_text(encoding="utf-8")) == {"ocr_pictures": True}
+
+
+def test_semantic_json_cli_reports_picture_ocr_errors(tmp_path, monkeypatch, capsys) -> None:
+    source = tmp_path / "input.docling.json"
+    source.write_text(
+        json.dumps(
+            {
+                "body": {"children": []},
+                "texts": [],
+                "groups": [],
+                "tables": [],
+                "pictures": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_build(document: dict[str, object], *, ocr_pictures: bool = False) -> None:
+        raise RuntimeError("Picture OCR failed: no error details")
+
+    monkeypatch.setattr("docling_poc.cli.build_semantic_document", fail_build)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", "semantic-json", "--ocr-pictures"],
+    )
+
+    with pytest.raises(SystemExit):
+        main()
+
+    assert "Could not build semantic JSON: Picture OCR failed: no error details" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("output_format", ["json", "semantic-rules"])
+def test_cli_rejects_picture_ocr_outside_semantic_json(output_format, tmp_path, monkeypatch, capsys) -> None:
+    source = tmp_path / "input.docling.json"
+    source.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", output_format, "--ocr-pictures"],
+    )
+
+    with pytest.raises(SystemExit):
+        main()
+
+    assert "--ocr-pictures can only be used with --to semantic-json." in capsys.readouterr().err
+
+
+def test_semantic_json_cli_honors_max_file_size(tmp_path, monkeypatch, capsys) -> None:
+    source = tmp_path / "input.docling.json"
+    source.write_text('{"body":{"children":[]}}', encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", "semantic-json", "--max-file-size", "1"],
+    )
+
+    with pytest.raises(SystemExit):
+        main()
+
+    assert "Input file exceeds --max-file-size (1 bytes)." in capsys.readouterr().err
+
+
+def test_ocr_picture_decodes_docling_image_data_uri_for_rapidocr() -> None:
+    converted: dict[str, object] = {}
+
+    class FakeConverter:
+        def convert(self, source: object, *, raises_on_error: bool) -> object:
+            assert isinstance(source, Path)
+            converted["bytes"] = source.read_bytes()
+            converted["suffix"] = source.suffix
+            converted["raises_on_error"] = raises_on_error
+            return SimpleNamespace(
+                status="success",
+                document=SimpleNamespace(export_to_markdown=lambda: "<!-- image -->\n\n이미지 OCR 결과"),
+            )
+
+    picture = {
+        "image": {
+            "mimetype": "image/png",
+            "uri": "data:image/png;base64," + base64.b64encode(b"png bytes").decode(),
+        }
+    }
+
+    ocr = ocr_picture(picture, converter=FakeConverter())
+
+    assert converted == {
+        "bytes": b"png bytes",
+        "suffix": ".png",
+        "raises_on_error": False,
+    }
+    assert ocr == {
+        "status": "completed",
+        "engine": "rapidocr",
+        "text": "이미지 OCR 결과",
+    }
+
+
+@pytest.mark.parametrize(
+    ("picture", "error"),
+    [
+        ({"image": {"mimetype": "text/plain", "uri": "data:text/plain;base64,WA=="}}, "MIME"),
+        ({"image": {"mimetype": "image/png"}}, "image.uri"),
+        ({"image": {"mimetype": "image/png", "uri": "not-a-data-uri"}}, "valid data URI"),
+        (
+            {"image": {"mimetype": "image/png", "uri": "data:image/jpeg;base64,WA=="}},
+            "does not match",
+        ),
+        ({"image": {"mimetype": "image/png", "uri": "data:image/png;base64,%%%"}}, "invalid base64"),
+    ],
+)
+def test_ocr_picture_rejects_invalid_data_uris(picture, error) -> None:
+    with pytest.raises((TypeError, ValueError), match=error):
+        ocr_picture(picture)
+
+
+def test_ocr_picture_reports_docling_conversion_errors() -> None:
+    class FailedConverter:
+        def convert(self, source: object, *, raises_on_error: bool) -> object:
+            return SimpleNamespace(status="failure", errors=[SimpleNamespace(error_message="OCR engine error")])
+
+    picture = {"image": {"mimetype": "image/png", "uri": "data:image/png;base64,WA=="}}
+
+    with pytest.raises(RuntimeError, match="OCR engine error"):
+        ocr_picture(picture, converter=FailedConverter())
+
+
+def test_semantic_document_adds_opt_in_picture_ocr_result() -> None:
+    document = {
+        "body": {"children": [{"$ref": "#/pictures/0"}]},
+        "texts": [],
+        "groups": [],
+        "tables": [],
+        "pictures": [
+            {
+                "self_ref": "#/pictures/0",
+                "captions": [],
+                "references": [],
+                "image": {"mimetype": "image/png", "uri": "data:image/png;base64,WA=="},
+            }
+        ],
+    }
+
+    semantic = build_semantic_document(
+        document,
+        ocr_pictures=True,
+        picture_ocr=lambda picture: {
+            "status": "completed",
+            "engine": "rapidocr",
+            "text": picture["image"]["mimetype"],
+        },
+    )
+
+    assert semantic["children"] == [
+        {
+            "type": "picture",
+            "source_refs": ["#/pictures/0"],
+            "captions": [],
+            "references": [],
+            "ocr": {
+                "status": "completed",
+                "engine": "rapidocr",
+                "text": "image/png",
+            },
+        }
+    ]
+
+
+def test_semantic_document_keeps_other_content_when_picture_ocr_fails() -> None:
+    document = {
+        "body": {"children": [{"$ref": "#/texts/0"}, {"$ref": "#/pictures/0"}]},
+        "texts": [{"text": "본문"}],
+        "groups": [],
+        "tables": [],
+        "pictures": [{"captions": [], "references": [], "image": {}}],
+    }
+
+    def fail_ocr(picture: dict[str, object]) -> dict[str, str]:
+        raise ValueError("잘못된 이미지")
+
+    semantic = build_semantic_document(document, ocr_pictures=True, picture_ocr=fail_ocr)
+
+    assert semantic["children"] == [
+        {"type": "paragraph", "text": "본문", "source_refs": ["#/texts/0"]},
+        {
+            "type": "picture",
+            "source_refs": ["#/pictures/0"],
+            "captions": [],
+            "references": [],
+            "ocr": {"status": "failed", "error": "잘못된 이미지"},
+        },
+    ]
+
+
+def test_semantic_picture_ocr_uses_a_fresh_docling_converter_per_picture(monkeypatch) -> None:
+    created_converters: list[object] = []
+
+    class FakeConverter:
+        def convert(self, source: object, *, raises_on_error: bool) -> object:
+            return SimpleNamespace(
+                status="success",
+                document=SimpleNamespace(export_to_markdown=lambda: "OCR 결과"),
+            )
+
+    def fake_build_converter() -> FakeConverter:
+        converter = FakeConverter()
+        created_converters.append(converter)
+        return converter
+
+    document = {
+        "body": {"children": [{"$ref": "#/pictures/0"}, {"$ref": "#/pictures/1"}]},
+        "texts": [],
+        "groups": [],
+        "tables": [],
+        "pictures": [
+            {
+                "image": {"mimetype": "image/png", "uri": "data:image/png;base64,WA=="},
+                "captions": [],
+                "references": [],
+            },
+            {
+                "image": {"mimetype": "image/png", "uri": "data:image/png;base64,WQ=="},
+                "captions": [],
+                "references": [],
+            },
+        ],
+    }
+    monkeypatch.setattr("docling_poc.semantic._build_image_ocr_converter", fake_build_converter)
+
+    build_semantic_document(document, ocr_pictures=True)
+
+    assert len(created_converters) == 2
 
 
 def test_semantic_rules_require_bold_primary_and_korean_subheading() -> None:

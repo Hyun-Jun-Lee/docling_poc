@@ -12,15 +12,20 @@ from docling_poc.docling_raw import (
     export_document,
     export_hierarchical_chunks,
 )
+from docling_poc.semantic import build_semantic_document
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Export Docling's native document representation.")
-    parser.add_argument("source", type=Path, help="PDF, PPT/PPTX, DOC/DOCX file to convert.")
+    parser = argparse.ArgumentParser(description="Export Docling document representations.")
+    parser.add_argument(
+        "source",
+        type=Path,
+        help="Source document, or a Docling JSON export when --to semantic-json is selected.",
+    )
     parser.add_argument("--out", type=Path, help="Output path. Defaults to stdout.")
     parser.add_argument(
         "--to",
-        choices=("json", "markdown", "hierarchical-chunks"),
+        choices=("json", "markdown", "hierarchical-chunks", "semantic-json"),
         default="json",
         help="Output format.",
     )
@@ -30,18 +35,28 @@ def main() -> None:
     if args.out and args.out.resolve() == args.source.resolve():
         parser.error("--out must be different from the source document path.")
 
-    result = convert_document(
-        args.source,
-        max_num_pages=args.max_num_pages,
-        max_file_size=args.max_file_size,
-    )
-    if _conversion_status(result) not in {"success", "partial_success"}:
-        parser.error(_conversion_failure_message(result))
-
-    if args.to == "hierarchical-chunks":
-        exported = export_hierarchical_chunks(create_hierarchical_chunks(result.document))
+    if args.to == "semantic-json":
+        try:
+            with args.source.open(encoding="utf-8") as source_file:
+                document_json = json.load(source_file)
+            if not isinstance(document_json, dict):
+                raise TypeError("Docling JSON root must be an object.")
+            exported = build_semantic_document(document_json)
+        except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            parser.error(f"Could not build semantic JSON: {exc}")
     else:
-        exported = export_document(result.document, output_format=args.to)
+        result = convert_document(
+            args.source,
+            max_num_pages=args.max_num_pages,
+            max_file_size=args.max_file_size,
+        )
+        if _conversion_status(result) not in {"success", "partial_success"}:
+            parser.error(_conversion_failure_message(result))
+
+        if args.to == "hierarchical-chunks":
+            exported = export_hierarchical_chunks(create_hierarchical_chunks(result.document))
+        else:
+            exported = export_document(result.document, output_format=args.to)
 
     payload = json.dumps(exported, ensure_ascii=False, indent=2) if args.to != "markdown" else exported
 

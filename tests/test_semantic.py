@@ -6,7 +6,7 @@ import sys
 import pytest
 
 from docling_poc.cli import main
-from docling_poc.semantic import build_semantic_document
+from docling_poc.semantic import build_semantic_document, matches_semantic_rules
 
 
 def test_build_semantic_document_groups_sections_lists_and_tables() -> None:
@@ -80,8 +80,11 @@ def test_semantic_json_cli_reads_a_docling_json_file(tmp_path, monkeypatch) -> N
         json.dumps(
             {
                 "origin": {"filename": "notice.docx"},
-                "body": {"children": [{"$ref": "#/texts/0"}]},
-                "texts": [{"text": "1. 모집개요", "formatting": {"bold": True}}],
+                "body": {"children": [{"$ref": "#/texts/0"}, {"$ref": "#/texts/1"}]},
+                "texts": [
+                    {"text": "1. 모집개요", "formatting": {"bold": True}},
+                    {"text": "가. 모집대상"},
+                ],
                 "groups": [],
                 "tables": [],
                 "pictures": [],
@@ -98,6 +101,62 @@ def test_semantic_json_cli_reads_a_docling_json_file(tmp_path, monkeypatch) -> N
     main()
 
     assert json.loads(output.read_text(encoding="utf-8"))["children"][0]["title"] == "모집개요"
+
+
+def test_semantic_rules_cli_outputs_a_boolean(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "input.docling.json"
+    output = tmp_path / "semantic-rules.json"
+    source.write_text(
+        json.dumps(
+            {
+                "body": {"children": [{"$ref": "#/texts/0"}, {"$ref": "#/texts/1"}]},
+                "texts": [
+                    {"text": "1. 모집개요", "formatting": {"bold": True}},
+                    {"text": "가. 모집대상"},
+                ],
+                "groups": [],
+                "tables": [],
+                "pictures": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", "semantic-rules", "--out", str(output)],
+    )
+
+    main()
+
+    assert json.loads(output.read_text(encoding="utf-8")) is True
+
+
+def test_semantic_rules_require_bold_primary_and_korean_subheading() -> None:
+    matching_document = {
+        "body": {"children": [{"$ref": "#/texts/0"}, {"$ref": "#/texts/1"}]},
+        "texts": [
+            {"text": "1. 모집개요", "formatting": {"bold": True}},
+            {"text": "가. 모집대상"},
+        ],
+        "groups": [],
+        "tables": [],
+        "pictures": [],
+    }
+    generic_document = {
+        **matching_document,
+        "texts": [
+            {"text": "1. 일반 목록", "formatting": {"bold": False}},
+            {"text": "본문 문단"},
+        ],
+    }
+
+    assert matches_semantic_rules(matching_document) is True
+    assert matches_semantic_rules(generic_document) is False
+
+    semantic = build_semantic_document(generic_document)
+    assert semantic["semantic_rules_matched"] is False
+    assert semantic["children"][0]["type"] == "paragraph"
 
 
 def test_build_semantic_document_recognizes_unbolded_outline_and_common_list_markers() -> None:
@@ -184,9 +243,15 @@ def test_build_semantic_document_preserves_nested_groups_and_native_form_items()
         "form_items": [{"self_ref": "#/form_items/0", "value": "checked"}],
     }
 
-    overview = build_semantic_document(document)["children"][0]
+    semantic = build_semantic_document(document)
 
-    assert overview["children"] == [
+    assert semantic["semantic_rules_matched"] is False
+    assert semantic["children"] == [
+        {
+            "type": "paragraph",
+            "text": "1. 모집개요",
+            "source_refs": ["#/texts/0"],
+        },
         {
             "type": "paragraph",
             "text": "중첩 그룹 본문",

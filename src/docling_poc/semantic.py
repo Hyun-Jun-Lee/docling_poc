@@ -28,10 +28,12 @@ def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(children, Sequence) or isinstance(children, (str, bytes)):
         raise TypeError("Docling JSON body.children must be an array.")
 
+    semantic_rules_matched = matches_semantic_rules(document)
     root: dict[str, Any] = {
         "schema_name": "docling_poc.semantic_document",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "origin": document.get("origin"),
+        "semantic_rules_matched": semantic_rules_matched,
         "children": [],
     }
     stack: list[dict[str, Any]] = [root]
@@ -44,7 +46,7 @@ def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
         if block is None:
             continue
 
-        heading = _detect_heading(block)
+        heading = _detect_heading(block) if semantic_rules_matched else None
         if heading is not None:
             while stack[-1].get("level", 0) >= heading["level"]:
                 stack.pop()
@@ -71,7 +73,7 @@ def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
             continue
 
         if block["type"] == "text":
-            list_item = _detect_list_item(block["text"])
+            list_item = _detect_list_item(block["text"]) if semantic_rules_matched else None
             if list_item:
                 stack[-1]["children"].append(
                     {
@@ -94,6 +96,41 @@ def build_semantic_document(document: Mapping[str, Any]) -> dict[str, Any]:
             stack[-1]["children"].append(block)
 
     return root
+
+
+def matches_semantic_rules(document: Mapping[str, Any]) -> bool:
+    """Return whether a document matches the current Korean notice outline rules.
+
+    A match requires both a bold numeric primary heading (``1. 제목``) and a
+    Korean secondary heading (``가. 제목``). This conservative gate prevents
+    the outline parser from treating ordinary numbered prose as a section.
+    """
+    body = _require_mapping(document, "body")
+    children = body.get("children")
+    if not isinstance(children, Sequence) or isinstance(children, (str, bytes)):
+        raise TypeError("Docling JSON body.children must be an array.")
+
+    has_primary_heading = False
+    has_secondary_heading = False
+
+    for child in children:
+        if not isinstance(child, Mapping) or not isinstance(child.get("$ref"), str):
+            raise TypeError("Each Docling body child must contain a string $ref.")
+
+        block = _flatten_body_item(document, child["$ref"])
+        if block is None or block["type"] != "text":
+            continue
+
+        text = block["text"]
+        formatting = block.get("formatting")
+        is_bold = isinstance(formatting, Mapping) and formatting.get("bold") is True
+        has_primary_heading |= is_bold and TOP_LEVEL_HEADING.match(text) is not None
+        has_secondary_heading |= SUB_LEVEL_HEADING.match(text) is not None
+
+        if has_primary_heading and has_secondary_heading:
+            return True
+
+    return False
 
 
 def _flatten_body_item(document: Mapping[str, Any], ref: str) -> dict[str, Any] | None:

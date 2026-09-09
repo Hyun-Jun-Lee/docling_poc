@@ -8,7 +8,7 @@ from docling_poc.docling_raw import (
     export_document,
     export_hierarchical_chunks,
 )
-from docling_poc.semantic import build_semantic_document
+from docling_poc.semantic import build_semantic_document, matches_semantic_rules
 
 __all__ = [
     "build_docling_converter",
@@ -18,4 +18,5 @@ __all__ = [
     "create_hierarchical_chunks",
     "export_document",
     "export_hierarchical_chunks",
+    "matches_semantic_rules",
 ]

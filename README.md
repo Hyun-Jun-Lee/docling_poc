@@ -20,6 +20,7 @@ docling-poc samples/deck.pptx --to markdown --out parsed/deck.md
 docling-poc samples/spec.docx --max-num-pages 10
 docling-poc samples/report.pdf --to hierarchical-chunks --out parsed/report.chunks.json
 docling-poc parsed/docx.docling.json --to semantic-json --out parsed/docx.semantic.json
+docling-poc parsed/docx.docling.json --to semantic-rules
 ```
 
 Python에서 직접 사용할 수도 있습니다.
@@ -49,5 +50,6 @@ print(chunk_json[0]["text"])
 - Markdown: DoclingDocument가 내보내는 문서 표현
 - Hierarchical chunks: Docling `HierarchicalChunker`가 생성한 `DocChunk` 배열. 각 청크는 `text`, 제목 문맥, 원본 문서 항목과 provenance metadata를 포함
 - Semantic JSON: `body.children`의 읽기 순서를 유지하며 번호 제목, 한글 하위 제목, 목록, 표를 섹션 트리로 재구성한 구조. 각 노드는 원본 Docling 항목의 `source_refs`를 보존
+- Semantic rules: 현재 한국어 공고문 규칙에 맞는지 JSON boolean으로 출력. 굵은 `1. 제목`과 `가. 제목` 형식이 함께 있어야 `true`
 
 `ConversionResult`에는 변환 상태와 오류 정보도 포함됩니다. JSON/Markdown을 확인한 뒤 서비스 요구사항에 맞춰 구조 기반 청킹, 품질 관리, 임베딩 단계를 별도 모듈로 설계합니다.

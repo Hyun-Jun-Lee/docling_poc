@@ -12,7 +12,7 @@ from docling_poc.docling_raw import (
     export_document,
     export_hierarchical_chunks,
 )
-from docling_poc.semantic import build_semantic_document
+from docling_poc.semantic import build_semantic_document, matches_semantic_rules
 
 
 def main() -> None:
@@ -20,12 +20,12 @@ def main() -> None:
     parser.add_argument(
         "source",
         type=Path,
-        help="Source document, or a Docling JSON export when --to semantic-json is selected.",
+        help="Source document, or a Docling JSON export for semantic output modes.",
     )
     parser.add_argument("--out", type=Path, help="Output path. Defaults to stdout.")
     parser.add_argument(
         "--to",
-        choices=("json", "markdown", "hierarchical-chunks", "semantic-json"),
+        choices=("json", "markdown", "hierarchical-chunks", "semantic-json", "semantic-rules"),
         default="json",
         help="Output format.",
     )
@@ -35,15 +35,20 @@ def main() -> None:
     if args.out and args.out.resolve() == args.source.resolve():
         parser.error("--out must be different from the source document path.")
 
-    if args.to == "semantic-json":
+    if args.to in {"semantic-json", "semantic-rules"}:
         try:
             with args.source.open(encoding="utf-8") as source_file:
                 document_json = json.load(source_file)
             if not isinstance(document_json, dict):
                 raise TypeError("Docling JSON root must be an object.")
-            exported = build_semantic_document(document_json)
+            exported = (
+                build_semantic_document(document_json)
+                if args.to == "semantic-json"
+                else matches_semantic_rules(document_json)
+            )
         except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
-            parser.error(f"Could not build semantic JSON: {exc}")
+            action = "build semantic JSON" if args.to == "semantic-json" else "evaluate semantic rules"
+            parser.error(f"Could not {action}: {exc}")
     else:
         result = convert_document(
             args.source,

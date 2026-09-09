@@ -36,6 +36,16 @@ def main() -> None:
         action="store_true",
         help="OCR embedded picture data URIs with RapidOCR (semantic-json only).",
     )
+    parser.add_argument(
+        "--picture-classifier",
+        action="store_true",
+        help="Classify PDF pictures with Docling's picture classifier.",
+    )
+    parser.add_argument(
+        "--picture-desc",
+        action="store_true",
+        help="Generate PDF picture descriptions with Docling's vision-language model.",
+    )
     parser.add_argument("--max-num-pages", type=int, help="Maximum pages or slides to process.")
     parser.add_argument("--max-file-size", type=int, help="Maximum input size in bytes.")
     args = parser.parse_args()
@@ -43,6 +53,10 @@ def main() -> None:
         parser.error("--out must be different from the source document path.")
     if args.ocr_pictures and args.to != "semantic-json":
         parser.error("--ocr-pictures can only be used with --to semantic-json.")
+    if (args.picture_classifier or args.picture_desc) and (
+        args.to in {"semantic-json", "semantic-rules"} or args.source.suffix.lower() != ".pdf"
+    ):
+        parser.error("--picture-classifier and --picture-desc require PDF conversion output.")
 
     if args.to in {"semantic-json", "semantic-rules"}:
         try:
@@ -65,6 +79,8 @@ def main() -> None:
             args.source,
             max_num_pages=args.max_num_pages,
             max_file_size=args.max_file_size,
+            picture_classifier=args.picture_classifier,
+            picture_desc=args.picture_desc,
         )
         if conversion_status(result) not in {"success", "partial_success"}:
             parser.error(_conversion_failure_message(result))

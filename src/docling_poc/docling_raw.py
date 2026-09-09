@@ -16,12 +16,17 @@ def convert_document(
     converter: Any | None = None,
     max_num_pages: int | None = None,
     max_file_size: int | None = None,
+    picture_classifier: bool = False,
+    picture_desc: bool = False,
 ) -> Any:
     """Return Docling's native ConversionResult for one supported document."""
     source_path = Path(source)
     _validate_supported_source(source_path)
 
-    converter = converter or build_docling_converter()
+    converter = converter or build_docling_converter(
+        picture_classifier=picture_classifier,
+        picture_desc=picture_desc,
+    )
     convert_kwargs: dict[str, Any] = {"raises_on_error": False}
     if max_num_pages is not None:
         convert_kwargs["max_num_pages"] = max_num_pages
@@ -31,7 +36,11 @@ def convert_document(
     return converter.convert(source_path, **convert_kwargs)
 
 
-def build_docling_converter() -> Any:
+def build_docling_converter(
+    *,
+    picture_classifier: bool = False,
+    picture_desc: bool = False,
+) -> Any:
     """Create a converter with Korean RapidOCR for PDF inputs."""
     try:
         from docling.datamodel.base_models import InputFormat
@@ -54,6 +63,9 @@ def build_docling_converter() -> Any:
             lang=["korean"],
             backend="onnxruntime",
         ),
+        do_picture_classification=picture_classifier,
+        do_picture_description=picture_desc,
+        generate_picture_images=picture_classifier or picture_desc,
     )
     return DocumentConverter(
         allowed_formats=allowed_formats,

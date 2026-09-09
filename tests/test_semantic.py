@@ -9,6 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from docling_poc.cli import main
+from docling_poc.docling_raw import build_docling_converter
 from docling_poc.semantic import build_semantic_document, matches_semantic_rules, ocr_picture
 
 
@@ -133,6 +134,100 @@ def test_semantic_rules_cli_outputs_a_boolean(tmp_path, monkeypatch) -> None:
     main()
 
     assert json.loads(output.read_text(encoding="utf-8")) is True
+
+
+@pytest.mark.parametrize(
+    ("cli_arguments", "expected_classifier", "expected_desc"),
+    (
+        (("--picture-classifier",), True, False),
+        (("--picture-desc",), False, True),
+        (("--picture-classifier", "--picture-desc"), True, True),
+    ),
+)
+def test_json_cli_forwards_picture_enrichment_flags_to_conversion(
+    tmp_path,
+    monkeypatch,
+    cli_arguments,
+    expected_classifier,
+    expected_desc,
+) -> None:
+    source = tmp_path / "input.pdf"
+    output = tmp_path / "output.docling.json"
+    source.write_bytes(b"%PDF-1.4")
+    observed: dict[str, object] = {}
+
+    class FakeDocument:
+        def export_to_dict(self) -> dict[str, object]:
+            return {"pictures": []}
+
+    def fake_convert(source_path, **kwargs):
+        observed["source"] = source_path
+        observed.update(kwargs)
+        return SimpleNamespace(status=SimpleNamespace(value="success"), document=FakeDocument())
+
+    monkeypatch.setattr("docling_poc.cli.convert_document", fake_convert)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "docling-poc",
+            str(source),
+            *cli_arguments,
+            "--out",
+            str(output),
+        ],
+    )
+
+    main()
+
+    assert observed["picture_classifier"] is expected_classifier
+    assert observed["picture_desc"] is expected_desc
+
+
+@pytest.mark.parametrize(
+    ("source_name", "output_format"),
+    (
+        ("input.docling.json", "semantic-json"),
+        ("input.docling.json", "semantic-rules"),
+        ("input.docx", "json"),
+    ),
+)
+def test_cli_rejects_picture_enrichment_for_non_pdf_conversion(
+    source_name, output_format, tmp_path, monkeypatch, capsys
+) -> None:
+    source = tmp_path / source_name
+    source.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", output_format, "--picture-classifier"],
+    )
+
+    with pytest.raises(SystemExit) as exc_info:
+        main()
+
+    assert exc_info.value.code == 2
+    assert "--picture-classifier and --picture-desc require PDF conversion output." in capsys.readouterr().err
+
+
+@pytest.mark.parametrize(
+    ("picture_classifier", "picture_desc"),
+    ((False, False), (True, False), (False, True), (True, True)),
+)
+def test_build_docling_converter_configures_pdf_picture_enrichment(
+    picture_classifier, picture_desc
+) -> None:
+    from docling.datamodel.base_models import InputFormat
+
+    converter = build_docling_converter(
+        picture_classifier=picture_classifier,
+        picture_desc=picture_desc,
+    )
+    pdf_options = converter.format_to_options[InputFormat.PDF].pipeline_options
+
+    assert pdf_options.do_picture_classification is picture_classifier
+    assert pdf_options.do_picture_description is picture_desc
+    assert pdf_options.generate_picture_images is (picture_classifier or picture_desc)
 
 
 def test_semantic_json_cli_can_enable_picture_ocr(tmp_path, monkeypatch) -> None:

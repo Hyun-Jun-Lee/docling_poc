@@ -19,10 +19,34 @@ docling-poc samples/report.pdf --out parsed/report.json
 docling-poc samples/deck.pptx --to markdown --out parsed/deck.md
 docling-poc samples/spec.docx --max-num-pages 10
 docling-poc samples/report.pdf --to hierarchical-chunks --out parsed/report.chunks.json
+docling-poc samples/report.pdf --picture-classifier --picture-desc --out parsed/report.enriched.json
 docling-poc parsed/docx.docling.json --to semantic-json --out parsed/docx.semantic.json
 docling-poc parsed/docx.docling.json --to semantic-json --ocr-pictures --out parsed/docx.semantic.ocr.json
 docling-poc parsed/docx.docling.json --to semantic-rules
 ```
+
+### PDF 그림 분류와 설명 추가
+
+PDF 변환에서 `--picture-classifier`와 `--picture-desc`를 지정하면 그림별 분류와 자연어 설명을 `DoclingDocument`에 추가합니다. 각각 독립적으로 사용할 수 있습니다.
+
+```bash
+# 그림 유형만 분류
+docling-poc samples/report.pdf --picture-classifier --out parsed/report.classified.json
+
+# 그림 설명만 생성
+docling-poc samples/report.pdf --picture-desc --out parsed/report.described.json
+
+# 분류와 설명을 모두 생성
+docling-poc samples/report.pdf --picture-classifier --picture-desc --out parsed/report.enriched.json
+```
+
+기본 분류 모델은 `DocumentFigureClassifier-v2.5`이고, 기본 설명 모델은 `HuggingFaceTB/SmolVLM-256M-Instruct`입니다. 첫 실행 시 필요한 모델이 자동으로 내려받아질 수 있으며, 오프라인 실행이나 초기 실행 시간을 제어하려면 미리 내려받을 수 있습니다.
+
+```bash
+docling-tools models download picture_classifier smolvlm
+```
+
+그림 분류와 설명 옵션은 PDF 표준 변환 전용입니다. `semantic-json`/`semantic-rules` 출력이나 Word·PowerPoint 입력에서는 사용할 수 없습니다. 분류 결과와 설명은 각 `PictureItem`의 메타데이터에 보존되며, JSON으로 내보낸 결과에도 포함됩니다. 그림 렌더링을 위해 해당 옵션 중 하나를 쓰면 picture image 생성도 함께 활성화됩니다.
 
 Python에서 직접 사용할 수도 있습니다.
 
@@ -34,7 +58,11 @@ from docling_poc import (
     export_hierarchical_chunks,
 )
 
-result = convert_document("samples/report.pdf")
+result = convert_document(
+    "samples/report.pdf",
+    picture_classifier=True,
+    picture_desc=True,
+)
 document_json = export_document(result.document, output_format="json")
 document_markdown = export_document(result.document, output_format="markdown")
 chunks = create_hierarchical_chunks(result.document)

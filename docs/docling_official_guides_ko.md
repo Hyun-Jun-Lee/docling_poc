@@ -285,7 +285,30 @@ PDF의 실제 텍스트 셀을 표 구조와 다시 매핑하는 과정이 열 �
 
 ### 제목 계층 복원
 
-PDF 레이아웃 모델은 섹션 제목을 찾더라도 기본적으로 그 깊이를 모두 같은 수준으로 둘 수 있다. 제목 계층 복원 기능은 PDF 북마크, 번호 체계, 글꼴 스타일을 이용해 제목 수준을 추론한다. 문서 구조 기반 청킹, 목차 생성, 화면 탐색을 제공할 계획이라면 이 기능을 평가할 가치가 있다.
+PDF 레이아웃 모델은 `section_header`를 감지할 수 있지만, 기본 설정에서는 제목의 실제 깊이를 추론하지 않는다. 따라서 제목 항목에 `level` 필드가 있더라도 별도 계층 복원을 켜지 않으면 보통 모두 level 1이다.
+
+PDF 제목 계층 복원은 기본적으로 비활성화되어 있다. 활성화하면 읽기 순서 처리 뒤에 `SectionHeaderItem.level`을 다시 계산하며, heading마다 다음 신호를 우선순위대로 적용한다.
+
+1. **PDF bookmark(문서 개요/outline)**: PDF 뷰어의 탐색 패널에 표시되는 내부 목차 메타데이터다. 제목·계층·이동 위치를 가진 저자 정의 구조이므로 가장 신뢰한다.
+2. **제목 앞 번호**: `PART`, `CHAPTER`, `1.`, `1.1`, `(a)`, `(i)` 등의 표기를 해석한다. `1.1`, `1.1.1`은 소수점 깊이만큼 하위 수준으로 판단한다.
+3. **시각적 스타일**: 앞의 두 신호가 없을 때 글자 크기를 우선 사용하고, 같은 크기 범주 안에서는 굵기, 기울임, 대소문자로 보완한다.
+
+수준은 절대값이 아니라 문서 안에서 발견된 신호를 연속된 level로 압축한 상대값이다. 예를 들어 `1. → 1.1 → 1.1.1`은 각각 level 1, 2, 3이 되고, 문서에 `PART`가 없어도 `1.`은 level 1부터 시작한다. 기본 최대 level은 6이다.
+
+```python
+from docling.datamodel.pipeline_options import (
+    HeadingHierarchyOptions,
+    PdfPipelineOptions,
+)
+
+pipeline_options = PdfPipelineOptions()
+pipeline_options.heading_hierarchy_options = HeadingHierarchyOptions(enabled=True)
+pipeline_options.generate_parsed_pages = True  # 글꼴 스타일 fallback에 필요
+```
+
+`generate_parsed_pages=True`가 없으면 bookmark와 번호 기반 추론은 가능하지만, 글꼴 스타일 기반 추론은 적용되지 않는다. 스캔 OCR PDF는 폰트 메타데이터가 없으므로 스타일 신호도 글자 크기에만 의존한다.
+
+현재 이 프로젝트의 `docling_raw.py`는 위 옵션을 설정하지 않으므로, PDF 변환 결과의 `level`을 Docling이 복원한 실제 제목 계층으로 해석하면 안 된다.
 
 ### 서비스 보호 옵션
 

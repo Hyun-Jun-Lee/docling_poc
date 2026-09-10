@@ -84,6 +84,26 @@ def export_document(document: Any, *, output_format: RawOutputFormat) -> dict[st
     raise ValueError(f"Unsupported output format: {output_format}")
 
 
+def export_conversion_result(result: Any) -> dict[str, Any]:
+    """Export one conversion with its metadata and stable DoclingDocument JSON.
+
+    ``ConversionResult.model_dump()`` includes runtime conversion metadata such
+    as status, errors, timings, and confidence.  The document itself uses
+    ``export_to_dict()`` so it retains Docling's public serialization schema.
+    """
+    model_dump = getattr(result, "model_dump", None)
+    document = getattr(result, "document", None)
+    if not callable(model_dump) or document is None:
+        raise TypeError("Conversion result cannot be exported to JSON.")
+
+    exported = model_dump(mode="json", exclude={"document"})
+    if not isinstance(exported, dict):
+        raise TypeError("Conversion result JSON must be an object.")
+
+    exported["document"] = document.export_to_dict()
+    return exported
+
+
 def conversion_status(result: object) -> str:
     """Return Docling's conversion status as a stable lower-case string."""
     status = getattr(result, "status", "unknown")

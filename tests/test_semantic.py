@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from docling_poc.cli import main
-from docling_poc.docling_raw import build_docling_converter
+from docling_poc.docling_raw import build_docling_converter, export_conversion_result
 from docling_poc.semantic import build_semantic_document, matches_semantic_rules, ocr_picture
 
 
@@ -107,6 +107,40 @@ def test_semantic_json_cli_reads_a_docling_json_file(tmp_path, monkeypatch) -> N
     assert json.loads(output.read_text(encoding="utf-8"))["children"][0]["title"] == "모집개요"
 
 
+def test_semantic_json_cli_reads_a_conversion_result_json_file(tmp_path, monkeypatch) -> None:
+    source = tmp_path / "input.conversion.json"
+    output = tmp_path / "output.semantic.json"
+    source.write_text(
+        json.dumps(
+            {
+                "status": "success",
+                "confidence": {"mean_grade": "GOOD"},
+                "document": {
+                    "origin": {"filename": "notice.docx"},
+                    "body": {"children": [{"$ref": "#/texts/0"}, {"$ref": "#/texts/1"}]},
+                    "texts": [
+                        {"text": "1. 모집개요", "formatting": {"bold": True}},
+                        {"text": "가. 모집대상"},
+                    ],
+                    "groups": [],
+                    "tables": [],
+                    "pictures": [],
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["docling-poc", str(source), "--to", "semantic-json", "--out", str(output)],
+    )
+
+    main()
+
+    assert json.loads(output.read_text(encoding="utf-8"))["children"][0]["title"] == "모집개요"
+
+
 def test_semantic_rules_cli_outputs_a_boolean(tmp_path, monkeypatch) -> None:
     source = tmp_path / "input.docling.json"
     output = tmp_path / "semantic-rules.json"
@@ -160,10 +194,19 @@ def test_json_cli_forwards_picture_enrichment_flags_to_conversion(
         def export_to_dict(self) -> dict[str, object]:
             return {"pictures": []}
 
+    class FakeResult:
+        status = SimpleNamespace(value="success")
+        document = FakeDocument()
+
+        def model_dump(self, *, mode: str, exclude: set[str]) -> dict[str, object]:
+            assert mode == "json"
+            assert exclude == {"document"}
+            return {"status": "success", "confidence": {"mean_grade": "GOOD"}}
+
     def fake_convert(source_path, **kwargs):
         observed["source"] = source_path
         observed.update(kwargs)
-        return SimpleNamespace(status=SimpleNamespace(value="success"), document=FakeDocument())
+        return FakeResult()
 
     monkeypatch.setattr("docling_poc.cli.convert_document", fake_convert)
     monkeypatch.setattr(
@@ -182,6 +225,29 @@ def test_json_cli_forwards_picture_enrichment_flags_to_conversion(
 
     assert observed["picture_classifier"] is expected_classifier
     assert observed["picture_desc"] is expected_desc
+    output_json = json.loads(output.read_text(encoding="utf-8"))
+    assert output_json["confidence"]["mean_grade"] == "GOOD"
+    assert output_json["document"] == {"pictures": []}
+
+
+def test_export_conversion_result_preserves_result_metadata_and_document() -> None:
+    class FakeDocument:
+        def export_to_dict(self) -> dict[str, object]:
+            return {"schema_name": "DoclingDocument", "texts": []}
+
+    class FakeResult:
+        document = FakeDocument()
+
+        def model_dump(self, *, mode: str, exclude: set[str]) -> dict[str, object]:
+            assert mode == "json"
+            assert exclude == {"document"}
+            return {"status": "success", "confidence": {"low_grade": "FAIR"}}
+
+    assert export_conversion_result(FakeResult()) == {
+        "status": "success",
+        "confidence": {"low_grade": "FAIR"},
+        "document": {"schema_name": "DoclingDocument", "texts": []},
+    }
 
 
 @pytest.mark.parametrize(

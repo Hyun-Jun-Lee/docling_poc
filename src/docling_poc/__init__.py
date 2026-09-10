@@ -5,6 +5,7 @@ from docling_poc.docling_raw import (
     build_hierarchical_chunker,
     convert_document,
     create_hierarchical_chunks,
+    export_conversion_result,
     export_document,
     export_hierarchical_chunks,
 )
@@ -16,6 +17,7 @@ __all__ = [
     "build_semantic_document",
     "convert_document",
     "create_hierarchical_chunks",
+    "export_conversion_result",
     "export_document",
     "export_hierarchical_chunks",
     "matches_semantic_rules",

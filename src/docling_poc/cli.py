@@ -11,6 +11,7 @@ from docling_poc.docling_raw import (
     conversion_status,
     convert_document,
     create_hierarchical_chunks,
+    export_conversion_result,
     export_document,
     export_hierarchical_chunks,
 )
@@ -87,6 +88,8 @@ def main() -> None:
 
         if args.to == "hierarchical-chunks":
             exported = export_hierarchical_chunks(create_hierarchical_chunks(result.document))
+        elif args.to == "json":
+            exported = export_conversion_result(result)
         else:
             exported = export_document(result.document, output_format=args.to)
 

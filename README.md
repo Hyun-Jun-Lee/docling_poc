@@ -2,7 +2,7 @@
 
 이 프로젝트는 PDF, PowerPoint, Word 문서를 Docling으로 변환하고, Docling이 제공하는 원본 `DoclingDocument` 구조를 직접 살펴보기 위한 최소 POC입니다.
 
-기본 JSON 출력은 `DoclingDocument.export_to_dict()` 결과이며, Markdown 출력은 `DoclingDocument.export_to_markdown()` 결과입니다. `hierarchical-chunks` 출력은 Docling이 제공하는 `HierarchicalChunker`의 원본 `DocChunk` 결과입니다. `semantic-json`은 저장된 Docling JSON의 본문 순서와 번호 체계를 바탕으로 섹션·문단·목록·표를 재구성한 파생 구조입니다.
+기본 JSON 출력은 `ConversionResult`의 변환 메타데이터와 `DoclingDocument`를 함께 담습니다. 문서 본문은 `document` 키 아래에 `DoclingDocument.export_to_dict()` 형식으로 저장되고, 루트에는 상태, 오류, 시간 측정, 신뢰도가 보존됩니다. Markdown 출력은 `DoclingDocument.export_to_markdown()` 결과입니다. `hierarchical-chunks` 출력은 Docling이 제공하는 `HierarchicalChunker`의 원본 `DocChunk` 결과입니다. `semantic-json`은 저장된 JSON의 `document` 본문 순서와 번호 체계를 바탕으로 섹션·문단·목록·표를 재구성한 파생 구조입니다.
 
 ## 설치
 
@@ -54,6 +54,7 @@ Python에서 직접 사용할 수도 있습니다.
 from docling_poc import (
     convert_document,
     create_hierarchical_chunks,
+    export_conversion_result,
     export_document,
     export_hierarchical_chunks,
 )
@@ -63,19 +64,20 @@ result = convert_document(
     picture_classifier=True,
     picture_desc=True,
 )
-document_json = export_document(result.document, output_format="json")
+conversion_json = export_conversion_result(result)
 document_markdown = export_document(result.document, output_format="markdown")
 chunks = create_hierarchical_chunks(result.document)
 chunk_json = export_hierarchical_chunks(chunks)
 
-print(document_json["texts"])
+print(conversion_json["confidence"])
+print(conversion_json["document"]["texts"])
 print(document_markdown)
 print(chunk_json[0]["text"])
 ```
 
 ## 산출물
 
-- JSON: DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조
+- JSON: `ConversionResult`의 `status`, `errors`, `timings`, `confidence`와 `document` 아래 DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조
 - Markdown: DoclingDocument가 내보내는 문서 표현
 - Hierarchical chunks: Docling `HierarchicalChunker`가 생성한 `DocChunk` 배열. 각 청크는 `text`, 제목 문맥, 원본 문서 항목과 provenance metadata를 포함
 - Semantic JSON: `body.children`의 읽기 순서를 유지하며 번호 제목, 한글 하위 제목, 목록, 표를 섹션 트리로 재구성한 구조. 각 노드는 원본 Docling 항목의 `source_refs`를 보존. `--ocr-pictures`를 지정하면 `pictures[n].image.uri`의 base64 이미지를 임시 파일로 복원해 Docling Image + RapidOCR로 인식하고, picture 노드에 OCR 텍스트를 추가한다. 사진 하나가 실패하면 해당 노드에 `ocr.status: "failed"`와 오류를 남기고 나머지 구조화는 계속한다. semantic JSON 입력에도 `--max-file-size`를 적용할 수 있다

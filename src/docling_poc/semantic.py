@@ -40,6 +40,7 @@ def build_semantic_document(
     ``picture_ocr`` is an injectable OCR function for callers that need a
     different engine or want to test the structure without loading OCR models.
     """
+    document = _docling_document(document)
     body = _require_mapping(document, "body")
     children = body.get("children")
     if not isinstance(children, Sequence) or isinstance(children, (str, bytes)):
@@ -128,6 +129,7 @@ def matches_semantic_rules(document: Mapping[str, Any]) -> bool:
     Korean secondary heading (``가. 제목``). This conservative gate prevents
     the outline parser from treating ordinary numbered prose as a section.
     """
+    document = _docling_document(document)
     body = _require_mapping(document, "body")
     children = body.get("children")
     if not isinstance(children, Sequence) or isinstance(children, (str, bytes)):
@@ -154,6 +156,14 @@ def matches_semantic_rules(document: Mapping[str, Any]) -> bool:
             return True
 
     return False
+
+
+def _docling_document(payload: Mapping[str, Any]) -> Mapping[str, Any]:
+    """Accept either a DoclingDocument export or a ConversionResult export."""
+    nested_document = payload.get("document")
+    if isinstance(nested_document, Mapping):
+        return nested_document
+    return payload
 
 
 def ocr_picture(picture: Mapping[str, Any], *, converter: Any | None = None) -> dict[str, str]:

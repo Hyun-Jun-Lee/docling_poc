@@ -296,6 +296,23 @@ def test_build_docling_converter_configures_pdf_picture_enrichment(
     assert pdf_options.generate_picture_images is (picture_classifier or picture_desc)
 
 
+def test_build_docling_converter_reads_artifacts_path_from_dotenv(tmp_path, monkeypatch) -> None:
+    from docling.datamodel.base_models import InputFormat
+
+    artifacts_path = tmp_path / "docling-models"
+    (tmp_path / ".env").write_text(
+        f"DOCLING_ARTIFACTS_PATH={artifacts_path}\n",
+        encoding="utf-8",
+    )
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("DOCLING_ARTIFACTS_PATH", raising=False)
+
+    converter = build_docling_converter()
+
+    pdf_options = converter.format_to_options[InputFormat.PDF].pipeline_options
+    assert pdf_options.artifacts_path == artifacts_path
+
+
 def test_semantic_json_cli_can_enable_picture_ocr(tmp_path, monkeypatch) -> None:
     source = tmp_path / "input.docling.json"
     output = tmp_path / "output.semantic.json"

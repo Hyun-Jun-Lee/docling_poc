@@ -120,4 +120,11 @@ docling --artifacts-path "D:\docling-models" ".\samples\input.pdf"
 3. PDF 하나를 변환해 레이아웃 요소와 표가 결과 JSON의 `texts`, `tables`, `pictures` 등에 생성되는지 확인한다.
 4. 사내 실행 시 Hugging Face 또는 PyPI에 추가 접속을 시도하지 않는지 네트워크 로그와 실행 로그로 확인한다.
 
-현재 POC의 `docling-poc` CLI는 Docling 기본 파이프라인을 사용하므로, 위 환경 변수를 설정하면 별도의 코드 변경 없이 사전 배치한 모델 경로를 사용할 수 있다.
+현재 POC의 `docling-poc` CLI는 시작 시 현재 작업 디렉터리의 `.env`를 읽고, `DOCLING_ARTIFACTS_PATH` 값을 PDF 파이프라인의 `artifacts_path`로 전달한다. 저장소의 `.env.example`을 복사해 실제 절대 경로를 설정한다.
+
+```powershell
+Copy-Item .env.example .env
+# .env의 DOCLING_ARTIFACTS_PATH를 실제 모델 루트로 변경
+```
+
+운영체제 환경 변수에 이미 값이 있으면 그 값이 `.env`보다 우선한다.

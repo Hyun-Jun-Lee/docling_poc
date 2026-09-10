@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import os
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any, Literal
 
+from dotenv import load_dotenv
+
 SUPPORTED_DOCUMENT_SUFFIXES = {".pdf", ".docx", ".doc", ".pptx", ".ppt"}
 RawOutputFormat = Literal["json", "markdown"]
+ARTIFACTS_PATH_ENV_VAR = "DOCLING_ARTIFACTS_PATH"
 
 
 def convert_document(
@@ -41,7 +45,11 @@ def build_docling_converter(
     picture_classifier: bool = False,
     picture_desc: bool = False,
 ) -> Any:
-    """Create a converter with Korean RapidOCR for PDF inputs."""
+    """Create a converter with Korean RapidOCR for PDF inputs.
+
+    ``DOCLING_ARTIFACTS_PATH`` can be set in the process environment or the
+    current working directory's ``.env`` file to use pre-downloaded models.
+    """
     try:
         from docling.datamodel.base_models import InputFormat
         from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
@@ -57,7 +65,13 @@ def build_docling_converter(
         if (input_format := getattr(InputFormat, name, None)) is not None
     ]
 
+    load_dotenv(dotenv_path=Path.cwd() / ".env", override=False)
+    artifacts_path_value = os.getenv(ARTIFACTS_PATH_ENV_VAR)
+
     pdf_options = PdfPipelineOptions(
+        artifacts_path=Path(artifacts_path_value).expanduser()
+        if artifacts_path_value
+        else None,
         do_ocr=True,
         ocr_options=RapidOcrOptions(
             lang=["korean"],

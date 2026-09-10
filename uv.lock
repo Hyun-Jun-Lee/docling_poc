@@ -355,6 +355,7 @@ source = { editable = "." }
 dependencies = [
     { name = "docling" },
     { name = "onnxruntime" },
+    { name = "python-dotenv" },
 ]
 
 [package.optional-dependencies]
@@ -368,6 +369,7 @@ requires-dist = [
     { name = "docling", specifier = ">=2.0.0" },
     { name = "onnxruntime", specifier = ">=1.29.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8.0" },
 ]
 provides-extras = ["dev"]

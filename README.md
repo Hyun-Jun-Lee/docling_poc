@@ -75,6 +75,62 @@ print(document_markdown)
 print(chunk_json[0]["text"])
 ```
 
+## Tika 비교용 PowerShell 스크립트
+
+Windows PowerShell 5.1 또는 PowerShell 7에서 아래 스크립트를 실행할 수 있습니다. 예시는 프로젝트 루트 기준이며, `-InputPath`와 `-OutputPath`에는 절대 경로 또는 현재 작업 디렉터리 기준 상대 경로를 지정합니다. 공백이 있는 경로는 따옴표로 감쌉니다.
+
+### 문서 → 본문 포함 JSON
+
+[`parse-tika.ps1`](parse-tika.ps1)은 Tika의 `--jsonRecursive`로 문서 본문과 메타데이터를 추출합니다. Java 17 이상과 Tika 4.0.0 배포본이 필요하며, 배포본은 별도로 준비해 다음 위치에 압축을 해제합니다. JAR만 옮기지 말고 `lib/` 등 배포본 전체 구조를 유지합니다.
+
+```text
+docling_poc/
+├── parse-tika.ps1
+└── tika-app-4.0.0/
+    ├── tika-app-4.0.0.jar
+    ├── lib/
+    └── ... 배포본의 나머지 파일과 폴더
+```
+
+```powershell
+.\parse-tika.ps1 `
+    -InputPath ".\samples\pdf_test_sample.pdf" `
+    -OutputPath ".\parsed\pdf.tika.json"
+
+# DOCX와 PPTX도 입력 경로만 변경해 실행
+.\parse-tika.ps1 -InputPath ".\samples\docx_test_sample.docx" -OutputPath ".\parsed\docx.tika.json"
+.\parse-tika.ps1 -InputPath ".\samples\pptx_test_sample.pptx" -OutputPath ".\parsed\pptx.tika.json"
+```
+
+스크립트는 현재 PATH에서 Java를 찾고, 찾지 못하면 프로세스·사용자·시스템의 `JAVA_HOME`과 PATH를 확인합니다. Tika 위치는 스크립트 파일이 있는 디렉터리를 기준으로 찾습니다. 현재 버전과 폴더명은 `4.0.0`으로 고정되어 있습니다.
+
+Java의 UTF-8 출력 바이트를 직접 저장하므로 PowerShell 파이프라인의 인코딩 변환으로 인한 한글 깨짐을 피합니다. 출력은 원본 문서와 내장 항목의 객체 배열이며, 원본 문서의 본문은 첫 번째 객체의 `tk:content`에 들어갑니다. 본문은 Tika 4.0.0의 기본 Markdown 형식입니다. 메타데이터만 출력하는 `--json`과 구분합니다. 진단 로그가 필요하면 실행 명령에 `-Verbose`를 추가합니다.
+
+### Tika JSON → Markdown
+
+[`tika-json-to-markdown.ps1`](tika-json-to-markdown.ps1)은 저장된 Tika JSON을 읽고 첫 번째 문서의 `tk:content`를 UTF-8 Markdown으로 저장합니다. 기존 버전의 `X-TIKA:content` 키도 지원합니다. 이 단계에서는 Java나 Tika를 실행하지 않습니다.
+
+```powershell
+.\tika-json-to-markdown.ps1 `
+    -InputPath ".\parsed\pdf.tika.json" `
+    -OutputPath ".\parsed\pdf.tika.md"
+```
+
+JSON 문자열의 `\n`이 실제 줄바꿈으로 복원되어 본문을 읽기 편해집니다. 내장 이미지·첨부파일 객체의 본문을 합치거나 이미지 파일을 따로 추출하지는 않습니다. 본문 문자열을 그대로 저장하는 스크립트이므로, HTML로 생성한 Tika JSON을 Markdown 문법으로 변환하는 기능은 없습니다. 본문 키가 없는 메타데이터 전용 JSON은 오류로 처리합니다.
+
+두 스크립트 모두 출력 폴더를 자동으로 생성하고 입력·출력이 같은 경로이면 거부합니다. 기존 출력 파일은 작업이 성공했을 때 교체하며, 원본 입력은 수정하지 않습니다.
+
+### Docling Markdown과 비교
+
+같은 PDF를 Docling Markdown으로 변환한 뒤 VS Code에서 비교할 수 있습니다.
+
+```powershell
+docling-poc ".\samples\pdf_test_sample.pdf" --to markdown --out ".\parsed\pdf.docling.md"
+code --diff ".\parsed\pdf.tika.md" ".\parsed\pdf.docling.md"
+```
+
+위 Docling 명령은 PDF를 다시 변환합니다. 현재 CLI는 저장된 Docling JSON을 Markdown으로 내보내는 모드를 제공하지 않습니다. 본문·읽기 순서는 Markdown으로 비교하고, 좌표·표 셀·원본 참조 등은 원본 JSON으로 별도 확인합니다.
+
 ## 산출물
 
 - JSON: `ConversionResult`의 `status`, `errors`, `timings`, `confidence`와 `document` 아래 DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조

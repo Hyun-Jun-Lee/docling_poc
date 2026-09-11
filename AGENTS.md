@@ -73,7 +73,7 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 
 ### OCR과 모델
 
-- PDF 기본 OCR은 `C:\Program Files\Tesseract-OCR\tesseract.exe`와 같은 폴더의 `tessdata`를 사용하는 Tesseract CLI다. 언어는 `kor`, `eng`, PSM은 3이다. `tika-config.json`과 경로·언어·PSM을 맞춘다. Tika PDF는 AUTO, 216 DPI RGB이며 두 도구의 OCR 영역 선택은 다르다. semantic 그림 OCR은 별도 RapidOCR 경로다. PDF 그림 분류 또는 설명을 활성화하면 `generate_picture_images`도 활성화한다.
+- PDF 기본 OCR은 `C:\Program Files\Tesseract-OCR\tesseract.exe`와 같은 폴더의 `tessdata`를 사용하는 Tesseract CLI다. 언어는 `kor`, `eng`, PSM은 3이다. `tika-config.json`과 경로·언어·PSM을 맞춘다. Tika PDF는 AUTO, 216 DPI RGB이며 두 도구의 OCR 영역 선택은 다르다. semantic 그림 OCR도 `build_tesseract_ocr_options()`를 통해 PDF와 동일한 Tesseract 설정을 사용한다. 성공 결과의 `ocr.engine`은 `tesseract`다. PDF 그림 분류 또는 설명을 활성화하면 `generate_picture_images`도 활성화한다.
 - `build_docling_converter()`는 현재 작업 디렉터리의 `.env`를 `override=False`로 읽는다. `DOCLING_ARTIFACTS_PATH`로 사전 다운로드한 모델 경로를 지정하며 프로세스 환경변수가 우선한다. `.env.example`을 참고하고 실제 `.env`와 개인 경로를 커밋하지 않는다.
 - semantic 그림 OCR의 `_build_image_ocr_converter()`는 별도 경로이며 현재 PDF 변환기의 `.env`/모델 경로 설정을 명시적으로 재사용하지 않는다. 양쪽에 같은 설정이 적용된다고 가정하지 않는다.
 - semantic 그림 OCR은 명시적으로 켰을 때만 수행한다. `image.uri`의 base64 이미지, MIME 일치 여부와 인코딩을 검증하고 임시 파일은 정리한다. semantic 결과에는 base64를 복제하지 않는다.

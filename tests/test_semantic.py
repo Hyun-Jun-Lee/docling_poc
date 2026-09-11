@@ -297,6 +297,39 @@ def test_build_docling_converter_configures_pdf_picture_enrichment(
     assert pdf_options.generate_picture_images is (picture_classifier or picture_desc)
 
 
+def test_build_docling_converter_enables_pipeline_timings(monkeypatch) -> None:
+    from docling.datamodel.settings import settings
+
+    monkeypatch.setattr(settings.debug, "profile_pipeline_timings", False)
+
+    build_docling_converter()
+
+    assert settings.debug.profile_pipeline_timings is True
+
+
+def test_pdf_ocr_uses_same_tesseract_configuration_as_tika() -> None:
+    from docling.datamodel.base_models import InputFormat
+    from docling.datamodel.pipeline_options import TesseractCliOcrOptions
+
+    converter = build_docling_converter()
+    pdf = converter.format_to_options[InputFormat.PDF].pipeline_options
+    ocr = pdf.ocr_options
+    config_path = Path(__file__).resolve().parents[1] / "tika-config.json"
+    parsers = json.loads(config_path.read_text(encoding="utf-8"))["parsers"]
+    tika = next(p["tesseract-ocr-parser"] for p in parsers if "tesseract-ocr-parser" in p)
+    tika_pdf = next(p["pdf-parser"] for p in parsers if "pdf-parser" in p)
+
+    assert pdf.do_ocr is True
+    assert isinstance(ocr, TesseractCliOcrOptions)
+    assert ocr.lang == ["kor", "eng"]
+    assert "+".join(ocr.lang) == tika["language"]
+    assert ocr.tesseract_cmd.replace("\\", "/") == tika["tesseractPath"] + "/tesseract.exe"
+    assert ocr.path.replace("\\", "/") == tika["tessdataPath"]
+    assert ocr.psm == int(tika["pageSegMode"]) == 3
+    assert ocr.scale * 72 == tika_pdf["ocr"]["dpi"]
+    assert tika["skipOcr"] is False
+
+
 def test_build_docling_converter_reads_artifacts_path_from_dotenv(tmp_path, monkeypatch) -> None:
     from docling.datamodel.base_models import InputFormat
 
@@ -312,6 +345,20 @@ def test_build_docling_converter_reads_artifacts_path_from_dotenv(tmp_path, monk
 
     pdf_options = converter.format_to_options[InputFormat.PDF].pipeline_options
     assert pdf_options.artifacts_path == artifacts_path
+
+
+def test_picture_ocr_uses_same_tesseract_configuration_as_pdf() -> None:
+    from docling.datamodel.base_models import InputFormat
+    from docling.datamodel.pipeline_options import TesseractCliOcrOptions
+
+    from docling_poc.semantic import _build_image_ocr_converter
+
+    pdf = build_docling_converter().format_to_options[InputFormat.PDF].pipeline_options
+    image = _build_image_ocr_converter().format_to_options[InputFormat.IMAGE].pipeline_options
+
+    assert image.do_ocr is True
+    assert isinstance(image.ocr_options, TesseractCliOcrOptions)
+    assert image.ocr_options.model_dump() == pdf.ocr_options.model_dump()
 
 
 def test_semantic_json_cli_can_enable_picture_ocr(tmp_path, monkeypatch) -> None:
@@ -419,7 +466,7 @@ def test_semantic_json_cli_honors_max_file_size(tmp_path, monkeypatch, capsys) -
     assert "Input file exceeds --max-file-size (1 bytes)." in capsys.readouterr().err
 
 
-def test_ocr_picture_decodes_docling_image_data_uri_for_rapidocr() -> None:
+def test_ocr_picture_decodes_docling_image_data_uri_for_tesseract() -> None:
     converted: dict[str, object] = {}
 
     class FakeConverter:
@@ -449,7 +496,7 @@ def test_ocr_picture_decodes_docling_image_data_uri_for_rapidocr() -> None:
     }
     assert ocr == {
         "status": "completed",
-        "engine": "rapidocr",
+        "engine": "tesseract",
         "text": "이미지 OCR 결과",
     }
 
@@ -504,7 +551,7 @@ def test_semantic_document_adds_opt_in_picture_ocr_result() -> None:
         ocr_pictures=True,
         picture_ocr=lambda picture: {
             "status": "completed",
-            "engine": "rapidocr",
+            "engine": "tesseract",
             "text": picture["image"]["mimetype"],
         },
     )
@@ -517,7 +564,7 @@ def test_semantic_document_adds_opt_in_picture_ocr_result() -> None:
             "references": [],
             "ocr": {
                 "status": "completed",
-                "engine": "rapidocr",
+                "engine": "tesseract",
                 "text": "image/png",
             },
         }

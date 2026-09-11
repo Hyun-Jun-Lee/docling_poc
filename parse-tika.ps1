@@ -31,6 +31,10 @@ try {
     if (-not (Test-Path -LiteralPath $tikaJar -PathType Leaf)) {
         throw "Tika distribution not found: $tikaJar"
     }
+    $tikaConfig = Join-Path $PSScriptRoot 'tika-config.json'
+    if (-not (Test-Path -LiteralPath $tikaConfig -PathType Leaf)) {
+        throw "Tika configuration not found: $tikaConfig"
+    }
 
     # Prefer the active shell, then discover Java installed after this shell started.
     $javaCommand = Get-Command java.exe -CommandType Application -ErrorAction SilentlyContinue |
@@ -68,6 +72,7 @@ try {
     $startInfo.WorkingDirectory = $tikaDirectory
     # Resolved Windows file paths cannot contain double quotes.
     $startInfo.Arguments = '-Dfile.encoding=UTF-8 -jar "' + $tikaJar +
+        '" --config="' + $tikaConfig +
         '" --jsonRecursive --pretty-print --encoding=UTF-8 "' + $sourcePath + '"'
     $startInfo.UseShellExecute = $false
     $startInfo.CreateNoWindow = $true

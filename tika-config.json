@@ -1,0 +1,25 @@
+{
+  "parsers": [
+    {
+      "pdf-parser": {
+        "ocr": {
+          "strategy": "AUTO",
+          "dpi": 216,
+          "imageType": "RGB"
+        }
+      }
+    },
+    {
+      "tesseract-ocr-parser": {
+        "tesseractPath": "C:/Program Files/Tesseract-OCR",
+        "tessdataPath": "C:/Program Files/Tesseract-OCR/tessdata",
+        "language": "kor+eng",
+        "pageSegMode": "3",
+        "skipOcr": false
+      }
+    },
+    {
+      "default-parser": {}
+    }
+  ]
+}

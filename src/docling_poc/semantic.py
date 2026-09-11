@@ -10,7 +10,11 @@ from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from docling_poc.docling_raw import conversion_error_details, conversion_status
+from docling_poc.docling_raw import (
+    build_tesseract_ocr_options,
+    conversion_error_details,
+    conversion_status,
+)
 
 TOP_LEVEL_HEADING = re.compile(r"^(?P<marker>\d+)\.\s+(?P<title>.+)$")
 SUB_LEVEL_HEADING = re.compile(
@@ -35,7 +39,7 @@ def build_semantic_document(
     output keeps source references so a semantic block can always be traced
     back to its original Docling item. When ``ocr_pictures`` is true, embedded
     ``pictures[n].image.uri`` data URIs are passed through Docling's image
-    pipeline with RapidOCR and the result is attached to each picture block.
+    pipeline with Tesseract and the result is attached to each picture block.
 
     ``picture_ocr`` is an injectable OCR function for callers that need a
     different engine or want to test the structure without loading OCR models.
@@ -205,7 +209,7 @@ def ocr_picture(picture: Mapping[str, Any], *, converter: Any | None = None) -> 
 
     return {
         "status": "completed",
-        "engine": "rapidocr",
+        "engine": "tesseract",
         "text": text,
     }
 
@@ -213,7 +217,7 @@ def ocr_picture(picture: Mapping[str, Any], *, converter: Any | None = None) -> 
 def _build_image_ocr_converter() -> Any:
     try:
         from docling.datamodel.base_models import InputFormat
-        from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
+        from docling.datamodel.pipeline_options import PdfPipelineOptions
         from docling.document_converter import DocumentConverter, ImageFormatOption
     except ImportError as exc:
         raise RuntimeError(
@@ -222,7 +226,7 @@ def _build_image_ocr_converter() -> Any:
 
     pipeline_options = PdfPipelineOptions(
         do_ocr=True,
-        ocr_options=RapidOcrOptions(lang=["korean"], backend="onnxruntime"),
+        ocr_options=build_tesseract_ocr_options(),
     )
     return DocumentConverter(
         allowed_formats=[InputFormat.IMAGE],

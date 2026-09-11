@@ -23,7 +23,7 @@ Tika는 `parse-tika.ps1`이 저장소의 `tika-config.json`을 자동으로 전�
 같은 Tesseract 경로·언어·PSM을 사용하고 PDF 렌더링은 216 DPI RGB로 설정합니다.
 Tika의 PDF OCR 전략은 `AUTO`이므로 텍스트가 충분한 페이지는 OCR을 생략할 수 있습니다.
 Docling과 Tika의 OCR 영역 선택 방식은 서로 다르며 모든 페이지를 강제 OCR하지 않습니다.
-저장된 JSON에 대한 `semantic-json --ocr-pictures`는 별도 RapidOCR 경로를 유지합니다.
+저장된 JSON에 대한 `semantic-json --ocr-pictures`도 같은 Tesseract 설정을 사용하며, 새 결과의 `ocr.engine`은 `tesseract`입니다. 기존 JSON 결과는 자동으로 변경되지 않습니다.
 
 ```bash
 docling-poc samples/report.pdf --out parsed/report.json
@@ -160,7 +160,7 @@ Markdown과 청크 출력에는 변환 메타데이터가 포함되지 않으므
 - JSON: `ConversionResult`의 `status`, `errors`, `timings`, `confidence`와 `document` 아래 DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조
 - Markdown: DoclingDocument가 내보내는 문서 표현
 - Hierarchical chunks: Docling `HierarchicalChunker`가 생성한 `DocChunk` 배열. 각 청크는 `text`, 제목 문맥, 원본 문서 항목과 provenance metadata를 포함
-- Semantic JSON: `body.children`의 읽기 순서를 유지하며 번호 제목, 한글 하위 제목, 목록, 표를 섹션 트리로 재구성한 구조. 각 노드는 원본 Docling 항목의 `source_refs`를 보존. `--ocr-pictures`를 지정하면 `pictures[n].image.uri`의 base64 이미지를 임시 파일로 복원해 Docling Image + RapidOCR로 인식하고, picture 노드에 OCR 텍스트를 추가한다. 사진 하나가 실패하면 해당 노드에 `ocr.status: "failed"`와 오류를 남기고 나머지 구조화는 계속한다. semantic JSON 입력에도 `--max-file-size`를 적용할 수 있다
+- Semantic JSON: `body.children`의 읽기 순서를 유지하며 번호 제목, 한글 하위 제목, 목록, 표를 섹션 트리로 재구성한 구조. 각 노드는 원본 Docling 항목의 `source_refs`를 보존. `--ocr-pictures`를 지정하면 `pictures[n].image.uri`의 base64 이미지를 임시 파일로 복원해 Docling Image + Tesseract로 인식하고, picture 노드에 OCR 텍스트를 추가한다. 사진 하나가 실패하면 해당 노드에 `ocr.status: "failed"`와 오류를 남기고 나머지 구조화는 계속한다. semantic JSON 입력에도 `--max-file-size`를 적용할 수 있다
 - Semantic rules: 현재 한국어 공고문 규칙에 맞는지 JSON boolean으로 출력. 굵은 `1. 제목`과 `가. 제목` 형식이 함께 있어야 `true`
 
 `ConversionResult`에는 변환 상태와 오류 정보도 포함됩니다. JSON/Markdown을 확인한 뒤 서비스 요구사항에 맞춰 구조 기반 청킹, 품질 관리, 임베딩 단계를 별도 모듈로 설계합니다.

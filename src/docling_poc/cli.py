@@ -35,7 +35,7 @@ def main() -> None:
     parser.add_argument(
         "--ocr-pictures",
         action="store_true",
-        help="OCR embedded picture data URIs with RapidOCR (semantic-json only).",
+        help="OCR embedded picture data URIs with Korean/English Tesseract (semantic-json only).",
     )
     parser.add_argument(
         "--picture-classifier",

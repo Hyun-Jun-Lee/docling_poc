@@ -14,6 +14,18 @@ RawOutputFormat = Literal["json", "markdown"]
 ARTIFACTS_PATH_ENV_VAR = "DOCLING_ARTIFACTS_PATH"
 
 
+def build_tesseract_ocr_options() -> Any:
+    """Use one OCR configuration for PDF conversion and embedded picture OCR."""
+    from docling.datamodel.pipeline_options import TesseractCliOcrOptions
+
+    return TesseractCliOcrOptions(
+        lang=["kor", "eng"],
+        tesseract_cmd=r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        path=r"C:\Program Files\Tesseract-OCR\tessdata",
+        psm=3,
+    )
+
+
 def convert_document(
     source: str | Path,
     *,
@@ -45,19 +57,24 @@ def build_docling_converter(
     picture_classifier: bool = False,
     picture_desc: bool = False,
 ) -> Any:
-    """Create a converter with Korean RapidOCR for PDF inputs.
+    """Create a converter with Korean/English Tesseract CLI OCR for PDF inputs.
 
     ``DOCLING_ARTIFACTS_PATH`` can be set in the process environment or the
     current working directory's ``.env`` file to use pre-downloaded models.
     """
     try:
         from docling.datamodel.base_models import InputFormat
-        from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
+        from docling.datamodel.pipeline_options import PdfPipelineOptions
+        from docling.datamodel.settings import settings
         from docling.document_converter import DocumentConverter, PdfFormatOption
     except ImportError as exc:
         raise RuntimeError(
             "docling is required for conversion. Install the project dependencies first."
         ) from exc
+
+    # Docling's process-wide profiler records seconds in ConversionResult.timings.
+    # Enable before conversion; exporting the result alone does not collect timings.
+    settings.debug.profile_pipeline_timings = True
 
     allowed_formats = [
         input_format
@@ -73,10 +90,7 @@ def build_docling_converter(
         if artifacts_path_value
         else None,
         do_ocr=True,
-        ocr_options=RapidOcrOptions(
-            lang=["korean"],
-            backend="onnxruntime",
-        ),
+        ocr_options=build_tesseract_ocr_options(),
         do_picture_classification=picture_classifier,
         do_picture_description=picture_desc,
         generate_picture_images=picture_classifier or picture_desc,

@@ -164,3 +164,9 @@ Markdown과 청크 출력에는 변환 메타데이터가 포함되지 않으므
 - Semantic rules: 현재 한국어 공고문 규칙에 맞는지 JSON boolean으로 출력. 굵은 `1. 제목`과 `가. 제목` 형식이 함께 있어야 `true`
 
 `ConversionResult`에는 변환 상태와 오류 정보도 포함됩니다. JSON/Markdown을 확인한 뒤 서비스 요구사항에 맞춰 구조 기반 청킹, 품질 관리, 임베딩 단계를 별도 모듈로 설계합니다.
+
+## Tika와 Docling 반복 비교
+
+Tesseract 기반으로 PDF/DOCX/PPTX를 각 5회 추출하고 오프라인 HTML 보고서를 생성하려면
+`./run-comparison.ps1 -OutputPath reports/sample-comparison`을 실행합니다.
+사내 입력 교체, 중단 후 재개, 측정 범위는 [비교 실행 안내](docs/comparison-guide.md)를 참고하세요.

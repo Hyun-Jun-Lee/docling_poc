@@ -12,6 +12,8 @@ PDF·Word·PowerPoint를 Docling으로 변환하고 원본 구조를 확인하�
 - `src/docling_poc/semantic.py`: JSON 참조 해석, 제목·목록·표·그림의 semantic 트리 구성, 선택적 그림 OCR.
 - `src/docling_poc/__init__.py`: 공개 Python API와 `__all__`.
 - `tests/test_semantic.py`: semantic 구조뿐 아니라 CLI, 원본 JSON 내보내기, PDF 옵션과 모델 경로도 검증한다.
+- `comparison.py`·`benchmark_worker.py`: 도구별 새 프로세스에서 Tika/Docling을 순차 반복 측정한다. `run-comparison.ps1`이 Windows 진입점이다.
+- `comparison_data.py`·`comparison_report.py`: 저장된 결과의 모든 반복쌍을 비교하고 외부 리소스 없는 HTML을 만든다. 실행 방법과 지표 범위는 `docs/comparison-guide.md`, 회귀 테스트는 `tests/test_comparison.py`에 있다.
 - `samples/`: 실제 입력 문서. `parsed/`: 기존 변환 결과. 검증 목적으로 기존 파일을 덮어쓰지 말고 별도 임시 경로를 사용한다.
 - `docs/`: 기술 조사와 확장 설계. 특히 `semantic_chunking_architecture_ko.md`와 `AI_READY_DATA_project_context (1).md`는 후속 구조화·Domain Mapping 작업 시 참고한다. 설계 문서의 기능을 이미 구현된 것으로 취급하지 않는다.
 
@@ -82,6 +84,10 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 - Docling의 무거운 import와 모델 초기화는 해당 기능을 실행할 때 수행하는 구조를 유지한다. 실제 변환·OCR·그림 설명은 모델 다운로드와 상당한 실행 시간이 필요할 수 있으므로 단위 테스트와 구분한다.
 
 ## 변경과 검증 원칙
+
+- 반복 비교에서 전체 시간(프로세스 시작~출력 저장·종료)과 도구 내부 시간을 분리한다. Tika 루트 parse time에 하위 리소스 시간을 더하지 않는다. 정답 데이터 없는 텍스트 차이율을 정확도라고 표기하지 않는다.
+- 비교 실행은 기본 도구별 5회, 순차 실행과 순서 교대다. 텍스트·구조와 좌표·신뢰도를 분리하며 실패를 일치로 취급하지 않는다. Tesseract 설정이 같아도 OCR 영역 선택과 Office 추출 경로가 같다고 설명하지 않는다.
+- `reports/`와 `tmp/`는 Git 제외 대상이다. 사내 입력 복사본과 추출 전문이 포함된 결과를 샘플 산출물로 착각해 커밋하지 않는다. 공개 샘플 산출물도 명시적으로 선택한다.
 
 - 기존의 작은 함수, 타입 힌트, `pathlib.Path`, `Mapping` 기반 처리를 따른다. Ruff 설정은 Python 3.11, 줄 길이 100이다. 무관한 전체 파일 재포맷은 피한다.
 - CLI는 인자·입출력 조정에 집중하고, 변환 로직은 `docling_raw.py`, 파생 구조화는 `semantic.py`에 둔다. 공개 API를 바꾸면 `__init__.py`와 README 예제도 확인한다.

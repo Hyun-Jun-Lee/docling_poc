@@ -73,6 +73,9 @@ def docling_snapshot(raw):
         page = [p["page_no"] for p in prov]
         core = {"kind": label, "layer": layer, "depth": depth,
                 "page": page, "text": item.get("text", "")}
+        for name in ("level", "marker", "enumerated"):
+            if name in item:
+                core[name] = item[name]
         if item.get("formatting"):
             core["formatting"] = item["formatting"]
         geo = {"prov": [{"bbox": p.get("bbox"), "charspan": p.get("charspan")}
@@ -108,6 +111,7 @@ def docling_snapshot(raw):
             if ref not in visited:
                 visit(ref, "unattached", 0, set())
     return normalized({
+        "schema_version": 2,
         "text": "\n".join(b["text"] for b in blocks if b["text"]), "blocks": blocks,
         "geometry": geometry, "scores": raw.get("confidence", {}),
         "counts": dict(Counter(b["kind"] for b in blocks)),

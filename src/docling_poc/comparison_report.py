@@ -14,6 +14,8 @@ from xml.etree import ElementTree
 
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import edit_distance, stability
+from docling_poc.comparison_review import REVIEW_CSS, review_html, review_script
+from docling_poc.comparison_structure import load_structure
 
 CSS = """
 :root{color-scheme:light;font-family:'Segoe UI','Malgun Gothic',sans-serif;color:#1d2939;
@@ -151,11 +153,11 @@ def generate(output: Path):
     parsers = manifest['settings'].get('tika_config', {}).get('parsers', [])
     tika_ocr = next((p['tesseract-ocr-parser'] for p in parsers
                      if 'tesseract-ocr-parser' in p), {})
-    analysis = {'schema_version': 1, 'documents': []}
+    analysis = {'schema_version': 2, 'documents': []}
     summary_rows = []
     parts = ['<!doctype html><html lang="ko"><meta charset="utf-8">',
              '<meta name="viewport" content="width=device-width,initial-scale=1">',
-             '<title>Tika · Docling 추출 비교</title>', f'<style>{CSS}</style><body>',
+             '<title>Tika · Docling 추출 비교</title>', f'<style>{CSS}{REVIEW_CSS}</style><body>',
              '<header><p class="muted">DOCUMENT EXTRACTION · REPRODUCIBLE BENCHMARK</p>',
              '<h1>Tika · Docling 추출 비교</h1>',
              (f'<p>{esc(manifest["created"])} · 문서 {len(manifest["documents"])}개 · '
@@ -182,8 +184,11 @@ def generate(output: Path):
             profile = {'원본 특성 확인 오류': str(exc)}
         doc_result['source_profile'] = profile
         snapshots = {}
+        structures = {}
         for tool in ('tika', 'docling'):
             runs = sorted(doc['runs'][tool], key=lambda r: r['number'])
+            structures[tool] = [load_structure(output, doc, tool, run) for run in runs
+                                if run['status'] in {'success', 'partial_success'}]
             valid, snaps = [], []
             for run in runs:
                 path = output / run['path'] / 'snapshot.json'
@@ -212,6 +217,8 @@ def generate(output: Path):
             verification = (f'전체 {pair_count}개 비교쌍에서 텍스트·구조 일치'
                             if pair_count and result['equal_pairs'] == pair_count
                             else f'{pair_count}개 비교쌍 중 {result["equal_pairs"]}쌍에서 텍스트·구조 일치')
+            if any(s.get('schema_version', 1) < 2 for s in snaps) and tool == 'docling':
+                verification += ' (과거 스냅샷: 제목 수준·목록 속성 검증 범위 제한)'
             summary_rows.append([
                 esc(doc['name']), tool.upper(), f'{success}/{repeat}',
                 statistics_text(runs, 'total_seconds'),
@@ -247,6 +254,8 @@ def generate(output: Path):
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')
         parts.append('</div>')
+        doc_result['structure_review'] = structures
+        parts.append(review_html(doc, structures))
         cross = []
         distances = {}
         for (ra, a), (rb, b) in itertools.product(zip(*snapshots['tika']),
@@ -261,10 +270,11 @@ def generate(output: Path):
         doc_result['cross_tool_text'] = cross
         parts.append('</section>')
         analysis['documents'].append(doc_result)
-    parts.append(TOGGLE_SCRIPT + '</body></html>')
+    parts.append(TOGGLE_SCRIPT.replace('</script>', review_script() + '\n</script>')
+                 + '</body></html>')
     write_json(output / 'analysis.json', analysis)
     summary = '<section><h2>측정 결과</h2>' + table(
-        ['문서', '도구', '완전 성공', '전체 소요시간', '내부 파싱 시간', '텍스트·구조 반복 결과', '고유 결과 수'],
+        ['문서', '도구', '완전 성공', '전체 소요시간', '내부 파싱 시간', '동일 도구의 반복 일관성', '고유 결과 수'],
         summary_rows) + '</section>'
     (output / 'index.html').write_text('\n'.join(parts).replace('<!--SUMMARY-->', summary),
                                      encoding='utf-8')

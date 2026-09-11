@@ -14,6 +14,17 @@ pip install -e ".[dev]"
 
 ## 사용
 
+PDF 기본 OCR은 Windows의 `C:\Program Files\Tesseract-OCR\tesseract.exe`를
+사용하며, 같은 설치 폴더의 `tessdata`에서 `kor`·`eng` 모델을 읽습니다.
+페이지 분할 모드는 PSM 3입니다. `DOCLING_ARTIFACTS_PATH`는 기존처럼
+layout·TableFormer·그림 분류 등 Docling 모델 경로로 사용합니다.
+
+Tika는 `parse-tika.ps1`이 저장소의 `tika-config.json`을 자동으로 전달합니다.
+같은 Tesseract 경로·언어·PSM을 사용하고 PDF 렌더링은 216 DPI RGB로 설정합니다.
+Tika의 PDF OCR 전략은 `AUTO`이므로 텍스트가 충분한 페이지는 OCR을 생략할 수 있습니다.
+Docling과 Tika의 OCR 영역 선택 방식은 서로 다르며 모든 페이지를 강제 OCR하지 않습니다.
+저장된 JSON에 대한 `semantic-json --ocr-pictures`는 별도 RapidOCR 경로를 유지합니다.
+
 ```bash
 docling-poc samples/report.pdf --out parsed/report.json
 docling-poc samples/deck.pptx --to markdown --out parsed/deck.md
@@ -132,6 +143,19 @@ code --diff ".\parsed\pdf.tika.md" ".\parsed\pdf.docling.md"
 위 Docling 명령은 PDF를 다시 변환합니다. 현재 CLI는 저장된 Docling JSON을 Markdown으로 내보내는 모드를 제공하지 않습니다. 본문·읽기 순서는 Markdown으로 비교하고, 좌표·표 셀·원본 참조 등은 원본 JSON으로 별도 확인합니다.
 
 ## 산출물
+
+### 변환 시간
+
+기본 변환기를 만들 때 Docling의 프로세스 전역 설정인
+`settings.debug.profile_pipeline_timings = True`를 활성화합니다. 이후 새로 변환한
+기본 JSON에는 `timings` 아래에 Docling이 계측한 단계별 `times`(초)가 저장됩니다.
+기존 JSON의 빈 `timings`는 다시 변환해야 채워집니다. 외부에서 `converter`를 직접
+주입하는 경우에는 호출자가 프로파일링 설정을 관리합니다.
+
+`timings`는 명령 실행부터 파일 저장 완료까지의 전체 시간이 아닙니다. 단계별 시간이
+중첩되거나 병렬로 측정될 수 있으므로 전부 더해 총 소요시간으로 사용하지 않습니다.
+Markdown과 청크 출력에는 변환 메타데이터가 포함되지 않으므로 시간 비교 시 기본 JSON을
+보관하세요. 저장된 JSON의 semantic 변환은 별도 처리이며 이 계측 대상이 아닙니다.
 
 - JSON: `ConversionResult`의 `status`, `errors`, `timings`, `confidence`와 `document` 아래 DoclingDocument의 `texts`, `tables`, `pictures`, `body`, `furniture`, `groups`, `pages`, provenance, bbox 등 원본 구조
 - Markdown: DoclingDocument가 내보내는 문서 표현

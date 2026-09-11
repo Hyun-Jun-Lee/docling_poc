@@ -292,6 +292,7 @@ def test_build_docling_converter_configures_pdf_picture_enrichment(
     pdf_options = converter.format_to_options[InputFormat.PDF].pipeline_options
 
     assert pdf_options.do_picture_classification is picture_classifier
+    assert pdf_options.picture_classification_options.engine_options.top_k == 3
     assert pdf_options.do_picture_description is picture_desc
     assert pdf_options.generate_picture_images is (picture_classifier or picture_desc)
 

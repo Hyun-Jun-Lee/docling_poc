@@ -40,7 +40,7 @@ docling-poc samples/report.pdf --picture-desc --out parsed/report.described.json
 docling-poc samples/report.pdf --picture-classifier --picture-desc --out parsed/report.enriched.json
 ```
 
-기본 분류 모델은 `DocumentFigureClassifier-v2.5`이고, 기본 설명 모델은 `HuggingFaceTB/SmolVLM-256M-Instruct`입니다. 첫 실행 시 필요한 모델이 자동으로 내려받아질 수 있으며, 오프라인 실행이나 초기 실행 시간을 제어하려면 미리 내려받을 수 있습니다.
+기본 분류 모델은 `DocumentFigureClassifier-v2.5`이며 분류 결과는 상위 3개(`top_k=3`)로 제한합니다. 기본 설명 모델은 `HuggingFaceTB/SmolVLM-256M-Instruct`입니다. 첫 실행 시 필요한 모델이 자동으로 내려받아질 수 있으며, 오프라인 실행이나 초기 실행 시간을 제어하려면 미리 내려받을 수 있습니다.
 
 ```bash
 docling-tools models download picture_classifier smolvlm

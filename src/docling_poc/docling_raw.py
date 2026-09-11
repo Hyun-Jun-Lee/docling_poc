@@ -81,6 +81,7 @@ def build_docling_converter(
         do_picture_description=picture_desc,
         generate_picture_images=picture_classifier or picture_desc,
     )
+    pdf_options.picture_classification_options.engine_options.top_k = 3
     return DocumentConverter(
         allowed_formats=allowed_formats,
         format_options={

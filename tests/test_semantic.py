@@ -323,8 +323,12 @@ def test_pdf_ocr_uses_same_tesseract_configuration_as_tika() -> None:
     assert isinstance(ocr, TesseractCliOcrOptions)
     assert ocr.lang == ["kor", "eng"]
     assert "+".join(ocr.lang) == tika["language"]
-    assert ocr.tesseract_cmd.replace("\\", "/") == tika["tesseractPath"] + "/tesseract.exe"
+    command = Path(ocr.tesseract_cmd.replace("\\", "/"))
+    assert command.as_posix() == "C:/Program Files/Tesseract-OCR/tesseract.exe"
+    assert command.parent.as_posix() == tika["tesseractPath"]
+    assert command.name in {"tesseract", "tesseract.exe"}
     assert ocr.path.replace("\\", "/") == tika["tessdataPath"]
+    assert tika["tessdataPath"] == "C:/Program Files/Tesseract-OCR/tessdata"
     assert ocr.psm == int(tika["pageSegMode"]) == 3
     assert ocr.scale * 72 == tika_pdf["ocr"]["dpi"]
     assert tika["skipOcr"] is False

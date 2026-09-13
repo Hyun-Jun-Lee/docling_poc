@@ -14,6 +14,7 @@ from xml.etree import ElementTree
 
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import edit_distance, stability
+from docling_poc.comparison_features import feature_html, load_features
 from docling_poc.comparison_review import REVIEW_CSS, review_html, review_script
 from docling_poc.comparison_structure import load_structure
 
@@ -29,6 +30,8 @@ overflow-wrap:anywhere;background:#f7f9fc;padding:16px;font-size:12px;max-height
 overflow:auto}summary{cursor:pointer;padding:10px;font-weight:600}.ok{background:#dcfce7}
 .different{background:#fef3c7}.failure{background:#fee2e2}.muted{color:#64748b}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.scroll{overflow-x:auto}
+.feature-comparison{table-layout:fixed}
+.feature-comparison th,.feature-comparison td{overflow-wrap:anywhere}
 .grid article{min-width:0}.markdown{height:70vh;overflow:auto;padding:18px;
 border:1px solid #d5dde7;border-radius:8px;overflow-wrap:anywhere;font-size:14px}
 .markdown .markdown-source{margin:0;padding:0;background:transparent;max-height:none;
@@ -109,8 +112,9 @@ def statistics_text(runs, field):
               and isinstance(r.get(field), (int, float))]
     if not values:
         return '완전 성공 측정 없음'
-    return (f'중앙값 {statistics.median(values):.3f}s · '
-            f'범위 {min(values):.3f}–{max(values):.3f}s · n={len(values)}')
+    decimals = 2 if field == 'total_seconds' else 3
+    return (f'중앙값 {statistics.median(values):.{decimals}f}s · '
+            f'범위 {min(values):.{decimals}f}–{max(values):.{decimals}f}s · n={len(values)}')
 
 
 def source_profile(path: Path):
@@ -157,7 +161,8 @@ def generate(output: Path):
     summary_rows = []
     parts = ['<!doctype html><html lang="ko"><meta charset="utf-8">',
              '<meta name="viewport" content="width=device-width,initial-scale=1">',
-             '<title>Tika · Docling 추출 비교</title>', f'<style>{CSS}{REVIEW_CSS}</style><body>',
+             '<title>Tika · Docling 추출 비교</title>',
+             f'<style>{CSS}{REVIEW_CSS}.legacy-review{{margin-top:24px}}</style><body>',
              '<header><p class="muted">DOCUMENT EXTRACTION · REPRODUCIBLE BENCHMARK</p>',
              '<h1>Tika · Docling 추출 비교</h1>',
              (f'<p>{esc(manifest["created"])} · 문서 {len(manifest["documents"])}개 · '
@@ -219,6 +224,8 @@ def generate(output: Path):
                             else f'{pair_count}개 비교쌍 중 {result["equal_pairs"]}쌍에서 텍스트·구조 일치')
             if any(s.get('schema_version', 1) < 2 for s in snaps) and tool == 'docling':
                 verification += ' (과거 스냅샷: 제목 수준·목록 속성 검증 범위 제한)'
+            if any(s.get('schema_version', 1) < 3 for s in snaps) and tool == 'docling':
+                verification += ' (과거 스냅샷: 캡션·각주 중복 및 읽기 순서 보정 미적용)'
             summary_rows.append([
                 esc(doc['name']), tool.upper(), f'{success}/{repeat}',
                 statistics_text(runs, 'total_seconds'),
@@ -254,8 +261,13 @@ def generate(output: Path):
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')
         parts.append('</div>')
+        features = {tool: load_features(output, doc['runs'][tool], tool)
+                    for tool in ('docling', 'tika')}
+        doc_result['feature_comparison'] = features
+        parts.append(feature_html(features))
         doc_result['structure_review'] = structures
-        parts.append(review_html(doc, structures))
+        parts.append('<details class="legacy-review"><summary>기존 구조 검토 도구 펼치기</summary>'
+                     + review_html(doc, structures) + '</details>')
         cross = []
         distances = {}
         for (ra, a), (rb, b) in itertools.product(zip(*snapshots['tika']),

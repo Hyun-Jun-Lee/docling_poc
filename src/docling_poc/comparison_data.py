@@ -8,7 +8,7 @@ import itertools
 import json
 import math
 import unicodedata
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, deque
 
 
 def normalized(value):
@@ -61,10 +61,13 @@ def edit_distance(a: str, b: str) -> int:
 def docling_snapshot(raw):
     doc = raw.get("document", raw)
     blocks, geometry, visited = [], [], set()
+    auxiliary = deque()
 
     def visit(ref, layer, depth, active):
         if ref in active:
             raise ValueError(f"Cyclic Docling reference: {ref}")
+        if ref in visited:
+            return
         kind, index = ref.removeprefix("#/").split("/")
         item = doc[kind][int(index)]
         visited.add(ref)
@@ -98,20 +101,26 @@ def docling_snapshot(raw):
             visit(child["$ref"], layer, depth + 1, active | {ref})
         for name in ("captions", "footnotes"):
             for child in item.get(name, []):
-                if child["$ref"] not in visited:
-                    visit(child["$ref"], layer, depth + 1, active | {ref})
+                auxiliary.append((child["$ref"], layer, depth + 1, active | {ref}))
+
+    def visit_auxiliary():
+        while auxiliary:
+            visit(*auxiliary.popleft())
 
     for layer in ("body", "furniture"):
         for child in doc.get(layer, {}).get("children", []):
             visit(child["$ref"], layer, 0, set())
+    # Caption/footnote links must not pull later body or furniture items forward.
+    visit_auxiliary()
     # Keep unattached content visible instead of silently dropping items.
     for kind in ("texts", "tables", "pictures", "key_value_items", "form_items"):
         for index in range(len(doc.get(kind, []))):
             ref = f"#/{kind}/{index}"
             if ref not in visited:
                 visit(ref, "unattached", 0, set())
+                visit_auxiliary()
     return normalized({
-        "schema_version": 2,
+        "schema_version": 3,
         "text": "\n".join(b["text"] for b in blocks if b["text"]), "blocks": blocks,
         "geometry": geometry, "scores": raw.get("confidence", {}),
         "counts": dict(Counter(b["kind"] for b in blocks)),

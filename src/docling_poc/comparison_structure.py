@@ -238,7 +238,7 @@ def load_structure(output: Path, document: Mapping, tool: str, run: Mapping) -> 
             fingerprint = hashlib.sha256(raw_text.encode("utf-8")).hexdigest()
             raw = json.loads(raw_text)
             blocks = docling_blocks(raw) if tool == "docling" else tika_blocks(raw)
-        except (ValueError, TypeError, KeyError, OSError, AttributeError) as exc:
+        except (ValueError, TypeError, KeyError, OSError, EOFError, AttributeError) as exc:
             warnings.append(f"원본 구조 분석 실패: {exc}")
     else:
         warnings.append("원본 JSON 없음: Markdown 출력만 표시하며 네이티브 구조는 확인 불가")

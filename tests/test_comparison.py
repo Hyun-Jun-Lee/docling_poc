@@ -1,6 +1,8 @@
 import json
 import random
 
+import pytest
+
 from docling_poc.comparison_data import compare_pair, docling_snapshot, edit_distance, stability
 
 
@@ -33,6 +35,72 @@ def test_snapshot_preserves_reading_order_and_separates_coordinates():
     assert delta["content_equal"] is True
     assert delta["geometry"]["changed_values"] == 1
     assert abs(delta["geometry"]["max_abs_delta"] - 0.001) < 1e-8
+
+
+@pytest.mark.parametrize('field', ['captions', 'footnotes'])
+@pytest.mark.parametrize('body_refs', [
+    ['#/pictures/0', '#/texts/0', '#/texts/1'],
+    ['#/texts/1', '#/pictures/0', '#/texts/0'],
+])
+def test_snapshot_auxiliary_references_preserve_body_order(field, body_refs):
+    raw = {'body': {'children': [{'$ref': ref} for ref in body_refs]},
+           'pictures': [{'label': 'picture', field: [{'$ref': '#/texts/1'}]}],
+           'texts': [{'label': 'text', 'text': '본문'},
+                     {'label': 'caption', 'text': '설명'}]}
+    result = docling_snapshot(raw)
+    assert result['schema_version'] == 3
+    assert [g['source_ref'] for g in result['geometry']] == body_refs
+    assert result['text'] == ('본문\n설명' if body_refs[0] == '#/pictures/0' else '설명\n본문')
+    assert result['counts'] == {'picture': 1, 'text': 1, 'caption': 1}
+    assert all(b['depth'] == 0 for b in result['blocks'])
+
+
+def test_snapshot_preserves_auxiliary_only_items_and_distinct_identical_texts():
+    raw = {'body': {'children': [{'$ref': '#/pictures/0'}, {'$ref': '#/texts/0'},
+                                 {'$ref': '#/texts/0'}]},
+           'pictures': [{'label': 'picture', 'captions': [{'$ref': '#/texts/1'},
+                                                         {'$ref': '#/texts/1'}]}],
+           'texts': [{'label': 'text', 'text': '같은 문구'},
+                     {'label': 'caption', 'text': '같은 문구',
+                      'footnotes': [{'$ref': '#/texts/2'}]},
+                     {'label': 'footnote', 'text': '각주'},
+                     {'label': 'text', 'text': '미연결'}]}
+    result = docling_snapshot(raw)
+    assert result['text'] == '같은 문구\n같은 문구\n각주\n미연결'
+    assert [g['source_ref'] for g in result['geometry']] == [
+        '#/pictures/0', '#/texts/0', '#/texts/1', '#/texts/2', '#/texts/3']
+    assert [(b['layer'], b['depth']) for b in result['blocks'][2:]] == [
+        ('body', 1), ('body', 2), ('unattached', 0)]
+
+
+def test_snapshot_prioritizes_furniture_and_nested_children_over_auxiliary_links():
+    raw = {'body': {'children': [{'$ref': '#/pictures/0'}, {'$ref': '#/groups/0'}]},
+           'furniture': {'children': [{'$ref': '#/texts/1'}]},
+           'pictures': [{'label': 'picture', 'captions': [{'$ref': '#/texts/0'}],
+                         'footnotes': [{'$ref': '#/texts/1'}]}],
+           'groups': [{'label': 'inline', 'children': [{'$ref': '#/texts/0'}]}],
+           'texts': [{'label': 'caption', 'text': '중첩 캡션'},
+                     {'label': 'footnote', 'text': '바닥글 각주'}]}
+    result = docling_snapshot(raw)
+    assert [g['source_ref'] for g in result['geometry']] == [
+        '#/pictures/0', '#/groups/0', '#/texts/0', '#/texts/1']
+    assert result['blocks'][-1]['layer'] == 'furniture'
+
+
+def test_snapshot_preserves_auxiliary_groups_of_unattached_pictures():
+    raw = {'pictures': [{'label': 'picture', 'captions': [{'$ref': '#/groups/0'}]}],
+           'groups': [{'label': 'inline', 'text': '미연결 그림 설명'}]}
+    result = docling_snapshot(raw)
+    assert result['text'] == '미연결 그림 설명'
+    assert [g['source_ref'] for g in result['geometry']] == ['#/pictures/0', '#/groups/0']
+
+
+@pytest.mark.parametrize('field', ['children', 'captions', 'footnotes'])
+def test_snapshot_rejects_cycles_before_skipping_visited_references(field):
+    raw = {'body': {'children': [{'$ref': '#/texts/0'}]},
+           'texts': [{'label': 'text', 'text': '순환', field: [{'$ref': '#/texts/0'}]}]}
+    with pytest.raises(ValueError, match='Cyclic Docling reference'):
+        docling_snapshot(raw)
 
 
 def test_normalization_does_not_hide_spaces_or_order():
@@ -68,7 +136,8 @@ def test_bitvector_distance_matches_dynamic_programming():
         assert edit_distance(a, b) == row[-1]
 
 
-def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path):
+@pytest.mark.parametrize('schema_version', [1, 2, 3])
+def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path, schema_version):
     from docling_poc.benchmark_worker import write_json
     from docling_poc.comparison_report import generate
 
@@ -77,7 +146,8 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path):
         directory = tmp_path / f'docling-{n}'
         directory.mkdir()
         write_json(directory / 'snapshot.json', {
-            **snapshot('<script>alert(1)</script>'), 'counts': {'text': 1}})
+            **snapshot('<script>alert(1)</script>'), 'counts': {'text': 1},
+            'schema_version': schema_version})
         (directory / 'content.md').write_text('<script>alert(1)</script>', encoding='utf-8')
         runs.append({'number': n, 'status': 'partial_success' if n == 4 else 'success',
                      'path': directory.name, 'total_seconds': 1})
@@ -99,6 +169,8 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path):
     assert '유효 결과 2회 동일 (예정 5회) · 부분 성공 포함' in html
     assert '5회 모두 동일' not in html
     assert '전체 1개 비교쌍에서 텍스트·구조 일치' in html
+    assert ('캡션·각주 중복 및 읽기 순서 보정 미적용' in html) == (schema_version < 3)
+    assert ('제목 수준·목록 속성 검증 범위 제한' in html) == (schema_version < 2)
     assert 'class="markdown" id="markdown-d1-docling"' in html
     assert 'aria-controls="markdown-d1-docling"' in html
     assert 'aria-pressed="false"' in html

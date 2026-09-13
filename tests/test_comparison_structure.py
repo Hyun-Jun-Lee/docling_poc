@@ -4,7 +4,7 @@ from copy import deepcopy
 
 import pytest
 
-from docling_poc.comparison_data import compare_pair, docling_snapshot
+from docling_poc.comparison_data import compare_pair, docling_snapshot, tika_snapshot
 from docling_poc.comparison_structure import (
     docling_blocks,
     load_structure,
@@ -147,3 +147,50 @@ def test_review_payload_escapes_document_content():
     assert '<script>evil()' not in html
     assert '&lt;/textarea&gt;' in html
     assert '검토 JSON 내보내기' in html
+
+
+@pytest.mark.parametrize('tool', ['docling', 'tika'])
+@pytest.mark.parametrize('has_markdown', [True, False])
+def test_report_isolates_truncated_gzip_and_continues_other_documents(tmp_path, tool, has_markdown):
+    from docling_poc.benchmark_worker import write_json
+    from docling_poc.comparison_report import generate
+
+    raw = document() if tool == 'docling' else [{'tk:content': '# 정상 제목'}]
+    snapshot = docling_snapshot(raw) if tool == 'docling' else tika_snapshot(raw)
+    compressed = gzip.compress(json.dumps(raw, ensure_ascii=False).encode('utf-8'))
+    truncated = compressed[:-8]  # Missing gzip trailer raises EOFError during reading.
+    documents = []
+    for identifier, payload in [('broken', truncated), ('healthy', compressed)]:
+        directory = tmp_path / identifier
+        directory.mkdir()
+        (directory / 'raw.json.gz').write_bytes(payload)
+        write_json(directory / 'snapshot.json', snapshot)
+        if has_markdown:
+            (directory / 'content.md').write_text('# 대체 제목', encoding='utf-8')
+        runs = {'docling': [], 'tika': []}
+        runs[tool] = [{'number': 1, 'status': 'success', 'path': identifier}]
+        documents.append({'id': identifier, 'name': f'{identifier}.docx',
+                          'source': f'{identifier}/input.docx', 'runs': runs})
+    write_json(tmp_path / 'manifest.json', {
+        'created': 'test', 'settings': {'repeat': 1}, 'documents': documents})
+
+    analysis = generate(tmp_path)
+
+    broken, healthy = analysis['documents']
+    fallback = broken['structure_review'][tool][0]
+    assert fallback['warnings'][0].startswith('원본 구조 분석 실패:')
+    assert fallback['status'] == 'success'  # Preserve the recorded extraction status.
+    assert broken['feature_comparison'][tool]['warning'].startswith('원본 JSON 확인 불가:')
+    if has_markdown:
+        assert fallback['blocks'][0]['text'] == '대체 제목'
+        assert fallback['blocks'][0]['evidence'] == 'markdown'
+        assert fallback['fingerprint']
+    else:
+        assert fallback['blocks'] == []
+    assert healthy['structure_review'][tool][0]['warnings'] == []
+    assert healthy['structure_review'][tool][0]['blocks']
+    assert healthy['feature_comparison'][tool]['warning'] == ''
+    html = (tmp_path / 'index.html').read_text(encoding='utf-8')
+    assert '원본 구조 분석 실패:' in html and 'healthy.docx' in html
+    assert (tmp_path / 'analysis.json').is_file()
+    assert (tmp_path / 'broken/raw.json.gz').read_bytes() == truncated

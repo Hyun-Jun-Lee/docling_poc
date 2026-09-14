@@ -78,7 +78,7 @@ def test_agent_card_payload_is_escaped_and_source_paths_are_not_opened(tmp_path)
 
 
 @pytest.mark.parametrize("saved_content", [json.dumps(bundle()), "invalid JSON"])
-def test_generate_omits_cards_and_keeps_feature_table_and_review(tmp_path, saved_content):
+def test_generate_omits_cards_features_and_review(tmp_path, saved_content):
     from docling_poc.comparison_report import generate
 
     doc = document()
@@ -94,8 +94,8 @@ def test_generate_omits_cards_and_keeps_feature_table_and_review(tmp_path, saved
     assert "sample-cards" not in html
     assert "카드 JSON 불러오기" not in html
     assert "지원 대상" not in html
-    assert '<details class="legacy-review">' in html
-    assert "추출 정보 비교" in html
+    assert 'legacy-review' not in html
+    assert "추출 정보 비교" not in html
     assert html.count('<script>') == 1
     assert "docling_poc.feature_cards" not in html
     assert 'fetch(' not in html

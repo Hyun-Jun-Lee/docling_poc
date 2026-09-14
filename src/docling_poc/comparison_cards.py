@@ -34,8 +34,8 @@ border:1px solid #cbd5e1;border-radius:10px;padding:20px;margin:20px 0}
 .sample-cards .card-source{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;color:#526174}
 .sample-cards .card-observation{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
 .sample-cards .card-empty{border:1px dashed #b6c3d3;border-radius:8px;padding:24px;color:#64748b}
-.legacy-review{margin-top:24px}.sample-cards .card-note{white-space:pre-wrap}
-@media print{.sample-cards .card-editor,.sample-cards .card-actions,.legacy-review{display:none}}
+.sample-cards .card-note{white-space:pre-wrap}
+@media print{.sample-cards .card-editor,.sample-cards .card-actions{display:none}}
 """
 
 

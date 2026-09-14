@@ -3,9 +3,8 @@ import json
 
 import pytest
 
-from docling_poc.comparison_features import load_features
 from docling_poc.comparison_raw import raw_result_path, read_raw_text
-from docling_poc.comparison_structure import load_structure
+from docling_poc.comparison_report import result_views
 
 
 @pytest.mark.parametrize('tool', ['docling', 'tika'])
@@ -26,18 +25,13 @@ def test_report_reads_plain_and_legacy_raw(tmp_path, tool, legacy):
         (tmp_path / 'raw.json.gz').write_bytes(b'not gzip')
     assert raw_result_path(tmp_path) == path
     assert read_raw_text(path) == content
-    run = {'path': '.', 'number': 1, 'status': 'success'}
-    features = load_features(tmp_path, [run], tool)
-    assert features['warning'] == ''
-    assert features['source_file'].endswith(name)
-    structure = load_structure(tmp_path, {'id': 'd1'}, tool, run)
-    assert structure['warnings'] == []
-    assert structure['blocks'][0]['text'] == '지원 대상'
+    html = result_views(tmp_path, tool)
+    assert '원본 JSON을 읽을 수 없습니다' not in html
+    assert name in html
+    assert '지원 대상' in html
 
 
 def test_invalid_plain_raw_does_not_fall_back_to_stale_gzip(tmp_path):
     (tmp_path / 'raw.pretty.json').write_text('{bad', encoding='utf-8')
     (tmp_path / 'raw.json.gz').write_bytes(gzip.compress(b'{}'))
-    run = {'path': '.', 'number': 1, 'status': 'success'}
-    assert load_features(tmp_path, [run], 'docling')['warning']
-    assert load_structure(tmp_path, {'id': 'd1'}, 'docling', run)['warnings']
+    assert '원본 JSON을 읽을 수 없습니다' in result_views(tmp_path, 'docling')

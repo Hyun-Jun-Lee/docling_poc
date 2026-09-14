@@ -203,7 +203,13 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path, sch
     assert '<b>내부 파싱 시간</b>' in note
     assert '반복 결과는 텍스트·구조의 동일 여부이며 정확도를 뜻하지 않습니다.' in note
     assert html.count('<h2>대용량 처리 운영 확장성</h2>') == 1
-    assert html.index('대용량 처리 운영 확장성') > html.index('기존 구조 검토 도구 펼치기')
+    assert html.index('대용량 처리 운영 확장성') > html.index('markdown-d1-docling')
+    assert '추출 정보 비교' not in html
+    assert '기존 구조 검토 도구 펼치기' not in html
+    assert 'structure-review' not in html
+    assert 'structure_review' not in result['documents'][0]
+    assert 'feature_comparison' not in result['documents'][0]
+    assert result['schema_version'] == 3
     assert '현재 단건 반복 테스트의 실측 결과가 아니며' in html
     assert '추가 검증 항목' not in html
 

@@ -35,10 +35,17 @@ def result_markdown(directory: Path) -> str:
     path = directory / 'content.md'
     parts.append(fenced(path.read_text(encoding='utf-8'), 'markdown') if path.is_file()
                  else '저장된 Markdown 파일이 없습니다.')
-    parts.append('#### JSON 원본')
+    parts.append('#### JSON 원본 발췌')
     try:
         raw = json.loads(read_raw_text(raw_result_path(directory)))
-        parts.append(fenced(json.dumps(raw, ensure_ascii=False, indent=2), 'json'))
+        pretty = json.dumps(raw, ensure_ascii=False, indent=2)
+        shown = (len(pretty) + 2) // 3
+        parts.append(
+            f'원본 JSON 앞부분 약 1/3만 표시합니다 '
+            f'({shown:,}/{len(pretty):,}자, 나머지 {len(pretty) - shown:,}자 생략). '
+            '중간에서 잘린 발췌이므로 유효한 JSON이 아닐 수 있습니다. '
+            '전체 내용은 해당 회차의 원본 JSON 파일에서 확인하세요.')
+        parts.append(fenced(pretty[:shown], 'text'))
     except (OSError, EOFError, ValueError) as exc:
         parts.append(literal(f'원본 JSON을 읽을 수 없습니다: {exc}'))
     return '\n\n'.join(parts)

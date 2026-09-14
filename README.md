@@ -235,7 +235,7 @@ PDF/DOCX/PPTX를 도구별 기본 5회씩 순차 추출하고, 회차마다 도�
 
 | 파일·폴더 | 내용 |
 |---|---|
-| `report.md` | 측정 결과, 도구별 Markdown·JSON 원문, 기능별 추출 정보, 운영 확장성 |
+| `report.md` | 측정 결과, 도구별 Markdown 원문·JSON 앞부분 약 1/3 발췌, 기능별 추출 정보, 운영 확장성 |
 | `manifest.json` | 입력·환경·설정·해시와 회차별 상태·시간 |
 | `analysis.json` | 반복쌍 비교와 추출 정보 비교. 현재 스키마 버전 4 |
 | `execution-config/` | 실제 전달한 PDF·Office용 Tika 설정 |
@@ -244,6 +244,8 @@ PDF/DOCX/PPTX를 도구별 기본 5회씩 순차 추출하고, 회차마다 도�
 | 도구별 회차 폴더 | `raw.pretty.json`, `content.md`, `snapshot.json`, `run.json`, `worker.log` |
 
 새 원본 결과는 UTF-8·한글 유지·들여쓰기 2칸의 비압축 `raw.pretty.json`으로 저장합니다. Tika의 CLI 출력 `tika-output.json`도 보존합니다. 기존 `raw.json.gz`는 읽기 호환성을 유지하며, 두 파일이 있으면 `raw.pretty.json`을 우선합니다.
+
+Markdown 보고서의 JSON은 들여쓰기한 문자열의 문자 수 기준 앞부분 약 1/3만 표시하고 생략량을 안내합니다. 잘린 발췌이므로 유효한 JSON이 아닐 수 있으며 원본 JSON 파일과 HTML의 전체 JSON 보기는 유지합니다. Markdown 본문과 기능별 발췌는 기존 범위를 유지합니다.
 
 Markdown 보고서는 도구별 결과와 기능별 발췌를 소제목·코드 블록으로 표시하며 버튼이나 스타일 전환은 제공하지 않습니다. 원본 안의 HTML과 이미지 참조는 코드 블록에 보존합니다. `--standalone`은 추가 HTML 공유본만 지정하며 `report.md`는 원래 결과 폴더에 저장합니다.
 

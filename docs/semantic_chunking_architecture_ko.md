@@ -4,7 +4,7 @@
 
 이 문서는 Docling이 변환한 `DoclingDocument`를 다양한 문서 형식에서 안정적으로 해석하여, 후속 **Domain Mapping**이 소비할 수 있는 구조 보존형 `Chunk sequence`로 만드는 아키텍처를 정의한다.
 
-이 프로젝트에서 `Chunk`는 최종 검색/RAG 단위가 아니다. 작은 연속 본문 범위를 유지한 Domain 판정 입력이며, 동일 Domain으로 확정된 연속 Chunk를 후속 단계가 경계 보정하여 `Unit`으로 만든다. 최종 검색 벡터는 Unit Context의 `summary + domain_fields`에서 생성한다. 용어와 상위 파이프라인의 기준은 [AI_READY_DATA 프로젝트 컨텍스트](<AI_READY_DATA_project_context (1).md>)를 따른다.
+이 프로젝트에서 `Chunk`는 최종 검색/RAG 단위가 아니다. 작은 연속 본문 범위를 유지한 Domain 판정 입력이며, 동일 Domain으로 확정된 연속 Chunk를 후속 단계가 경계 보정하여 `Unit`으로 만든다. 최종 검색 벡터는 Unit Context의 `summary + domain_fields`에서 생성한다.
 
 ```text
 입력 파일

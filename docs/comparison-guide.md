@@ -31,7 +31,7 @@ Python으로 직접 실행할 수도 있다.
 
 `index.html`을 브라우저로 연다. 외부 CDN·서버·LLM이 필요 없다. HTML에는 요약 표와 각 도구의 첫 성공 실행 Markdown을 나란히 표시한다. 성공이 없으면 첫 부분 성공을 표시하고 상태를 명시한다. Tika는 최상위 문서의 Markdown, Docling은 네이티브 Markdown 출력이며, 기본적으로 Markdown 원문을 표시하며, 각 도구의 세 버튼으로 Markdown 원문·스타일 적용·JSON 원본 보기를 전환한다. 선택된 버튼을 강조하며 도구별 선택은 독립적이다. JSON은 같은 대표 회차의 `raw.pretty.json`(없으면 기존 `raw.json.gz`) 전체를 들여쓰기하여 표시한다. 원본 파일이 없거나 손상되면 JSON 보기에 오류를 표시하고 Markdown은 유지한다. 이 기능은 run-comparison.ps1로 새로 생성하는 보고서에도 자동 포함된다. Markdown에서 굵게·제목·표 구분자를 확인하고 JSON 보기에서 전체 속성을 확인할 수 있다. JSON은 외부 요청 없이 HTML 안에 포함되므로 단일 공유본에서도 표시되며, 이미지 base64 등 원본 크기에 따라 HTML 용량이 커질 수 있다. 실행별 수치·좌표·신뢰도 비교는 `analysis.json`, 환경과 시간 기록은 `manifest.json`에 유지한다. 사내 실행에서는 입력 폴더와 새 출력 폴더만 지정하면 된다.
 
-`--standalone` 공유본은 HTML 하나만으로 읽을 수 있으며 별도 파일 링크를 제거한다. 실행 로그나 원본 JSON 자체를 포함하는 압축 묶음은 아니다. 현재 저장소의 공개 샘플 실행 결과는 `docs/reports/sample-comparison.html`에 보관한다.
+`--standalone` 공유본은 HTML 하나만으로 읽을 수 있으며 별도 파일 링크를 제거한다. 실행 로그나 원본 JSON 자체를 포함하는 압축 묶음은 아니다. 공유본이 필요하면 저장된 비교 결과에서 위 명령으로 생성한다.
 
 ## 반복과 재개
 

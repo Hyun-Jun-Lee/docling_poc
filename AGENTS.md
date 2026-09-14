@@ -14,8 +14,10 @@ PDF·Word·PowerPoint를 Docling으로 변환하고 원본 구조를 확인하�
 - `tests/test_semantic.py`: semantic 구조뿐 아니라 CLI, 원본 JSON 내보내기, PDF 옵션과 모델 경로도 검증한다.
 - `comparison.py`·`benchmark_worker.py`: 도구별 새 프로세스에서 Tika/Docling을 순차 반복 측정한다. `run-comparison.ps1`이 Windows 진입점이다.
 - `comparison_data.py`·`comparison_report.py`: 저장된 결과의 모든 반복쌍을 비교하고 외부 리소스 없는 HTML을 만든다. 실행 방법과 지표 범위는 `docs/comparison-guide.md`, 회귀 테스트는 `tests/test_comparison.py`에 있다.
+- `comparison_features.py`·`comparison_evidence.py`·`comparison_markup.py`: 도구별 추출 정보와 원본 발췌를 비교표로 구성한다. 회귀 테스트는 `tests/test_comparison_features.py`와 `tests/test_comparison_evidence.py`에 있다.
+- `comparison_raw.py`: 비압축 원본 JSON과 기존 gzip 결과의 읽기 호환성을 제공한다. `tests/test_comparison_raw.py`에서 검증한다.
 - `samples/`: 실제 입력 문서. `parsed/`: 기존 변환 결과. 검증 목적으로 기존 파일을 덮어쓰지 말고 별도 임시 경로를 사용한다.
-- `docs/`: 기술 조사와 확장 설계. 특히 `semantic_chunking_architecture_ko.md`와 `AI_READY_DATA_project_context (1).md`는 후속 구조화·Domain Mapping 작업 시 참고한다. 설계 문서의 기능을 이미 구현된 것으로 취급하지 않는다.
+- `docs/`: 기술 조사와 확장 설계. 후속 구조화·Domain Mapping 작업 시 `semantic_chunking_architecture_ko.md`를 참고한다. 설계 문서의 기능을 이미 구현된 것으로 취급하지 않는다.
 
 현재는 서비스, 임베딩·검색 파이프라인, Domain Mapping/Unit 생성까지 구현하지 않는다. 요청 없이 이러한 계층을 추가하지 않는다.
 
@@ -24,6 +26,8 @@ PDF·Word·PowerPoint를 Docling으로 변환하고 원본 구조를 확인하�
 Python **3.11**을 사용한다. `pyproject.toml`은 `>=3.11,<3.12`, `.python-version`은 `3.11`을 지정한다. 빌드 백엔드는 Hatchling이며 실행 명령은 `docling-poc = docling_poc.cli:main`이다.
 
 저장소 루트에서 실행한다. 기존 가상환경이 있으면 재사용한다.
+
+`uv`를 사용하면 `uv sync --frozen --extra dev`로 잠금 버전과 개발 의존성을 설치한다. 아래 `pip install -e` 방식은 잠금 파일의 버전을 강제하지 않는다.
 
 ```powershell
 # Windows PowerShell에서 최초 설치
@@ -37,6 +41,12 @@ py -3.11 -m venv .venv
 # 모델 추론 없이 CLI와 기존 JSON 처리 확인
 .\.venv\Scripts\python.exe -m docling_poc.cli --help
 .\.venv\Scripts\python.exe -m docling_poc.cli parsed/docx.docling.json --to semantic-rules
+
+# 새 출력 폴더에 반복 비교 실행
+.\run-comparison.ps1 -OutputPath reports\sample-comparison
+
+# 이미 추출된 결과로 보고서만 재생성 (변환·OCR 없음)
+.\.venv\Scripts\python.exe -m docling_poc.comparison_report reports\sample-comparison
 ```
 
 POSIX 환경에서는 `python3.11 -m venv .venv`로 생성하고 위의 Python 경로를 `.venv/bin/python`으로 바꾼다. 활성화된 환경에서는 `python -m pytest`, `python -m ruff check .`, `docling-poc ...`로 실행할 수 있다.
@@ -75,7 +85,10 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 
 ### OCR과 모델
 
+- PDF는 `heading_hierarchy_options.enabled=True`와 `generate_parsed_pages=True`로 제목 계층 추론과 중간 페이지 정보를 활성화한다. Word·PowerPoint에는 PDF 옵션을 적용하지 않고 네이티브 백엔드 기본 설정을 사용한다. 기존 PDF 결과는 보고서만 재생성해도 바뀌지 않는다.
 - PDF 기본 OCR은 `C:\Program Files\Tesseract-OCR\tesseract.exe`와 같은 폴더의 `tessdata`를 사용하는 Tesseract CLI다. 언어는 `kor`, `eng`, PSM은 3이다. `tika-config.json`과 경로·언어·PSM을 맞춘다. Tika PDF는 AUTO, 216 DPI RGB이며 두 도구의 OCR 영역 선택은 다르다. semantic 그림 OCR도 `build_tesseract_ocr_options()`를 통해 PDF와 동일한 Tesseract 설정을 사용한다. 성공 결과의 `ocr.engine`은 `tesseract`다. PDF 그림 분류 또는 설명을 활성화하면 `generate_picture_images`도 활성화한다.
+- 반복 비교는 DOCX·PPTX에만 Tika `skipOcr=true`를 적용하며 PDF OCR은 유지한다. Docling Office에는 추가 이미지 OCR을 적용하지 않는다. 실제 Tika 설정은 `execution-config/tika-pdf.json`, `tika-office.json`, manifest의 `tika_effective_configs`와 Tika 실행 메타데이터에 기록한다. 재개 시 저장된 설정 변경을 거부한다.
+- 이 Office OCR 정책은 비교 실행 전용이다. 루트 `tika-config.json`을 사용하는 `parse-tika.ps1`에는 자동 적용되지 않는다. OCR을 꺼도 Tika의 내장 리소스 파싱은 유지되며, 원본 JSON의 `TesseractOCRParser` 이름만으로 OCR 실행 여부를 단정하지 않는다.
 - `build_docling_converter()`는 현재 작업 디렉터리의 `.env`를 `override=False`로 읽는다. `DOCLING_ARTIFACTS_PATH`로 사전 다운로드한 모델 경로를 지정하며 프로세스 환경변수가 우선한다. `.env.example`을 참고하고 실제 `.env`와 개인 경로를 커밋하지 않는다.
 - semantic 그림 OCR의 `_build_image_ocr_converter()`는 별도 경로이며 현재 PDF 변환기의 `.env`/모델 경로 설정을 명시적으로 재사용하지 않는다. 양쪽에 같은 설정이 적용된다고 가정하지 않는다.
 - semantic 그림 OCR은 명시적으로 켰을 때만 수행한다. `image.uri`의 base64 이미지, MIME 일치 여부와 인코딩을 검증하고 임시 파일은 정리한다. semantic 결과에는 base64를 복제하지 않는다.
@@ -83,10 +96,21 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 - 기본 semantic 그림 OCR은 **그림마다 새 변환기**를 만든다. 네이티브 종료 과정의 중단 문제를 피하기 위한 의도적인 동작이므로 단순 최적화 목적으로 공유 변환기로 바꾸지 않는다.
 - Docling의 무거운 import와 모델 초기화는 해당 기능을 실행할 때 수행하는 구조를 유지한다. 실제 변환·OCR·그림 설명은 모델 다운로드와 상당한 실행 시간이 필요할 수 있으므로 단위 테스트와 구분한다.
 
+### 비교 결과와 보고서
+
+- 새 원본은 UTF-8, `ensure_ascii=False`, 들여쓰기 2칸의 비압축 `raw.pretty.json`으로 저장한다. 비교 worker는 비유한 수를 JSON `null`로 변환한다. 기존 `raw.json.gz` 읽기를 유지하고 두 파일이 있으면 비압축 파일을 우선한다. Tika의 `tika-output.json`도 보존한다.
+- 보고서는 저장된 원본·스냅샷을 읽어 `index.html`과 `analysis.json`을 생성한다. 보고서만 재생성할 때 변환·OCR을 실행하거나 기존 원본·스냅샷·측정값을 변경하지 않는다.
+- `analysis.json`은 현재 버전 4이며 `feature_comparison`을 포함한다. 스냅샷 버전과 별개다. 삭제된 수동 구조 검토 UI와 `structure_review`는 복원하지 않으며, 기존 검토 JSON과 `feature-cards.json`은 읽거나 변경하지 않는다.
+- 결과 보기는 도구별 세 버튼(Markdown 원문·스타일 적용·JSON 원본)으로 전환한다. 원본 텍스트와 JSON은 HTML 이스케이프하며, Markdown 스타일 보기에서도 문서의 HTML·스크립트를 실행하거나 외부 이미지·리소스를 요청하지 않는다.
+- 「추출 정보 비교」는 제목과 표만 표시한다. 표 앞의 안내 문단과 도구별 회차·상태 문구를 다시 추가하지 않는다. 표 안의 출처·생략 안내·확인 불가 표시는 유지한다. 각 도구의 첫 완전 성공 회차(없으면 첫 부분 성공)에서 원본을 발췌하며, 관찰 결과를 도구 전체의 지원 여부나 정확도로 해석하지 않는다.
+- 「측정 기준」 섹션 대신 전체·내부 시간 차이와 반복 일관성이 정확도가 아니라는 설명을 「측정 결과」 표 아래에 작게 표시한다. 하단 「대용량 처리 운영 확장성」은 운영 방식 설명이며 현재 실행의 실측 결과가 아니다. 「추가 검증 항목」은 표시하지 않는다.
+
 ## 변경과 검증 원칙
 
 - 반복 비교에서 전체 시간(프로세스 시작~출력 저장·종료)과 도구 내부 시간을 분리한다. Tika 루트 parse time에 하위 리소스 시간을 더하지 않는다. 정답 데이터 없는 텍스트 차이율을 정확도라고 표기하지 않는다.
 - 비교 실행은 기본 도구별 5회, 순차 실행과 순서 교대다. 텍스트·구조와 좌표·신뢰도를 분리하며 실패를 일치로 취급하지 않는다. Tesseract 설정이 같아도 OCR 영역 선택과 Office 추출 경로가 같다고 설명하지 않는다.
+- 시간 통계는 완전 성공만 사용한다. 부분 성공은 상태를 명시하고 반복 비교에 포함한다. `--resume`은 미기록 회차만 실행하며 기록된 실패는 재시도하지 않는다. 측정 코드·설정·반복 횟수·스레드·JAR·패키지·기록된 모델과 언어 데이터·실행 파일 버전의 재개 검증을 유지한다.
+- Docling `pipeline_total`은 입력 백엔드 초기화를 제외하고, Tika 루트 시간은 내장 리소스 처리를 포함한다. 전체 시간에는 초기화·저장·종료가 포함되며 보고서 생성은 제외한다. 현재 새 프로세스 반복 결과를 예열된 서버 처리량으로 설명하지 않는다. CPU/OpenMP 스레드 설정이 JVM 전체 자원 제한과 같다고 가정하지 않는다.
 - `reports/`와 `tmp/`는 Git 제외 대상이다. 사내 입력 복사본과 추출 전문이 포함된 결과를 샘플 산출물로 착각해 커밋하지 않는다. 공개 샘플 산출물도 명시적으로 선택한다.
 
 - 기존의 작은 함수, 타입 힌트, `pathlib.Path`, `Mapping` 기반 처리를 따른다. Ruff 설정은 Python 3.11, 줄 길이 100이다. 무관한 전체 파일 재포맷은 피한다.

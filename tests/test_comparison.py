@@ -180,6 +180,17 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path, sch
     assert len(pairs) == 1
     assert (pairs[0]['left'], pairs[0]['right']) == (2, 4)
     html = (tmp_path / 'index.html').read_text(encoding='utf-8')
+    markdown = (tmp_path / 'report.md').read_text(encoding='utf-8')
+    assert '## 측정 결과' in markdown
+    assert '중앙값 1&#46;00s' in markdown
+    assert '미실행 2' in markdown
+    assert '2회차 · success' in markdown
+    assert '4회차 · partial_success' not in markdown
+    assert '### 추출 정보 비교' in markdown
+    assert '#### 표 구조' in markdown
+    assert '## 대용량 처리 운영 확장성' in markdown
+    assert '원본 JSON을 읽을 수 없습니다' in markdown
+    assert '표시할 추출 결과가 없습니다.' in markdown
     assert '<script>alert(1)</script>' not in html and '<img src=x' not in html
     assert html.count('<script>') == 1  # Only the report's fixed toggle controller.
     assert '&lt;script&gt;' in html

@@ -1,6 +1,6 @@
 # Docling POC
 
-이 프로젝트는 PDF, PowerPoint, Word 문서를 Docling으로 변환하고 원본 `DoclingDocument` 구조를 살펴보는 Python POC입니다. Tika와 Docling의 반복 추출 결과, 소요시간, 추출 정보 차이를 비교하는 HTML 보고서도 제공합니다. 서비스 운영·임베딩·검색 파이프라인은 구현 범위에 포함하지 않습니다.
+이 프로젝트는 PDF, PowerPoint, Word 문서를 Docling으로 변환하고 원본 `DoclingDocument` 구조를 살펴보는 Python POC입니다. Tika와 Docling의 반복 추출 결과, 소요시간, 추출 정보 차이를 비교하는 HTML·Markdown 보고서도 제공합니다. 서비스 운영·임베딩·검색 파이프라인은 구현 범위에 포함하지 않습니다.
 
 기본 JSON 출력은 `ConversionResult`의 변환 메타데이터와 `DoclingDocument`를 함께 담습니다. 문서 본문은 `document` 키 아래에 `DoclingDocument.export_to_dict()` 형식으로 저장되고, 루트에는 상태, 오류, 시간 측정, 신뢰도가 보존됩니다. Markdown 출력은 `DoclingDocument.export_to_markdown()` 결과입니다. `hierarchical-chunks` 출력은 Docling이 제공하는 `HierarchicalChunker`의 원본 `DocChunk` 결과입니다. `semantic-json`은 저장된 JSON의 `document` 본문 순서와 번호 체계를 바탕으로 섹션·문단·목록·표를 재구성한 파생 구조입니다.
 
@@ -226,7 +226,7 @@ PDF/DOCX/PPTX를 도구별 기본 5회씩 순차 추출하고, 회차마다 도�
 
 ### 보고서와 저장 파일
 
-생성된 `index.html`을 브라우저로 엽니다. 외부 CDN이나 별도 서버는 필요하지 않습니다.
+보고서 생성 명령은 `index.html`과 `report.md`를 함께 저장합니다. 생성된 `index.html`을 브라우저로 엽니다. 외부 CDN이나 별도 서버는 필요하지 않습니다.
 
 - **측정 결과:** 도구별 소요시간과 반복 일관성, 실행 상태를 표시합니다.
 - **결과 보기:** Markdown 원문·스타일 적용·JSON 원본을 도구별 버튼으로 전환합니다.
@@ -235,6 +235,7 @@ PDF/DOCX/PPTX를 도구별 기본 5회씩 순차 추출하고, 회차마다 도�
 
 | 파일·폴더 | 내용 |
 |---|---|
+| `report.md` | 측정 결과, 도구별 Markdown·JSON 원문, 기능별 추출 정보, 운영 확장성 |
 | `manifest.json` | 입력·환경·설정·해시와 회차별 상태·시간 |
 | `analysis.json` | 반복쌍 비교와 추출 정보 비교. 현재 스키마 버전 4 |
 | `execution-config/` | 실제 전달한 PDF·Office용 Tika 설정 |
@@ -243,6 +244,8 @@ PDF/DOCX/PPTX를 도구별 기본 5회씩 순차 추출하고, 회차마다 도�
 | 도구별 회차 폴더 | `raw.pretty.json`, `content.md`, `snapshot.json`, `run.json`, `worker.log` |
 
 새 원본 결과는 UTF-8·한글 유지·들여쓰기 2칸의 비압축 `raw.pretty.json`으로 저장합니다. Tika의 CLI 출력 `tika-output.json`도 보존합니다. 기존 `raw.json.gz`는 읽기 호환성을 유지하며, 두 파일이 있으면 `raw.pretty.json`을 우선합니다.
+
+Markdown 보고서는 도구별 결과와 기능별 발췌를 소제목·코드 블록으로 표시하며 버튼이나 스타일 전환은 제공하지 않습니다. 원본 안의 HTML과 이미지 참조는 코드 블록에 보존합니다. `--standalone`은 추가 HTML 공유본만 지정하며 `report.md`는 원래 결과 폴더에 저장합니다.
 
 보고서만 재생성하면 복원된 추출 정보 비교표도 표시됩니다. 기존 OCR 결과·측정 시간·스냅샷은 바뀌지 않습니다. 수동 구조 검토 도구는 제공하지 않습니다.
 

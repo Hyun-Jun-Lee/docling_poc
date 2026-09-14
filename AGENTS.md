@@ -98,8 +98,10 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 
 ### 비교 결과와 보고서
 
+- `comparison_markdown.py`는 Markdown 표·원본 코드 블록·기능별 발췌를 렌더링한다. HTML과 동일한 측정값과 대표 회차를 사용하며 원문 코드 울타리·HTML이 보고서 구조를 깨뜨리지 않도록 보존한다. `report.md`에도 추출 전문이 포함된다. 관련 테스트는 `tests/test_comparison_markdown.py`에 있다.
+
 - 새 원본은 UTF-8, `ensure_ascii=False`, 들여쓰기 2칸의 비압축 `raw.pretty.json`으로 저장한다. 비교 worker는 비유한 수를 JSON `null`로 변환한다. 기존 `raw.json.gz` 읽기를 유지하고 두 파일이 있으면 비압축 파일을 우선한다. Tika의 `tika-output.json`도 보존한다.
-- 보고서는 저장된 원본·스냅샷을 읽어 `index.html`과 `analysis.json`을 생성한다. 보고서만 재생성할 때 변환·OCR을 실행하거나 기존 원본·스냅샷·측정값을 변경하지 않는다.
+- 보고서는 저장된 원본·스냅샷을 읽어 `index.html`, `report.md`, `analysis.json`을 생성한다. 보고서만 재생성할 때 변환·OCR을 실행하거나 기존 원본·스냅샷·측정값을 변경하지 않는다.
 - `analysis.json`은 현재 버전 4이며 `feature_comparison`을 포함한다. 스냅샷 버전과 별개다. 삭제된 수동 구조 검토 UI와 `structure_review`는 복원하지 않으며, 기존 검토 JSON과 `feature-cards.json`은 읽거나 변경하지 않는다.
 - 결과 보기는 도구별 세 버튼(Markdown 원문·스타일 적용·JSON 원본)으로 전환한다. 원본 텍스트와 JSON은 HTML 이스케이프하며, Markdown 스타일 보기에서도 문서의 HTML·스크립트를 실행하거나 외부 이미지·리소스를 요청하지 않는다.
 - 「추출 정보 비교」는 제목과 표만 표시한다. 표 앞의 안내 문단과 도구별 회차·상태 문구를 다시 추가하지 않는다. 표 안의 출처·생략 안내·확인 불가 표시는 유지한다. 각 도구의 첫 완전 성공 회차(없으면 첫 부분 성공)에서 원본을 발췌하며, 관찰 결과를 도구 전체의 지원 여부나 정확도로 해석하지 않는다.

@@ -1,4 +1,4 @@
-"""Generate a portable Korean HTML report from saved benchmark outputs; no inference."""
+"""Generate Korean HTML and Markdown reports from saved benchmark outputs; no inference."""
 
 from __future__ import annotations
 
@@ -15,6 +15,12 @@ from xml.etree import ElementTree
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import edit_distance, stability
 from docling_poc.comparison_features import feature_html, load_features
+from docling_poc.comparison_markdown import (
+    features_markdown,
+    literal,
+    markdown_table,
+    result_markdown,
+)
 from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
 CSS = """
@@ -140,8 +146,8 @@ def table(headers, rows):
                       for row in rows) + '</tbody></table></div>')
 
 
-def scalability_html() -> str:
-    rows = [
+def scalability_rows() -> list[list[str]]:
+    return [
         ['상시 API 서비스', 'Tika Server · Java/JVM 기반 HTTP API',
          'docling-serve · Python 기반 HTTP API'],
         ['여러 문서 병렬 처리', '서버·파서 워커 수 조정',
@@ -157,6 +163,9 @@ def scalability_html() -> str:
         ['운영 성능 해석', '현재 단건 반복 시간은 상시 서버의 지속 처리량을 의미하지 않음',
          '현재 단건 반복 시간은 준비된 워커의 지속 처리량을 의미하지 않음'],
     ]
+
+
+def scalability_html() -> str:
     return (
         '<section id="scalability"><h2>대용량 처리 운영 확장성</h2>'
         '<p class="muted"><small>여러 문서를 지속적으로 처리하는 상황의 공식 문서 기반 '
@@ -164,7 +173,7 @@ def scalability_html() -> str:
         '배포 설정과 문서 유형에 따라 달라집니다. 사내 Tika의 버전·워커 구성은 '
         '이 보고서에서 확인하지 않았습니다.</small></p>'
         + table(['비교 항목', 'Apache Tika', 'Docling'],
-                [[esc(cell) for cell in row] for row in rows])
+                [[esc(cell) for cell in row] for row in scalability_rows()])
         + '<p class="muted"><small>공식 문서: '
         '<a href="https://tika.apache.org/docs/4.0.x/using-tika/server/index.html">'
         'Tika Server 4.x</a> · '
@@ -225,6 +234,8 @@ def generate(output: Path):
                      if 'tesseract-ocr-parser' in p), {})
     analysis = {'schema_version': 4, 'documents': []}
     summary_rows = []
+    markdown_rows = []
+    markdown_parts = []
     parts = ['<!doctype html><html lang="ko"><meta charset="utf-8">',
              '<meta name="viewport" content="width=device-width,initial-scale=1">',
              '<title>Tika · Docling 추출 비교</title>',
@@ -239,6 +250,7 @@ def generate(output: Path):
     for doc in manifest['documents']:
         doc_result = {'id': doc['id'], 'name': doc['name'], 'tools': {}}
         extension = Path(doc['source']).suffix.lstrip('.').upper()
+        markdown_parts += [f'## {literal(extension)}', literal(doc['name'])]
         parts += [f'<section id="{esc(doc["id"])}"><h2>{esc(extension)}</h2>',
                   f'<p>{esc(doc["name"])}</p>',
                   '<div class="grid">']
@@ -288,21 +300,34 @@ def generate(output: Path):
                 statistics_text(runs, 'internal_seconds'),
                 esc(repeat_label) + '<br><small>' + esc(verification) + '</small>',
                 str(result['unique_content'])])
+            markdown_rows.append([
+                doc['name'], tool.upper(), f'{success}/{repeat}',
+                statistics_text(runs, 'total_seconds'),
+                statistics_text(runs, 'internal_seconds'),
+                repeat_label + ' · ' + verification, str(result['unique_content'])])
+            markdown_parts += [f'### {tool.upper()}',
+                               (f'성공 {success} · 부분 성공 {partial} · '
+                                f'실패 {failed} · 미실행 {repeat-len(runs)}')]
             parts.append(f'<article><h3>{tool.upper()}</h3>')
             parts.append(f'<p class="muted">성공 {success} · 부분 성공 {partial} · '
                          f'실패 {failed} · 미실행 {repeat-len(runs)}</p>')
             for run in runs:
                 if run.get('error') or run.get('errors'):
+                    markdown_parts.append(literal(
+                        f'{run["number"]}회: {run.get("error", run.get("errors"))}'))
                     parts.append(f'<p class="failure">{run["number"]}회: '
                                  f'{esc(run.get("error", run.get("errors")))}</p>')
             selected = next((r for r in valid if r['status'] == 'success'),
                             valid[0] if valid else None)
             if selected:
+                markdown_parts += [f'{selected["number"]}회차 · {literal(selected["status"])}',
+                                   result_markdown(output / selected['path'])]
                 parts.append(f'<p class="muted">{selected["number"]}회차 · '
                              f'{esc(selected["status"])}</p>')
                 parts.append(result_views(output / selected['path'],
                                           f'markdown-{doc["id"]}-{tool}'))
             else:
+                markdown_parts.append('표시할 추출 결과가 없습니다.')
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')
         parts.append('</div>')
@@ -310,6 +335,7 @@ def generate(output: Path):
                     for tool in ('docling', 'tika')}
         doc_result['feature_comparison'] = features
         parts.append(feature_html(features))
+        markdown_parts.append(features_markdown(features))
         cross = []
         distances = {}
         for (ra, a), (rb, b) in itertools.product(zip(*snapshots['tika']),
@@ -337,6 +363,28 @@ def generate(output: Path):
             '</small></p></section>')
     (output / 'index.html').write_text('\n'.join(parts).replace('<!--SUMMARY-->', summary),
                                      encoding='utf-8')
+    markdown = [
+        '# Tika · Docling 추출 비교',
+        literal(f'{manifest["created"]} · 문서 {len(manifest["documents"])}개 · '
+                f'도구별 {repeat}회 · Tesseract {tika_ocr.get("language", "설정 미기록")}'),
+        '## 측정 결과',
+        markdown_table(
+            ['문서', '도구', '완전 성공', '전체 소요시간', '내부 파싱 시간',
+             '동일 도구의 반복 일관성', '고유 결과 수'], markdown_rows),
+        ('전체 소요시간은 프로세스 시작·초기화·변환·결과 저장·종료까지, 내부 파싱 시간은 '
+        '각 도구가 기록한 파싱 구간입니다. 보고서 생성 시간은 제외합니다.\n\n'
+         '반복 결과는 텍스트·구조의 동일 여부이며 정확도를 뜻하지 않습니다.'),
+        *markdown_parts,
+        '## 대용량 처리 운영 확장성',
+        ('여러 문서를 지속적으로 처리하는 상황의 공식 문서 기반 운영 구조 비교입니다. '
+        '현재 단건 반복 테스트의 실측 결과가 아니며, 실제 처리량은 배포 설정과 문서 유형에 '
+         '따라 달라집니다. 사내 Tika의 버전·워커 구성은 이 보고서에서 확인하지 않았습니다.'),
+        markdown_table(['비교 항목', 'Apache Tika', 'Docling'], scalability_rows()),
+        ('공식 문서: [Tika Server 4.x](https://tika.apache.org/docs/4.0.x/using-tika/server/'
+        'index.html) · [Docling 서비스 배포](https://github.com/docling-project/docling/'
+         'blob/main/docs/usage/api_server/deployment.md)'),
+    ]
+    (output / 'report.md').write_text('\n\n'.join(markdown) + '\n', encoding='utf-8')
     return analysis
 
 

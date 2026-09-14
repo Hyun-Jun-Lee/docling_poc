@@ -15,6 +15,7 @@ from xml.etree import ElementTree
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import edit_distance, stability
 from docling_poc.comparison_features import feature_html, load_features
+from docling_poc.comparison_raw import raw_result_path, read_raw_text
 from docling_poc.comparison_review import REVIEW_CSS, review_html, review_script
 from docling_poc.comparison_structure import load_structure
 
@@ -37,6 +38,7 @@ border:1px solid #d5dde7;border-radius:8px;overflow-wrap:anywhere;font-size:14px
 .markdown .markdown-source{margin:0;padding:0;background:transparent;max-height:none;
 white-space:pre;overflow:visible;font-family:Consolas,monospace;font-size:13px}
 small{font-size:11px;color:#64748b}
+.view-options{display:flex;gap:6px;flex-wrap:wrap}
 .view-toggle{padding:8px 14px;margin:0 0 10px;border:1px solid #94a3b8;
 border-radius:6px;background:white;color:#1d2939;cursor:pointer;font:inherit}
 .view-toggle[aria-pressed="true"]{background:#155db1;color:white}
@@ -84,16 +86,49 @@ def styled_markdown(markdown: str) -> str:
     return renderer.render(markdown)
 
 
+def result_views(directory: Path, panel_id: str) -> str:
+    """Show three views of the same run, including legacy compressed JSON."""
+    markdown_path = directory / 'content.md'
+    missing = '<p>저장된 Markdown 파일이 없습니다.</p>'
+    raw_markdown = rendered = missing
+    if markdown_path.is_file():
+        markdown = markdown_path.read_text(encoding='utf-8')
+        raw_markdown, rendered = render_markdown(markdown), styled_markdown(markdown)
+    path = raw_result_path(directory)
+    try:
+        raw = json.loads(read_raw_text(path))
+        pretty = json.dumps(raw, ensure_ascii=False, indent=2)
+        raw_json = (f'<p class="muted">{esc(path.name)} · 전체 원본 JSON</p>'
+                    + render_markdown(pretty))
+    except (OSError, EOFError, ValueError) as exc:
+        raw_json = f'<p class="failure">원본 JSON을 읽을 수 없습니다: {esc(exc)}</p>'
+    views = [('raw', 'Markdown 원문', raw_markdown),
+             ('styled', '스타일 적용', rendered), ('json', 'JSON 원본', raw_json)]
+    buttons = ''.join(
+        f'<button type="button" class="view-toggle" data-view="{key}" '
+        f'aria-pressed="{str(key == "raw").lower()}" '
+        f'aria-controls="{esc(panel_id)}">{title}</button>' for key, title, _ in views)
+    panes = ''.join(
+        f'<div class="{"markdown-rendered" if key == "styled" else "markdown-" + key}"'
+        f' data-view-pane="{key}"' + ('' if key == 'raw' else ' hidden')
+        + f'>{content}</div>' for key, _, content in views)
+    return ('<div class="view-options" role="group" aria-label="결과 보기 방식">'
+            + buttons + f'</div><div class="markdown" id="{esc(panel_id)}">'
+            + panes + '</div>')
+
+
 TOGGLE_SCRIPT = """
 <script>
 document.querySelectorAll('.view-toggle').forEach(button => {
   button.addEventListener('click', () => {
     const panel = document.getElementById(button.getAttribute('aria-controls'));
-    const styled = button.getAttribute('aria-pressed') !== 'true';
-    panel.querySelector('.markdown-raw').hidden = styled;
-    panel.querySelector('.markdown-rendered').hidden = !styled;
-    button.setAttribute('aria-pressed', String(styled));
-    button.textContent = styled ? '스타일 적용 중 · Markdown 원문 보기' : 'Markdown 원문 · 스타일 적용';
+    const view = button.dataset.view;
+    panel.querySelectorAll('[data-view-pane]').forEach(pane => {
+      pane.hidden = pane.dataset.viewPane !== view;
+    });
+    button.parentElement.querySelectorAll('.view-toggle').forEach(option => {
+      option.setAttribute('aria-pressed', String(option === button));
+    });
   });
 });
 </script>
@@ -235,21 +270,10 @@ def generate(output: Path):
             selected = next((r for r in valid if r['status'] == 'success'),
                             valid[0] if valid else None)
             if selected:
-                path = output / selected['path'] / 'content.md'
                 parts.append(f'<p class="muted">{selected["number"]}회차 · '
                              f'{esc(selected["status"])}</p>')
-                if path.is_file():
-                    markdown = path.read_text(encoding='utf-8')
-                    panel_id = f'markdown-{doc["id"]}-{tool}'
-                    parts.append(
-                        f'<button type="button" class="view-toggle" aria-pressed="false" '
-                        f'aria-controls="{esc(panel_id)}">Markdown 원문 · 스타일 적용</button>'
-                        f'<div class="markdown" id="{esc(panel_id)}">'
-                        '<div class="markdown-raw">' + render_markdown(markdown) + '</div>'
-                        '<div class="markdown-rendered" hidden>' + styled_markdown(markdown)
-                        + '</div></div>')
-                else:
-                    parts.append('<p>저장된 Markdown 파일이 없습니다.</p>')
+                parts.append(result_views(output / selected['path'],
+                                          f'markdown-{doc["id"]}-{tool}'))
             else:
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')

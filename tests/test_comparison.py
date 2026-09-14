@@ -193,7 +193,7 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path, sch
     assert 'class="markdown" id="markdown-d1-docling"' in html
     assert 'aria-controls="markdown-d1-docling"' in html
     assert 'aria-pressed="false"' in html
-    assert '<div class="markdown-rendered" hidden>' in html
+    assert '<div class="markdown-rendered" data-view-pane="styled" hidden>' in html
     assert '항목 수와 추출 전문' not in html
     assert '실행 환경과 재현 정보' not in html
     assert '<h2>측정 기준</h2>' not in html

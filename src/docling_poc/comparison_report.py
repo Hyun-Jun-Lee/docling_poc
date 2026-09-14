@@ -142,6 +142,39 @@ def table(headers, rows):
                       for row in rows) + '</tbody></table></div>')
 
 
+def scalability_html() -> str:
+    rows = [
+        ['상시 API 서비스', 'Tika Server · Java/JVM 기반 HTTP API',
+         'docling-serve · Python 기반 HTTP API'],
+        ['여러 문서 병렬 처리', '서버·파서 워커 수 조정',
+         '변환 워커 수·내부 연산 병렬성 조정'],
+        ['Kubernetes 확장', 'Pod 증설 가능. 사내 설치 정보는 별도 전달 기준이며 설정 확인 필요',
+         'Pod 증설 가능. 별도 서비스 배포와 워커 구성 필요'],
+        ['주요 자원 관리', 'JVM 메모리, CPU, OCR 프로세스',
+         'CPU·메모리, 모델 로딩, 필요 시 GPU'],
+        ['초기화 비용', '서버·워커 시작 시 발생. 재사용으로 문서별 시작 비용 절감 가능',
+         '서버·워커 및 모델 준비 시 발생. 재사용 범위는 엔진·설정에 따라 다름'],
+        ['장애 격리', '버전·실행 설정에 따라 다름. Tika 4.x 주요 파싱 API는 별도 JVM 워커 사용',
+         '선택한 엔진과 프로세스·Pod 구성에 따라 다름'],
+        ['운영 성능 해석', '현재 단건 반복 시간은 상시 서버의 지속 처리량을 의미하지 않음',
+         '현재 단건 반복 시간은 준비된 워커의 지속 처리량을 의미하지 않음'],
+    ]
+    return (
+        '<section id="scalability"><h2>대용량 처리 운영 확장성</h2>'
+        '<p class="muted"><small>여러 문서를 지속적으로 처리하는 상황의 공식 문서 기반 '
+        '운영 구조 비교입니다. 현재 단건 반복 테스트의 실측 결과가 아니며, 실제 처리량은 '
+        '배포 설정과 문서 유형에 따라 달라집니다. 사내 Tika의 버전·워커 구성은 '
+        '이 보고서에서 확인하지 않았습니다.</small></p>'
+        + table(['비교 항목', 'Apache Tika', 'Docling'],
+                [[esc(cell) for cell in row] for row in rows])
+        + '<p class="muted"><small>공식 문서: '
+        '<a href="https://tika.apache.org/docs/4.0.x/using-tika/server/index.html">'
+        'Tika Server 4.x</a> · '
+        '<a href="https://github.com/docling-project/docling/blob/main/docs/usage/'
+        'api_server/deployment.md">Docling 서비스 배포</a>'
+        '</small></p></section>')
+
+
 def statistics_text(runs, field):
     values = [r[field] for r in runs if r.get('status') == 'success'
               and isinstance(r.get(field), (int, float))]
@@ -299,6 +332,7 @@ def generate(output: Path):
         doc_result['cross_tool_text'] = cross
         parts.append('</section>')
         analysis['documents'].append(doc_result)
+    parts.append(scalability_html())
     parts.append(TOGGLE_SCRIPT.replace('</script>', review_script() + '\n</script>')
                  + '</body></html>')
     write_json(output / 'analysis.json', analysis)

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import gzip
 import json
 import re
 from collections import Counter
@@ -12,6 +11,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from docling_poc.comparison_evidence import docling_excerpts, markup_excerpts, tika_excerpts
+from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
 FEATURES = {
     "classification": "요소 분류",
@@ -244,11 +244,11 @@ def load_features(output: Path, runs: list[Mapping], tool: str) -> dict:
         return result
     directory = output / selected["path"]
     try:
-        with gzip.open(directory / "raw.json.gz", "rt", encoding="utf-8") as stream:
-            raw = json.load(stream)
+        raw_path = raw_result_path(directory)
+        raw = json.loads(read_raw_text(raw_path))
         result["features"] = docling_features(raw) if tool == "docling" else tika_features(raw)
         result["excerpts"] = docling_excerpts(raw) if tool == "docling" else tika_excerpts(raw)
-        result["source_file"] = f'{selected["path"]}/raw.json.gz'
+        result["source_file"] = f'{selected["path"]}/{raw_path.name}'
     except (OSError, EOFError, ValueError, TypeError, KeyError, AttributeError) as exc:
         result["warning"] = f"원본 JSON 확인 불가: {exc}. 필드 미제공으로 판정하지 않습니다."
         markdown = directory / "content.md"

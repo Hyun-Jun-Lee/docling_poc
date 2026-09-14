@@ -11,6 +11,25 @@ def snapshot(text):
             "geometry": [], "scores": {}}
 
 
+@pytest.mark.parametrize('tool', ['docling', 'tika'])
+def test_worker_saves_pretty_uncompressed_raw(tmp_path, monkeypatch, tool):
+    from docling_poc import benchmark_worker
+
+    raw = {'text': '한글', 'confidence': float('nan')} if tool == 'docling' else [
+        {'tk:content': '한글'}]
+    monkeypatch.setattr(benchmark_worker, f'run_{tool}',
+                        lambda args: (raw, '한글', {'status': 'success'}))
+    monkeypatch.setattr('sys.argv', ['worker', '--tool', tool, '--source', 'input.docx',
+                                   '--output', str(tmp_path)])
+    with pytest.raises(SystemExit) as exc:
+        benchmark_worker.main()
+    assert exc.value.code == 0
+    content = (tmp_path / 'raw.pretty.json').read_text(encoding='utf-8')
+    assert content == json.dumps(benchmark_worker.json_safe(raw), ensure_ascii=False, indent=2)
+    assert '한글' in content
+    assert not (tmp_path / 'raw.json.gz').exists()
+
+
 def test_distance_and_all_ten_pairs():
     assert edit_distance("kitten", "sitting") == 3
     assert edit_distance("한글", "한굴") == 1

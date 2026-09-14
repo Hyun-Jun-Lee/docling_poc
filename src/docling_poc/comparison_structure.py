@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-import gzip
 import hashlib
 import json
 import re
 from collections.abc import Mapping
 from html.parser import HTMLParser
 from pathlib import Path
+
+from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
 KINDS = {
     "title": "title", "section_header": "heading", "text": "paragraph",
@@ -227,14 +228,13 @@ def tika_blocks(raw: list) -> list[dict]:
 
 def load_structure(output: Path, document: Mapping, tool: str, run: Mapping) -> dict:
     directory = output / run["path"]
-    raw_path = directory / "raw.json.gz"
+    raw_path = raw_result_path(directory)
     warnings = []
     fingerprint = ""
     blocks = []
     if raw_path.is_file():
         try:
-            with gzip.open(raw_path, "rt", encoding="utf-8") as stream:
-                raw_text = stream.read()
+            raw_text = read_raw_text(raw_path)
             fingerprint = hashlib.sha256(raw_text.encode("utf-8")).hexdigest()
             raw = json.loads(raw_text)
             blocks = docling_blocks(raw) if tool == "docling" else tika_blocks(raw)

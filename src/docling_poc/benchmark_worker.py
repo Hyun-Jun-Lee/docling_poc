@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import gzip
 import json
 import math
 import os
@@ -98,8 +97,7 @@ def main():
     os.environ["HF_HUB_OFFLINE"] = "1"
     try:
         raw, markdown, metadata = run_tika(args) if args.tool == "tika" else run_docling(args)
-        with gzip.open(args.output / "raw.json.gz", "wt", encoding="utf-8") as stream:
-            json.dump(json_safe(raw), stream, ensure_ascii=False, allow_nan=False)
+        write_json(args.output / "raw.pretty.json", raw)
         (args.output / "content.md").write_text(markdown, encoding="utf-8")
         write_json(args.output / "run.json", metadata)
         raise SystemExit(0 if metadata["status"] in {"success", "partial_success"} else 1)

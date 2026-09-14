@@ -276,7 +276,7 @@
       for (const r of data.runs[tool]) {const o=el('option',`${r.number}회 · ${r.status}`);o.value=r.number;run.append(o);}
       const content=el('textarea',undefined,'evidence-input');content.spellcheck=false;
       content.placeholder=tool==='docling'?'항목 객체·배열 또는 {"items": [...]}를 붙여넣으세요.':'같은 구간의 Markdown 또는 리소스 JSON을 붙여넣으세요.';
-      const source=el('input');source.type='text';source.placeholder='예: document-001/docling-1/raw.json.gz';
+      const source=el('input');source.type='text';source.placeholder='예: document-001/docling-1/raw.pretty.json';
       const refs=el('input');refs.type='text';refs.placeholder='예: #/texts/10, #/groups/2';
       const absent=el('input');absent.type='checkbox';
       absent.addEventListener('change',()=>{content.disabled=absent.checked;});

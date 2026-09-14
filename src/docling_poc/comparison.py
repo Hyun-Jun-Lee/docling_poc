@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import gzip
 import hashlib
 import importlib.metadata
 import json
@@ -20,6 +19,7 @@ from dotenv import load_dotenv
 
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import docling_snapshot, tika_snapshot
+from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -161,6 +161,7 @@ def main():
     code_hashes = {p.name: sha256(p) for p in (Path(__file__),
                   Path(__file__).with_name("benchmark_worker.py"),
                   Path(__file__).with_name("comparison_data.py"),
+                  Path(__file__).with_name("comparison_raw.py"),
                   Path(__file__).with_name("docling_raw.py"))}
     if args.resume:
         manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
@@ -263,8 +264,7 @@ def main():
                 try:
                     result = execute(command, directory, args.timeout, env)
                     if result["status"] in {"success", "partial_success"}:
-                        with gzip.open(directory / "raw.json.gz", "rt", encoding="utf-8") as stream:
-                            raw = json.load(stream)
+                        raw = json.loads(read_raw_text(raw_result_path(directory)))
                         snapshot = docling_snapshot(raw) if tool == "docling" else tika_snapshot(raw)
                         write_json(directory / "snapshot.json", snapshot)
                         result["chars"] = len(snapshot["text"])

@@ -97,7 +97,9 @@ def test_html_escapes_metadata_and_keeps_all_eight_categories():
     assert '<img src=x' not in html
     assert '&lt;img' in html
     assert html.count('<th scope="row">') == 8
-    assert '정확도 점수가 아닙니다' in html
+    assert html.split('<div class="scroll">', 1)[0].strip() == '<h3>추출 정보 비교</h3>'
+    assert '각 도구의 첫 완전 성공 회차' not in html
+    assert '정확도 점수가 아닙니다' not in html
     assert '활용과 해석상 한계' not in html
     assert '<th>기능</th><th>DOCLING</th><th>TIKA</th>' in html
     assert '<details>' not in html

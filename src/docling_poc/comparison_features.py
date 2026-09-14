@@ -264,21 +264,7 @@ def feature_html(comparison: Mapping) -> str:
     def esc(value: object) -> str:
         return escape(str(value), quote=True)
 
-    parts = ['<h3>추출 정보 비교</h3>',
-             ('<p>각 도구의 첫 완전 성공 회차를 사용하며, 없으면 첫 부분 성공을 표시합니다. '
-             '아래는 현재 문서·설정의 관찰 결과이며 도구 전체의 기능 유무나 정확도 점수가 아닙니다. '
-             '구조 보기의 회차 선택과는 독립적입니다.</p>'),
-             ('<p>코드 영역에는 실제 JSON 필드·값 또는 Markdown·HTML 원문만 표시합니다. '
-             '각 항목은 최대 3개 발췌이며 두 도구의 발췌 구간이 자동으로 대응되지는 않습니다. '
-             'JSON은 관련 필드를 선택하고 배열은 앞 3개까지 표시하며 생략 범위를 별도 안내합니다. '
-             'grid·data URI·2만 자 초과 문자열 필드와 2만 자 초과 마크업 구간은 생략합니다. '
-             '참조 대상은 발췌 밖에 있을 수 있습니다. 빈 값과 false는 원본 그대로 유지합니다.</p>'),
-             ('<p>출처의 문자 범위는 Python 문자열 인덱스 [시작:끝), 끝 제외입니다. '
-             'Tika의 리소스 깊이는 본문 계층이 아니며 이미지 파일명 제목은 본문 제목과 '
-             '구분해서 확인해야 합니다.</p>')]
-    for tool, result in comparison.items():
-        parts.append(f'<p><b>{esc(tool.upper())}</b> · 회차 {esc(result["run"])} · '
-                     f'{esc(result["status"])} {esc(result["warning"])}</p>')
+    parts = ['<h3>추출 정보 비교</h3>']
     parts.append('<div class="scroll"><table class="feature-comparison">'
                  '<colgroup><col style="width:20%"><col style="width:40%">'
                  '<col style="width:40%"></colgroup><thead><tr><th>기능</th><th>DOCLING</th>'

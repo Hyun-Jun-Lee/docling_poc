@@ -98,7 +98,7 @@ uv export --format requirements.txt --frozen --no-hashes --no-emit-project --no-
 
 ### 비교 결과와 보고서
 
-- `comparison_markdown.py`는 Markdown 표·원본 코드 블록·기능별 발췌를 렌더링한다. HTML과 동일한 측정값과 대표 회차를 사용하며 원문 코드 울타리·HTML이 보고서 구조를 깨뜨리지 않도록 보존한다. `report.md`의 JSON은 들여쓰기한 문자열 앞부분 약 1/3만 문자 수 기준으로 발췌하고 생략량과 잘린 JSON임을 표시한다. 원본 파일·HTML JSON 보기와 Markdown 본문은 자르지 않는다. `report.md`에도 문서 전문이 포함될 수 있다. 관련 테스트는 `tests/test_comparison_markdown.py`에 있다.
+- `comparison_markdown.py`는 Markdown 표와 기능별 발췌를 렌더링한다. `report.md`에서는 도구별 Markdown·JSON 원문 비교를 제외한다. 측정값·실행 상태·기능별 발췌·운영 확장성은 유지하며 HTML 원문 보기와 저장된 원본은 변경하지 않는다. 발췌의 코드 울타리·HTML이 보고서 구조를 깨뜨리지 않도록 보존한다. 관련 테스트는 `tests/test_comparison_markdown.py`에 있다.
 
 - 새 원본은 UTF-8, `ensure_ascii=False`, 들여쓰기 2칸의 비압축 `raw.pretty.json`으로 저장한다. 비교 worker는 비유한 수를 JSON `null`로 변환한다. 기존 `raw.json.gz` 읽기를 유지하고 두 파일이 있으면 비압축 파일을 우선한다. Tika의 `tika-output.json`도 보존한다.
 - 보고서는 저장된 원본·스냅샷을 읽어 `index.html`, `report.md`, `analysis.json`을 생성한다. 보고서만 재생성할 때 변환·OCR을 실행하거나 기존 원본·스냅샷·측정값을 변경하지 않는다.

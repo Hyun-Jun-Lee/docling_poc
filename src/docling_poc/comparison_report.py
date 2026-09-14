@@ -19,7 +19,6 @@ from docling_poc.comparison_markdown import (
     features_markdown,
     literal,
     markdown_table,
-    result_markdown,
 )
 from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
@@ -320,14 +319,11 @@ def generate(output: Path):
             selected = next((r for r in valid if r['status'] == 'success'),
                             valid[0] if valid else None)
             if selected:
-                markdown_parts += [f'{selected["number"]}회차 · {literal(selected["status"])}',
-                                   result_markdown(output / selected['path'])]
                 parts.append(f'<p class="muted">{selected["number"]}회차 · '
                              f'{esc(selected["status"])}</p>')
                 parts.append(result_views(output / selected['path'],
                                           f'markdown-{doc["id"]}-{tool}'))
             else:
-                markdown_parts.append('표시할 추출 결과가 없습니다.')
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')
         parts.append('</div>')

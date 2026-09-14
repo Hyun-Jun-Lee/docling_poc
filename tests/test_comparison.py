@@ -177,6 +177,12 @@ def test_report_preserves_run_numbers_and_escapes_document_content(tmp_path, sch
     assert '<div class="markdown-rendered" hidden>' in html
     assert '항목 수와 추출 전문' not in html
     assert '실행 환경과 재현 정보' not in html
+    assert '<h2>측정 기준</h2>' not in html
+    summary = html.split('<h2>측정 결과</h2>', 1)[1].split('</section>', 1)[0]
+    note = summary.split('</table>', 1)[1]
+    assert '<small><b>전체 소요시간</b>' in note
+    assert '<b>내부 파싱 시간</b>' in note
+    assert '반복 결과는 텍스트·구조의 동일 여부이며 정확도를 뜻하지 않습니다.' in note
 
 
 def test_markdown_preview_preserves_literal_syntax_without_active_content():

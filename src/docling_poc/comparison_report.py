@@ -168,13 +168,6 @@ def generate(output: Path):
              (f'<p>{esc(manifest["created"])} · 문서 {len(manifest["documents"])}개 · '
              f'도구별 {repeat}회 · Tesseract {esc(tika_ocr.get("language", "설정 미기록"))}</p></header>'),
              '<!--SUMMARY-->',
-             ('<section><h2>측정 기준</h2><p>같은 문서를 도구별로 새 프로세스에서 '
-              f'{repeat}회 실행했습니다. 시간은 성공한 실행의 중앙값과 최소~최대입니다.</p>'
-              '<p><b>전체</b>는 시작·초기화·변환·결과 저장·종료까지, <b>내부</b>는 '
-              '각 도구가 기록한 파싱 구간입니다. 보고서 생성 시간은 제외합니다.</p>'
-              '<p>반복 결과는 텍스트·구조의 동일 여부이며 정확도를 뜻하지 않습니다. '
-              '아래에는 각 도구의 첫 성공 실행을 표시하며 버튼으로 Markdown 원문과 스타일을 전환합니다. '
-              'Tika는 최상위 문서 내용, Docling은 네이티브 Markdown 출력입니다.</p></section>'),
              '<nav>' + ' · '.join(f'<a href="#{esc(d["id"])}">{esc(d["name"])}</a>'
                                    for d in manifest['documents']) + '</nav>']
     for doc in manifest['documents']:
@@ -287,7 +280,12 @@ def generate(output: Path):
     write_json(output / 'analysis.json', analysis)
     summary = '<section><h2>측정 결과</h2>' + table(
         ['문서', '도구', '완전 성공', '전체 소요시간', '내부 파싱 시간', '동일 도구의 반복 일관성', '고유 결과 수'],
-        summary_rows) + '</section>'
+        summary_rows) + (
+            '<p class="muted"><small><b>전체 소요시간</b>은 프로세스 시작·초기화·변환·'
+            '결과 저장·종료까지, <b>내부 파싱 시간</b>은 각 도구가 기록한 파싱 구간입니다. '
+            '보고서 생성 시간은 제외합니다.<br>'
+            '반복 결과는 텍스트·구조의 동일 여부이며 정확도를 뜻하지 않습니다.'
+            '</small></p></section>')
     (output / 'index.html').write_text('\n'.join(parts).replace('<!--SUMMARY-->', summary),
                                      encoding='utf-8')
     return analysis

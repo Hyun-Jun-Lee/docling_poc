@@ -19,6 +19,12 @@ PDF 기본 OCR은 Windows의 `C:\Program Files\Tesseract-OCR\tesseract.exe`를
 페이지 분할 모드는 PSM 3입니다. `DOCLING_ARTIFACTS_PATH`는 기존처럼
 layout·TableFormer·그림 분류 등 Docling 모델 경로로 사용합니다.
 
+PDF 제목 계층 추론은 기본으로 활성화합니다. Docling의 북마크·번호·글꼴 정보를
+사용해 제목 `level`을 정하며, 근거가 부족한 제목은 기존 수준을 유지합니다.
+글꼴 분석을 위해 `generate_parsed_pages=True`로 중간 페이지 정보를 보존하므로
+메모리 사용량이 늘어날 수 있습니다. DOCX·PPTX는 기존 네이티브 추출 경로를 사용합니다.
+이 설정은 새 PDF 변환부터 적용되며, 기존 결과는 보고서 재생성만으로 바뀌지 않습니다.
+
 Tika는 `parse-tika.ps1`이 저장소의 `tika-config.json`을 자동으로 전달합니다.
 같은 Tesseract 경로·언어·PSM을 사용하고 PDF 렌더링은 216 DPI RGB로 설정합니다.
 Tika의 PDF OCR 전략은 `AUTO`이므로 텍스트가 충분한 페이지는 OCR을 생략할 수 있습니다.

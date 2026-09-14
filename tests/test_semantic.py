@@ -307,6 +307,18 @@ def test_build_docling_converter_enables_pipeline_timings(monkeypatch) -> None:
     assert settings.debug.profile_pipeline_timings is True
 
 
+def test_pdf_heading_hierarchy_enables_style_prerequisite() -> None:
+    from docling.datamodel.base_models import InputFormat
+
+    converter = build_docling_converter()
+    pdf = converter.format_to_options[InputFormat.PDF].pipeline_options
+    assert pdf.heading_hierarchy_options.enabled is True
+    assert pdf.heading_hierarchy_options.use_bookmarks is True
+    assert pdf.heading_hierarchy_options.use_numbering is True
+    assert pdf.heading_hierarchy_options.use_style is True
+    assert pdf.generate_parsed_pages is True
+
+
 def test_pdf_ocr_uses_same_tesseract_configuration_as_tika() -> None:
     from docling.datamodel.base_models import InputFormat
     from docling.datamodel.pipeline_options import TesseractCliOcrOptions

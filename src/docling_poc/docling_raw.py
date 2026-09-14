@@ -64,7 +64,7 @@ def build_docling_converter(
     """
     try:
         from docling.datamodel.base_models import InputFormat
-        from docling.datamodel.pipeline_options import PdfPipelineOptions
+        from docling.datamodel.pipeline_options import HeadingHierarchyOptions, PdfPipelineOptions
         from docling.datamodel.settings import settings
         from docling.document_converter import DocumentConverter, PdfFormatOption
     except ImportError as exc:
@@ -90,6 +90,8 @@ def build_docling_converter(
         if artifacts_path_value
         else None,
         do_ocr=True,
+        heading_hierarchy_options=HeadingHierarchyOptions(enabled=True),
+        generate_parsed_pages=True,  # Retain font information for heading style inference.
         ocr_options=build_tesseract_ocr_options(),
         do_picture_classification=picture_classifier,
         do_picture_description=picture_desc,

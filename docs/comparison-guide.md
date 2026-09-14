@@ -69,9 +69,14 @@ Docling 좌표·charspan 및 confidence는 내용·구조와 별도로 비교한
 ## 보고서 구성과 과거 결과
 
 문서별 Markdown 원문·스타일 적용·JSON 원본 보기를 제공한다.
-추출 정보 비교와 수동 구조 검토 도구는 제거했다. 기존 검토 JSON과
+문서별 결과 보기 아래에 **추출 정보 비교** 표를 제공한다. 요소 분류, 제목 수준,
+그룹·계층, 서식, 표 구조, 원본 위치, 문서 메타데이터, 내장 리소스를 도구별로 비교한다.
+각 도구의 첫 완전 성공 회차(없으면 첫 부분 성공)에서 원본 JSON·Markdown/HTML을
+발췌한다. 현재 문서와 설정에서 관찰된 결과이며 도구 전체의 지원 여부나 정확도는 아니다.
+저장된 결과로 보고서를 재생성하면 표가 추가되며 문서를 다시 추출할 필요는 없다.
+`analysis.json` 버전 4는 `feature_comparison`을 다시 제공한다.
+수동 구조 검토 도구와 `structure_review`는 복원하지 않는다. 기존 검토 JSON과
 `feature-cards.json`은 보고서 생성 시 읽거나 변경하지 않는다.
-`analysis.json` 버전 3에서는 `feature_comparison`, `structure_review`를 생성하지 않는다.
 텍스트·구조 반복 비교, 좌표·신뢰도 변화량과 도구 간 텍스트 차이는 유지한다.
 
 Docling 반복 스냅샷은 버전 2부터 `level`, `marker`, `enumerated`를 비교한다.

@@ -14,6 +14,7 @@ from xml.etree import ElementTree
 
 from docling_poc.benchmark_worker import write_json
 from docling_poc.comparison_data import edit_distance, stability
+from docling_poc.comparison_features import feature_html, load_features
 from docling_poc.comparison_raw import raw_result_path, read_raw_text
 
 CSS = """
@@ -28,6 +29,8 @@ overflow-wrap:anywhere;background:#f7f9fc;padding:16px;font-size:12px;max-height
 overflow:auto}summary{cursor:pointer;padding:10px;font-weight:600}.ok{background:#dcfce7}
 .different{background:#fef3c7}.failure{background:#fee2e2}.muted{color:#64748b}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.scroll{overflow-x:auto}
+.feature-comparison{table-layout:fixed}
+.feature-comparison th,.feature-comparison td{overflow-wrap:anywhere}
 .grid article{min-width:0}.markdown{height:70vh;overflow:auto;padding:18px;
 border:1px solid #d5dde7;border-radius:8px;overflow-wrap:anywhere;font-size:14px}
 .markdown .markdown-source{margin:0;padding:0;background:transparent;max-height:none;
@@ -220,7 +223,7 @@ def generate(output: Path):
     parsers = manifest['settings'].get('tika_config', {}).get('parsers', [])
     tika_ocr = next((p['tesseract-ocr-parser'] for p in parsers
                      if 'tesseract-ocr-parser' in p), {})
-    analysis = {'schema_version': 3, 'documents': []}
+    analysis = {'schema_version': 4, 'documents': []}
     summary_rows = []
     parts = ['<!doctype html><html lang="ko"><meta charset="utf-8">',
              '<meta name="viewport" content="width=device-width,initial-scale=1">',
@@ -303,6 +306,10 @@ def generate(output: Path):
                 parts.append('<p>표시할 추출 결과가 없습니다.</p>')
             parts.append('</article>')
         parts.append('</div>')
+        features = {tool: load_features(output, doc['runs'][tool], tool)
+                    for tool in ('docling', 'tika')}
+        doc_result['feature_comparison'] = features
+        parts.append(feature_html(features))
         cross = []
         distances = {}
         for (ra, a), (rb, b) in itertools.product(zip(*snapshots['tika']),

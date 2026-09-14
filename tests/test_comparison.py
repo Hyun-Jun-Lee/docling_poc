@@ -260,7 +260,8 @@ def test_ocr_config_rejects_language_drift(monkeypatch):
         validate_ocr_config(config)
 
 
-def test_tika_internal_time_uses_root_without_summing_children(tmp_path, monkeypatch):
+@pytest.mark.parametrize('skip_ocr', [True, False])
+def test_tika_internal_time_uses_root_without_summing_children(tmp_path, monkeypatch, skip_ocr):
     from types import SimpleNamespace
 
     from docling_poc import benchmark_worker
@@ -274,13 +275,41 @@ def test_tika_internal_time_uses_root_without_summing_children(tmp_path, monkeyp
         return SimpleNamespace(returncode=0)
 
     monkeypatch.setattr(benchmark_worker.subprocess, 'run', fake_run)
-    args = SimpleNamespace(java='java', jar='tika.jar', config='config.json',
+    config = tmp_path / 'config.json'
+    config.write_text(json.dumps({'parsers': [
+        {'tesseract-ocr-parser': {'skipOcr': skip_ocr}}
+    ]}), encoding='utf-8')
+    args = SimpleNamespace(java='java', jar='tika.jar', config=str(config),
                            source=tmp_path / 'input.pdf', output=tmp_path)
     saved, text, result = benchmark_worker.run_tika(args)
     assert saved == raw and text == 'root'
     assert result['internal_seconds'] == 1.234
     assert result['status'] == 'partial_success'
     assert result['errors'][0]['item'] == 1
+    assert result['ocr_options']['skipOcr'] is skip_ocr
+    assert ('OCR disabled' in result['ocr_scope']) is skip_ocr
+
+
+def test_effective_tika_configs_preserve_pdf_and_other_office_settings(tmp_path):
+    from docling_poc.comparison import effective_tika_configs, prepare_tika_configs
+
+    original = {'parsers': [
+        {'pdf-parser': {'ocr': {'strategy': 'AUTO', 'dpi': 216}}},
+        {'tesseract-ocr-parser': {'skipOcr': False, 'language': 'kor+eng'}},
+        {'default-parser': {}},
+    ]}
+    configs = effective_tika_configs(original)
+    assert configs['pdf'] == original
+    assert original['parsers'][1]['tesseract-ocr-parser']['skipOcr'] is False
+    expected_office = json.loads(json.dumps(original))
+    expected_office['parsers'][1]['tesseract-ocr-parser']['skipOcr'] = True
+    assert configs['office'] == expected_office
+    paths = prepare_tika_configs(tmp_path, configs, resume=False)
+    assert prepare_tika_configs(tmp_path, configs, resume=True) == paths
+    assert json.loads(paths['office'].read_text(encoding='utf-8')) == expected_office
+    paths['office'].write_text('{}', encoding='utf-8')
+    with pytest.raises(ValueError, match='configuration changed'):
+        prepare_tika_configs(tmp_path, configs, resume=True)
 
 
 def test_timeout_records_failure_and_terminates_worker(tmp_path):

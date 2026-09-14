@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import importlib.metadata
 import json
@@ -138,6 +139,32 @@ def validate_ocr_config(config):
     return command, data
 
 
+def effective_tika_configs(config: dict) -> dict[str, dict]:
+    """Preserve PDF OCR and disable Tesseract for Office embedded images."""
+    office = copy.deepcopy(config)
+    for parser in office["parsers"]:
+        if "tesseract-ocr-parser" in parser:
+            parser["tesseract-ocr-parser"]["skipOcr"] = True
+            break
+    else:
+        raise ValueError("Missing Tesseract parser configuration")
+    return {"pdf": copy.deepcopy(config), "office": office}
+
+
+def prepare_tika_configs(output: Path, configs: dict, *, resume: bool) -> dict[str, Path]:
+    directory = output / "execution-config"
+    paths = {name: directory / f"tika-{name}.json" for name in configs}
+    if resume:
+        for name, path in paths.items():
+            if not path.is_file() or json.loads(path.read_text(encoding="utf-8")) != configs[name]:
+                raise ValueError("Saved Tika configuration changed: use a new output directory")
+    else:
+        directory.mkdir()
+        for name, path in paths.items():
+            write_json(path, configs[name])
+    return paths
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=ROOT / "samples")
@@ -158,6 +185,7 @@ def main():
     config = ROOT / "tika-config.json"
     tika_config = json.loads(config.read_text(encoding="utf-8"))
     tesseract, tessdata_dir = validate_ocr_config(tika_config)
+    effective_configs = effective_tika_configs(tika_config)
     code_hashes = {p.name: sha256(p) for p in (Path(__file__),
                   Path(__file__).with_name("benchmark_worker.py"),
                   Path(__file__).with_name("comparison_data.py"),
@@ -169,6 +197,8 @@ def main():
             parser.error("Worker/runner code changed: use a new output directory")
         if manifest["settings"]["tika_config"] != tika_config:
             parser.error("Tika configuration changed: use a new output directory")
+        if manifest["settings"].get("tika_effective_configs") != effective_configs:
+            parser.error("Tika OCR policy changed: use a new output directory")
         if args.repeat != manifest["settings"]["repeat"] or args.threads != manifest["settings"]["threads"]:
             parser.error("Resume requires the original repeat and threads values")
         settings = manifest["settings"]
@@ -223,6 +253,7 @@ def main():
                     "artifacts_path": str(model_root), "code_hashes": code_hashes,
                     "tika_jar_sha256": sha256(args.jar),
                     "tika_config": tika_config,
+                    "tika_effective_configs": effective_configs,
                     "order": "serial; alternate tool order per repetition; fresh process each time",
                     "warmup": "none; run 1 separately visible; all five retained"}, "documents": []}
         archive = output / "execution-code"
@@ -239,11 +270,13 @@ def main():
                                           "source": target.relative_to(output).as_posix(),
                                           "runs": {"tika": [], "docling": []}})
         save_manifest(output, manifest)
+    config_paths = prepare_tika_configs(output, effective_configs, resume=args.resume)
     env = os.environ.copy()
     env.update(HF_HUB_OFFLINE="1", OMP_NUM_THREADS=str(args.threads),
                OMP_THREAD_LIMIT=str(args.threads), PYTHONIOENCODING="utf-8")
     for doc in manifest["documents"]:
         source = output / doc["source"]
+        config = config_paths["pdf" if source.suffix.lower() == ".pdf" else "office"]
         if sha256(source) != doc["sha256"]:
             raise ValueError(f"Input copy changed: {source}")
         for run in range(1, args.repeat + 1):

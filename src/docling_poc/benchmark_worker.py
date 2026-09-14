@@ -57,6 +57,9 @@ def run_docling(args):
 
 
 def run_tika(args):
+    config = json.loads(Path(args.config).read_text(encoding="utf-8"))
+    ocr_options = next(p["tesseract-ocr-parser"] for p in config["parsers"]
+                       if "tesseract-ocr-parser" in p)
     command = [args.java, "-Dfile.encoding=UTF-8", "-jar", args.jar,
                "--config=" + args.config, "--jsonRecursive", "--pretty-print",
                "--encoding=UTF-8", str(args.source)]
@@ -79,7 +82,10 @@ def run_tika(args):
         "internal_seconds": float(millis) / 1000 if millis is not None else None,
         "internal_scope": "Tika root parse time including embedded parsing; excludes JVM startup",
         "ocr_pages": root.get("pdf:ocr-page-count"),
-        "ocr_scope": "Tika native Tesseract; PDF AUTO, 216 DPI RGB; embedded parsing enabled",
+        "ocr_options": ocr_options,
+        "ocr_scope": ("Tesseract OCR disabled; embedded parsing enabled"
+                      if ocr_options.get("skipOcr") is True else
+                      "Tika native Tesseract; PDF AUTO, 216 DPI RGB; embedded parsing enabled"),
     }
 
 
